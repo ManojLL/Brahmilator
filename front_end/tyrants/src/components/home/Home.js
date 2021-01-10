@@ -45,7 +45,7 @@ class Home extends Component {
 
                 <View style={[styles.centerItems]}>
                     <TouchableOpacity style={styles.button}>
-                        <Text>{'Get started'}</Text>
+                        <Text style={{color:'#000000'}}>{'Get started'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
