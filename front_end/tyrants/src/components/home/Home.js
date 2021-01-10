@@ -28,7 +28,7 @@ class Home extends Component {
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>Welcome to</Text>
                     <View>
-                        <Text><Text style={styles.specText}>Brahimilator  , </Text><Text
+                        <Text><Text style={styles.specText}>Brahimilator ,</Text><Text
                             style={styles.text}> mobile </Text></Text>
 
                     </View>
