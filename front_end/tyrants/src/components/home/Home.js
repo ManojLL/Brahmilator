@@ -16,12 +16,18 @@ class Home extends Component {
                         style={styles.img}/>
                 </View>
                 <View style={styles.textContainer}>
-                    <Text>Welcome to</Text>
+                    <Text style={styles.text}>Welcome to</Text>
                     <View>
-                        <Text><Text>Brahimilator , </Text><Text> mobile </Text></Text>
+                        <Text><Text style={styles.specText}>Brahimilator , </Text><Text
+                            style={styles.text}> mobile </Text></Text>
 
                     </View>
                 </View>
+                <View style={styles.subTitle}>
+                    <Text>Real time brahmi translator</Text>
+                    <Text>at your service</Text>
+                </View>
+
             </View>
         );
     }
@@ -42,11 +48,23 @@ const styles = StyleSheet.create({
         height: 120,
     },
     textContainer: {
-        marginTop: 20,
+        marginTop: 30,
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 24,
-
+    },
+    text: {
+        fontSize: 24,
+        color: '#ffffff',
+    },
+    specText: {
+        fontSize: 24,
+        color: '#FFC542',
+    },
+    subTitle: {
+        marginTop:20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 });
