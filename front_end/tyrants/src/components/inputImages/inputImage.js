@@ -18,14 +18,13 @@ class InputImg extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View>
                 <RNCamera
                     style={{ flex: 1, alignItems: 'center' }}
                     ref={ref => {
                         this.camera = ref
                     }}
                 />
-                </View>
+               
             </View>
         );
     }
