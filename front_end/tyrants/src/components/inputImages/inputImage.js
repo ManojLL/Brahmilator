@@ -24,7 +24,6 @@ class InputImg extends Component {
                         this.camera = ref
                     }}
                 />
-               
             </View>
         );
     }

@@ -8,6 +8,8 @@ target 'tyrants' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   target 'tyrantsTests' do
     inherit! :complete
     # Pods for testing
