@@ -12,6 +12,6 @@ import Home from './src/components/home/Home';
 import InputImg from './src/components/inputImages/inputImage'
 export default class App extends Component {
   render() {
-    return <ImagePreview  />;
+    return <Home />;
   }
 }
