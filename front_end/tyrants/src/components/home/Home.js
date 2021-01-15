@@ -40,7 +40,7 @@ class Home extends Component {
                 <View style={styles.centerItems}>
                     <ImageBackground
                         source={require('../../images/backgroundImages/homeImg.png')}
-                        style={{width: 300, height: 300, marginTop: 10}}/>
+                        style={{width: 300, height: 300, marginTop: 40}}/>
                 </View>
 
                 <View style={[styles.centerItems]}>
