@@ -195,7 +195,7 @@ model.fit(train_generator,
           callbacks=[tensorBoard]
           )
 
-model_save_path = os.path.join(MODELDIR, "saved-models")
+model_save_path = os.path.join(MODELDIR, "saved-models/saved-models-cnn")
 
 tf.saved_model.save(model, model_save_path)
 
