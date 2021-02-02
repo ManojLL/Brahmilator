@@ -13,7 +13,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 
-model_save_path = os.path.join(MODELDIR, "saved-models")
+model_save_path = os.path.join(MODELDIR, "saved-models/saved-models-cnn")
 
 loaded_model = tf.keras.models.load_model(model_save_path)
 
