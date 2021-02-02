@@ -8,6 +8,8 @@ train_path = "Early_Brahmi/train"
 test_path = "Early_Brahmi/test"
 valid_path = "Early_Brahmi/validation"
 
+loss = 0
+
 train_batches = ImageDataGenerator(
     preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
     directory=train_path, target_size=(224, 224), batch_size=10)
