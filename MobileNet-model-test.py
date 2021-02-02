@@ -3,7 +3,7 @@ import os
 import cv2
 import tensorflow as tf
 
-model_save_path = "./saved-models"
+model_save_path = "./saved-models/saved-models-mobilenet"
 TESTDIR = "Early_Brahmi/test"
 
 loaded_model = tf.keras.models.load_model(model_save_path)
