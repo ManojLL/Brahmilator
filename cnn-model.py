@@ -15,6 +15,7 @@ from tensorflow.keras.callbacks import TensorBoard
 
 NAME = "Brahmi-CNN"
 
+MODELDIR = "./"
 DATADIR = "Early_Brahmi/train"
 TESTDIR = "Early_Brahmi/test"
 VALDIR = "Early_Brahmi/validation"
@@ -194,7 +195,9 @@ model.fit(train_generator,
           callbacks=[tensorBoard]
           )
 
-model.save('./')
+model_save_path = os.path.join(MODELDIR, "saved-models")
+
+tf.saved_model.save(model, model_save_path)
 
 
 ##################################################################################################
@@ -220,15 +223,3 @@ model.save('./')
 # plt.ylabel('Accuracy')
 # plt.legend()
 # plt.show()
-
-def prepare(filepath):
-    IMG_SIZE = 80
-    img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
-    new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
-    return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
-
-prediction = model.predict([prepare('Early_Brahmi/test/3.png')])
-
-print(prediction)
-
-# print(CATEGORIES[int(prediction[0][0][0][0])])
