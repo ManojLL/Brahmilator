@@ -40,6 +40,6 @@ model.fit(x=train_batches,
           verbose=2
           )
 
-model_save_path = "./saved-models"
+model_save_path = "./saved-models/saved-models-mobilenet"
 
 tf.saved_model.save(model, model_save_path)
