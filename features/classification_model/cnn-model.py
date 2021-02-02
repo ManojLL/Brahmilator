@@ -211,7 +211,7 @@ tf.saved_model.save(model, model_save_path)
 
 ##################################################################################################
 
-# plot the training and validation accuracy and loss at each epoch
+# plot the train and validation accuracy and loss at each epoch
 # loss = history.history['loss']
 # val_loss = history.history['val_loss']
 # epochs = range(1, len(loss) + 1)

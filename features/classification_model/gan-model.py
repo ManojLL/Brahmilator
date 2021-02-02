@@ -61,7 +61,7 @@ print(f"Looking for file: {training_binary_path}")
 
 if not os.path.isfile(training_binary_path):
     start = time.time()
-    print("Loading training images...")
+    print("Loading train images...")
 
     training_data = []
     brahmi_path = os.path.join(DATA_PATH, 'ga')
@@ -76,12 +76,12 @@ if not os.path.isfile(training_binary_path):
     training_data = training_data.astype(np.float32)
     training_data = training_data / 127.5 - 1.
 
-    print("Saving training image binary...")
+    print("Saving train image binary...")
     np.save(training_binary_path, training_data)
     elapsed = time.time() - start
     print(f'Image preprocess time: {hms_string(elapsed)}')
 else:
-    print("Loading previous training pickle...")
+    print("Loading previous train pickle...")
     training_data = np.load(training_binary_path)
 
 train_dataset = tf.data.Dataset.from_tensor_slices(training_data) \
