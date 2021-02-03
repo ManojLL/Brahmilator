@@ -24,7 +24,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-test_path = os.path.join(TESTDIR, "Testing Images")
+test_path = os.path.join(TESTDIR, "ta")
 
 testing_results = {}
 
@@ -33,7 +33,7 @@ for img in tqdm(os.listdir(test_path)):
     testing_results[img] = CATEGORIES[int(np.argmax(prediction))]
 
 print()
-print("----- Results -----")
+print("------ Results ------")
 for x in testing_results:
     print(x, " : ", testing_results[x])
-print("-------------------")
+print("---------------------")
