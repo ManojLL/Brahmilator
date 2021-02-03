@@ -23,7 +23,7 @@ mobile.summary()
 
 x = mobile.layers[-6].output
 
-output = Dense(units=66, activation='softmax')(x)
+output = Dense(units=71, activation='softmax')(x)
 
 model = Model(inputs=mobile.input, outputs=output)
 
@@ -36,7 +36,7 @@ model.fit(x=train_batches,
           steps_per_epoch=len(train_batches),
           validation_data=valid_batches,
           validation_steps=len(valid_batches),
-          epochs=150,
+          epochs=30,
           verbose=2
           )
 
