@@ -2,6 +2,7 @@ import os
 import cv2
 import numpy as np
 import tensorflow as tf
+from tqdm import tqdm
 
 model_save_path = "./saved-models/saved-models-mobilenet"
 TESTDIR = "Early_Brahmi/test/"
@@ -23,6 +24,16 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-prediction = loaded_model.predict([prepare(os.path.join(TESTDIR, "test2.jpg"))])
+test_path = os.path.join(TESTDIR, "Testing Images")
 
-print(CATEGORIES[int(np.argmax(prediction))])
+testing_results = {}
+
+for img in tqdm(os.listdir(test_path)):
+    prediction = loaded_model.predict([prepare(os.path.join(test_path, img))])
+    testing_results[img] = CATEGORIES[int(np.argmax(prediction))]
+
+print()
+print("----- Results -----")
+for x in testing_results:
+    print(x, " : ", testing_results[x])
+print("-------------------")
