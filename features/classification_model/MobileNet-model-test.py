@@ -44,7 +44,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-prediction = loaded_model.predict([prepare(os.path.join(TESTDIR, "ha/72.png"))])
+prediction = loaded_model.predict([prepare(os.path.join(TESTDIR, "a/12.png"))])
 
 print(CATEGORIES[int(np.argmax(prediction))])
 
