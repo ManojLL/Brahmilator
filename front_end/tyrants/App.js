@@ -7,20 +7,29 @@
  */
 
 import React, {Component} from 'react';
-import ImagePreview from './src/components/inputImages/imagePreview'
+import ImagePreview from './src/components/inputImages/imagePreview';
 import Home from './src/components/home/Home';
-import InputImg from './src/components/inputImages/inputImage'
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import InputImg from './src/components/inputImages/inputImage';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/stack';
+// const AppNavigator = createStackNavigator({
+//   Home: {screen: Home, navigationOptions: {headerShown: false}},
+//   PreviewImg: {screen: ImagePreview, navigationOptions: {headerShown: false}},
+// });
+const Stack = createStackNavigator();
 
-const AppNavigator = createStackNavigator({
-  Home: {screen: Home, navigationOptions: {headerShown: false}},
-  PreviewImg: {screen: ImagePreview, navigationOptions: {headerShown: false}},
-});
-
-const AppContainer = createAppContainer(AppNavigator);
+// const AppContainer = createAppContainer(AppNavigator);
 export default class App extends Component {
   render() {
-    return <AppContainer />;
+    return (
+        <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Preview" component={ImagePreview} />
+                <Stack.Screen name="Camera" component={InputImg} />
+            </Stack.Navigator>
+        </NavigationContainer>);
   }
 }
