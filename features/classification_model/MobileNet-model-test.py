@@ -13,8 +13,8 @@ CATEGORIES = ["a", "ba", "ba+i", "ba+o", "ba+u", "bha", "ca", "ca+e", "cha", "da
               "dha1", "dha2", "e", "ga", "ga+i", "gha", "ha", "ha+a", "i",
               "ja", "jha", "jha+e", "jha+i", "jha+u", "ka", "ka+e", "ka+i", "kha", "la", "la+e", "la+u", "la2", "ma",
               "ma+i", "na", "na+e", "na+u", "na2", "na2+i", "o", "pa",
-              "pa+e", "pa+i", "pa+u", "pha", "ra", "sa1", "sa2", "sa3", "ta", "ta+e", "ta+i", "ta+u", "ta1", "tha1",
-              "tha2", "u", "u2", "va", "ya", "ya+e"]
+              "pa+e", "pa+i", "pa+u", "pha", "ra", "sa1", "sa1+e", "sa1+i", "sa1+o", "sa1+u", "sa2", "sa3", "ta", "ta+e", "ta+i", "ta+u", "ta1", "tha1",
+              "tha2", "u", "u2", "va", "va+e", "va+i", "ya", "ya+e"]
 
 
 def prepare(filepath):
@@ -24,7 +24,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-test_path = os.path.join(TESTDIR, "Testing Images")
+test_path = os.path.join(TESTDIR, "da")
 
 testing_results = {}
 
@@ -33,7 +33,7 @@ for img in tqdm(os.listdir(test_path)):
     testing_results[img] = CATEGORIES[int(np.argmax(prediction))]
 
 print()
-print("----- Results -----")
+print("------ Results ------")
 for x in testing_results:
     print(x, " : ", testing_results[x])
-print("-------------------")
+print("---------------------")

@@ -44,8 +44,8 @@ class Home extends Component {
                 </View>
 
                 <View style={[styles.centerItems]}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={{color:'#000000'}}>{'Get started'}</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')} >
+                        <Text style={{color:'#000000'}}  >{'Get started'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

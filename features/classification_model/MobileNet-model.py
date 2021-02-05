@@ -23,7 +23,7 @@ mobile.summary()
 
 x = mobile.layers[-6].output
 
-output = Dense(units=66, activation='softmax')(x)
+output = Dense(units=71, activation='softmax')(x)
 
 model = Model(inputs=mobile.input, outputs=output)
 
