@@ -11,7 +11,11 @@ import ImagePreview from './src/components/inputImages/imagePreview';
 import Home from './src/components/home/Home';
 import InputImg from './src/components/inputImages/inputImage';
 import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionPresets,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/stack';
 // const AppNavigator = createStackNavigator({
@@ -25,7 +29,7 @@ export default class App extends Component {
   render() {
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator screenOptions={{ headerShown: false ,cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS}}>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Preview" component={ImagePreview} />
                 <Stack.Screen name="Camera" component={InputImg} />
