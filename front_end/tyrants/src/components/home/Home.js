@@ -4,8 +4,7 @@ import {
     Text,
     StyleSheet,
     ImageBackground,
-    TouchableOpacity,
-    Button,
+    TouchableOpacity
 } from 'react-native';
 
 class Home extends Component {
