@@ -39,10 +39,10 @@ model.fit(x=train_batches,
           steps_per_epoch=len(train_batches),
           validation_data=valid_batches,
           validation_steps=len(valid_batches),
-          epochs=150,
+          epochs=100,
           verbose=2
           )
 
-model_save_path = "./saved-models/saved-models-mobilenet"
+model_save_path = "./saved-models/saved-models-mobilenet1"
 
 tf.saved_model.save(model, model_save_path)
