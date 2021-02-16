@@ -6,7 +6,7 @@ export default class SplashScreen extends Component {
         super(props);
         setTimeout(()=>{
             this.props.navigation.replace('Home');
-        },4000);
+        },3000);
     }
     render() {
         return (
