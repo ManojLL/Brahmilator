@@ -4,8 +4,7 @@ import {
     Text,
     StyleSheet,
     ImageBackground,
-    TouchableOpacity,
-    Button,
+    TouchableOpacity
 } from 'react-native';
 
 class Home extends Component {
@@ -19,14 +18,15 @@ class Home extends Component {
             <View style={styles.container}>
                 <View style={{
                     justifyContent: 'center',
-                    alignItems: 'center', marginTop: 5,
+                    alignItems: 'center', marginTop: 8,
                 }}>
-                    <ImageBackground
+                    <ImageBackground 
                         source={require('../../images/icons/homeImge1.png')}
                         style={styles.img}/>
+                        
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>Welcome to</Text>
+                    <Text style={styles.text}>Welcome to Welcome to</Text>
                     <View>
                         <Text><Text style={styles.specText}>Brahimilator ,</Text><Text
                             style={styles.text}> mobile </Text></Text>
@@ -40,12 +40,13 @@ class Home extends Component {
                 <View style={styles.centerItems}>
                     <ImageBackground
                         source={require('../../images/backgroundImages/homeImg.png')}
-                        style={{width: 300, height: 300, marginTop: 40}}/>
+
+                        style={{width: 330, height: 300, marginTop: 40}}/>
                 </View>
 
                 <View style={[styles.centerItems]}>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')} >
-                        <Text style={{color:'#000000'}}  >{'Get started'}</Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')} >
+                        <Text style={{color:'#000000'}}>{'Get started'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -63,8 +64,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     img: {
-        width: 105,
-        height: 120,
+        width: "38%",
+        height: 64,    
+        marginLeft:"22%"
+        
+        
     },
     textContainer: {
         marginTop: 20,
@@ -96,6 +100,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFC542',
         borderRadius:15,
     },
+
 
 });
 export default Home;

@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import ImagePreview from './src/components/inputImages/imagePreview';
 import Home from './src/components/home/Home';
 import InputImg from './src/components/inputImages/inputImage';
+import ImagePreProcess from './src/components/inputImages/imagePreProcess';
 import {createAppContainer} from 'react-navigation';
 import {
   createStackNavigator,
