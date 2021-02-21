@@ -62,8 +62,8 @@ class InputImg extends Component {
                         <View>
                             <TouchableOpacity style={{margin:10}} onPress={() => this.props.navigation.navigate('Home')} >
                                 <ImageBackground
-                                    source={require('../../images/icons/save.png')}
-                                    style={{width: 40, height: 40}}/>
+                                    source={require('../../images/icons/close.png')}
+                                    style={{width: 20, height: 20}}/>
                             </TouchableOpacity>
                         </View>
                     </RNCamera>
@@ -76,8 +76,8 @@ class InputImg extends Component {
                                 <View>
                                     <TouchableOpacity style={{}}>
                                         <ImageBackground
-                                            source={require('../../images/icons/save.png')}
-                                            style={{width: 40, height: 40}}/>
+                                            source={require('../../images/icons/upload.png')}
+                                            style={{width: 25, height: 20}}/>
                                     </TouchableOpacity>
                                 </View>
                             </Col>
