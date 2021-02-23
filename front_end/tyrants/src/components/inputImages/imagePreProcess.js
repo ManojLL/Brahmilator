@@ -21,7 +21,7 @@ class ImagePreProcess extends Component {
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                     <TouchableOpacity>
                     <ImageBackground
-                        source={require('../../images/icons/Vector.png')}
+                        source={require('../../images/icons/close.png')}
                         style={{ width: 25, height: 25,marginLeft:20  }} />
                        </TouchableOpacity>
                     </View>
