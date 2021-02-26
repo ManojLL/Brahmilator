@@ -68,7 +68,7 @@ class InputImg extends Component {
                         {/*</View>*/}
                         <View style={[styles.toolBar]}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
                                     <ImageBackground
                                         source={require('../../images/icons/close.png')}
                                         style={{ width: 20, height: 20  }} />
