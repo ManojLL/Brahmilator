@@ -59,12 +59,29 @@ class InputImg extends Component {
                             buttonNegative: 'Cancel',
                         }}
                     >
-                        <View>
-                            <TouchableOpacity style={{margin:10}} onPress={() => this.props.navigation.navigate('Home')} >
-                                <ImageBackground
-                                    source={require('../../images/icons/close.png')}
-                                    style={{width: 20, height: 20}}/>
-                            </TouchableOpacity>
+                        {/*<View>*/}
+                        {/*    <TouchableOpacity style={{margin:10}} onPress={() => this.props.navigation.navigate('Home')} >*/}
+                        {/*        <ImageBackground*/}
+                        {/*            source={require('../../images/icons/close.png')}*/}
+                        {/*            style={{width: 20, height: 20}}/>*/}
+                        {/*    </TouchableOpacity>*/}
+                        {/*</View>*/}
+                        <View style={[styles.toolBar]}>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+                                    <ImageBackground
+                                        source={require('../../images/icons/close.png')}
+                                        style={{ width: 20, height: 20  }} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
+                                <TouchableOpacity>
+                                    <ImageBackground
+                                        source={require('../../images/icons/save.png')}
+                                        style={{ width: 20, height: 20  }} />
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
                     </RNCamera>
                 </View>
@@ -127,7 +144,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    },
+    },toolBar: {
+        flex: 1, flexDirection: 'row',
+        padding:10,
+        margin:10,
+    }
+
 
 
 });
