@@ -6,9 +6,13 @@ import {
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
-    Button, Alert
+    Button, Alert,
 } from 'react-native';
-import {RNCamera} from 'react-native-camera'
+import {RNCamera} from 'react-native-camera';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 class InputImg extends Component {
     constructor(props) {
@@ -59,26 +63,19 @@ class InputImg extends Component {
                             buttonNegative: 'Cancel',
                         }}
                     >
-                        {/*<View>*/}
-                        {/*    <TouchableOpacity style={{margin:10}} onPress={() => this.props.navigation.navigate('Home')} >*/}
-                        {/*        <ImageBackground*/}
-                        {/*            source={require('../../images/icons/close.png')}*/}
-                        {/*            style={{width: 20, height: 20}}/>*/}
-                        {/*    </TouchableOpacity>*/}
-                        {/*</View>*/}
                         <View style={[styles.toolBar]}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
                                     <ImageBackground
                                         source={require('../../images/icons/close.png')}
-                                        style={{ width: 20, height: 20  }} />
+                                        style={{width: wp('5%'), height: hp('3%')}}/>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
+                            <View style={{flex: 1, flexDirection: 'row-reverse'}}>
                                 <TouchableOpacity>
                                     <ImageBackground
                                         source={require('../../images/icons/save.png')}
-                                        style={{ width: 20, height: 20  }} />
+                                        style={{width:  wp('5%'), height: hp('3%')}}/>
                                 </TouchableOpacity>
                             </View>
 
@@ -87,14 +84,14 @@ class InputImg extends Component {
                 </View>
 
                 <View style={[{height: '15%', flex: 1, flexDirection: 'row'}, styles.centerItems]}>
-                    <Grid >
+                    <Grid>
                         <Row>
                             <Col style={styles.alignCenter}>
                                 <View>
                                     <TouchableOpacity style={{}}>
                                         <ImageBackground
                                             source={require('../../images/icons/upload.png')}
-                                            style={{width: 25, height: 20}}/>
+                                            style={{width: wp('8.2%'), height: hp('4%')}}/>
                                     </TouchableOpacity>
                                 </View>
                             </Col>
@@ -123,33 +120,32 @@ class InputImg extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#333',
-        height: '100%',
+        height: hp('100%'),
     },
     centerItems: {
         justifyContent: 'center',
         alignItems: 'center',
     }, captureBtn: {
-        width: 80,
-        height: 80,
+        width: wp('20%'),
+        height: hp('10.5%'),
         borderWidth: 2,
         borderRadius: 60,
         borderColor: '#FFFFFF',
     },
     midcap: {
         backgroundColor: '#ffffff',
-        width: 70,
-        height: 70,
+        width: wp('18%'),
+        height: hp('9.5%'),
         borderRadius: 60,
     }, alignCenter: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    },toolBar: {
+    }, toolBar: {
         flex: 1, flexDirection: 'row',
-        padding:10,
-        margin:10,
-    }
-
+        padding: 10,
+        margin: 10,
+    },
 
 
 });
