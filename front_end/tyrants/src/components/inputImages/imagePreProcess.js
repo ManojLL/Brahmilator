@@ -44,7 +44,7 @@ class ImagePreProcess extends Component {
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
                         source={require('../../images/backgroundImages/inc.png')}
-                        style={{width: 350, height: 400, marginTop: 10}}/>
+                        style={{width: wp('90%'), height: hp("70%"), marginTop: 10}}/>
                 </View>
 
 
