@@ -7,6 +7,8 @@ import {
     TouchableOpacity,
     Button,
 } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 class ImagePreview extends Component {
     constructor(props) {
@@ -17,29 +19,31 @@ class ImagePreview extends Component {
     render() {
         return (
             <View style={styles.container}>
+
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
                         source={require('../../images/backgroundImages/inc.png')}
-                        style={{ width: 350, height: 400, marginTop: 10 }} />
+                        style={{ width: wp('90%'), height: hp("70%") }} />
                 </View>
                 <View style={[styles.toolBar,styles.centerItems]}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.5}
+                                    onPress={() => this.props.navigation.navigate('Camera')}>
                     <ImageBackground
                         source={require('../../images/icons/retake.png')}
-                        style={{ width: 45, height: 45,marginLeft:20  }} />
+                        style={{ width:   wp('7%'), height: hp('3%'),marginLeft:20  }} />
                        </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
                     <TouchableOpacity>
                     <ImageBackground
                         source={require('../../images/icons/process.png')}
-                        style={{ width: 45, height: 45,marginRight:20 }} />
+                        style={{width:   wp('7%'), height: hp('3%'),marginRight:20 }} />
                         </TouchableOpacity>
                         <TouchableOpacity>
                     <ImageBackground
                         source={require('../../images/icons/save.png')}
-                        style={{ width: 40, height: 40,marginRight:20 }} />
+                        style={{width:  wp('7%'), height: hp('3%'),marginRight:20 }} />
                                         </TouchableOpacity>
                     </View>
 

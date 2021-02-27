@@ -2,15 +2,13 @@ import React, {Component} from 'react';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import { View,Text,StyleSheet,ImageBackground, TouchableOpacity, Button, Alert,} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 class InputImg extends Component {
     constructor(props) {
         super(props);
         this.state = {
             takingPic: false,
-            imageUri:'',
         };
     }
 
