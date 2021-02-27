@@ -1,17 +1,8 @@
 import React, {Component} from 'react';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {
-    View,
-    Text,
-    StyleSheet,
-    ImageBackground,
-    TouchableOpacity,
-    Button, Alert,
-} from 'react-native';
+import { View,Text,StyleSheet,ImageBackground, TouchableOpacity, Button, Alert,} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
+import { widthPercentageToDP as wp, heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
 class InputImg extends Component {
@@ -19,6 +10,7 @@ class InputImg extends Component {
         super(props);
         this.state = {
             takingPic: false,
+            imageUri:'',
         };
     }
 
@@ -35,12 +27,12 @@ class InputImg extends Component {
 
             try {
                 const data = await this.camera.takePictureAsync(options);
-                Alert.alert('Success', JSON.stringify(data));
+                this.setState({imageUri: data.uri});
             } catch (err) {
                 Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
-                return;
             } finally {
                 this.setState({takingPic: false});
+                this.props.navigation.navigate('Preview');
             }
         }
     };
