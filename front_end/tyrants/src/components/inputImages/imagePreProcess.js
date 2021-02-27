@@ -19,7 +19,7 @@ class ImagePreProcess extends Component {
             <View style={styles.container}>
                 <View style={[styles.toolBar,styles.centerItems]}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.push('Home')}>
                     <ImageBackground
                         source={require('../../images/icons/close.png')}
                         style={{ width: 25, height: 25,marginLeft:20  }} />
@@ -61,19 +61,19 @@ class ImagePreProcess extends Component {
                     <ImageBackground
                         source={require('../../images/icons/erosion.png')}
                         style={{ width: 38, height: 40,marginLeft:"9%" }} />
-                    </TouchableOpacity> 
+                    </TouchableOpacity>
                     <TouchableOpacity>
                     <ImageBackground
                         source={require('../../images/icons/morph.png')}
                         style={{ width: 32, height: 40,marginLeft:"9%"}} />
-                    </TouchableOpacity> 
+                    </TouchableOpacity>
                     <TouchableOpacity>
                     <ImageBackground
                         source={require('../../images/icons/dialation.png')}
                         style={{ width: 48, height: 40,marginLeft:"9%" }} />
-                    </TouchableOpacity>   
-                  
-                    
+                    </TouchableOpacity>
+
+
                     </View>
 
                 </View>

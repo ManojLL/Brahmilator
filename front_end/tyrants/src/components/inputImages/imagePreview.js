@@ -35,7 +35,7 @@ class ImagePreview extends Component {
                        </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.push('Pre-process')}>
                     <ImageBackground
                         source={require('../../images/icons/process.png')}
                         style={{width:   wp('7%'), height: hp('3%'),marginRight:20 }} />
