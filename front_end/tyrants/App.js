@@ -36,6 +36,7 @@ export default class App extends Component {
                 <Stack.Screen name="Home" component={Home}/>
                 <Stack.Screen name="Preview" component={ImagePreview} />
                 <Stack.Screen name="Camera" component={InputImg} />
+                <Stack.Screen name="Pre-process" component={ImagePreProcess} />
             </Stack.Navigator>
         </NavigationContainer>);
   }
