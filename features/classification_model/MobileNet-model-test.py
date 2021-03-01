@@ -44,7 +44,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-test_path = os.path.join(TESTDIR, "Test")
+test_path = os.path.join(TESTDIR, "output")
 
 testing_results = {}
 
