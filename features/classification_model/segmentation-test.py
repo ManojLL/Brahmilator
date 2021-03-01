@@ -39,7 +39,7 @@ CATEGORIES3 = ["a", "ba", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da1
                "tha2", "u", "u2", "va", "va+e", "va+i", "ya"]  # 54
 
 
-image = cv2.imread("Early_Brahmi/test/a/plate2.jpg")
+image = cv2.imread("Early_Brahmi/test/a/plate1.jpg")
 
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 blurred = cv2.GaussianBlur(gray, (5, 5), 0)
