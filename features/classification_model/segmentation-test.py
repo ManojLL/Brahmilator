@@ -39,7 +39,7 @@ CATEGORIES3 = ["a", "ba", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da1
                "tha2", "u", "u2", "va", "va+e", "va+i", "ya"]  # 54
 
 
-image = cv2.imread("Early_Brahmi/test/a/plate1.jpg")
+image = cv2.imread("Early_Brahmi/test/a/images.jpg")
 
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 blurred = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -62,7 +62,7 @@ for i, c in enumerate(cnts):
         # extract the character and threshold it to make the character
         # appear as *white* (foreground) on a *black* background, then
         # grab the width and height of the thresholded image
-        roi = gray[y:y + h + 45, x:x + w + 45]
+        roi = gray[y:y + h + 35, x:x + w + 35]
         thresh = cv2.threshold(roi, 0, 255,
                                cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
         (tH, tW) = thresh.shape
@@ -95,9 +95,7 @@ for i, c in enumerate(cnts):
 boxes = [b[1] for b in chars]
 chars = np.array([c[0] for c in chars], dtype="float32")
 
-
 testing_results = {}
-
 
 for i, char in enumerate(chars):
     cv2.imwrite(f"output/{i}.jpg", cv2.convertScaleAbs(char, alpha=(255.0)))

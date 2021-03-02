@@ -4,10 +4,12 @@ import {
     Text,
     StyleSheet,
     ImageBackground,
-    TouchableOpacity,
-    Button,
+    TouchableOpacity
 } from 'react-native';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -19,14 +21,15 @@ class Home extends Component {
             <View style={styles.container}>
                 <View style={{
                     justifyContent: 'center',
-                    alignItems: 'center', marginTop: 5,
+                    alignItems: 'center', marginTop: 8,
                 }}>
                     <ImageBackground
                         source={require('../../images/icons/homeImge1.png')}
                         style={styles.img}/>
+
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>Welcome to</Text>
+                    <Text style={styles.text}>Welcome to Welcome to</Text>
                     <View>
                         <Text><Text style={styles.specText}>Brahimilator ,</Text><Text
                             style={styles.text}> mobile </Text></Text>
@@ -40,12 +43,13 @@ class Home extends Component {
                 <View style={styles.centerItems}>
                     <ImageBackground
                         source={require('../../images/backgroundImages/homeImg.png')}
-                        style={{width: 300, height: 300, marginTop: 40}}/>
+
+                        style={{width: wp('80%'), height: hp('40%'), marginTop: 40}}/>
                 </View>
 
                 <View style={[styles.centerItems]}>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')} >
-                        <Text style={{color:'#000000'}}  >{'Get started'}</Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')} >
+                        <Text style={{color:'#000000'}}>{'Get started'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -56,39 +60,39 @@ class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#333',
-        height: '100%',
+        height: '100%'
     },
     centerItems: {
         justifyContent: 'center',
         alignItems: 'center',
     },
     img: {
-        width: 105,
-        height: 120,
-    },
+        width: wp('8%'),
+        height: hp('5%'),
+            },
     textContainer: {
         marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 24,
+
     },
     text: {
-        fontSize: 30,
+        fontSize: hp('4%'),
         color: '#fff',
         fontWeight: 'bold',
     },
     specText: {
-        fontSize: 30,
+        fontSize: hp('4%'),
         color: '#FFC542',
         fontWeight: 'bold',
     },
     subTitle: {
-        marginTop: 20,
+        marginTop: hp('5%'),
         justifyContent: 'center',
         alignItems: 'center',
     },
     button: {
-        marginTop: 40,
+        marginTop: hp('10%'),
         paddingTop: 15,
         paddingBottom: 15,
         paddingLeft: 60,
@@ -96,6 +100,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFC542',
         borderRadius:15,
     },
+
 
 });
 export default Home;

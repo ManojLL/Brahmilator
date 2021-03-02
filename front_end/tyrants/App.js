@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import ImagePreview from './src/components/inputImages/imagePreview';
 import Home from './src/components/home/Home';
 import InputImg from './src/components/inputImages/inputImage';
+import ImagePreProcess from './src/components/inputImages/imagePreProcess';
 import {createAppContainer} from 'react-navigation';
 import {
   createStackNavigator,
@@ -35,6 +36,7 @@ export default class App extends Component {
                 <Stack.Screen name="Home" component={Home}/>
                 <Stack.Screen name="Preview" component={ImagePreview} />
                 <Stack.Screen name="Camera" component={InputImg} />
+                <Stack.Screen name="Pre-process" component={ImagePreProcess} />
             </Stack.Navigator>
         </NavigationContainer>);
   }
