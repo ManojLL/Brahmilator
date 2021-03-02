@@ -3,6 +3,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import { View,Text,StyleSheet,ImageBackground, TouchableOpacity, Button, Alert,} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import * as ImagePicker from 'react-native-image-picker';
 
 class InputImg extends Component {
     constructor(props) {
@@ -34,6 +35,36 @@ class InputImg extends Component {
             }
         }
     };
+
+    launchImageLibrary = () => {
+        let options = {
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.launchImageLibrary(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                const source = { uri: response.uri };
+                console.log('response', JSON.stringify(response));
+                this.setState({
+                    filePath: response,
+                    fileData: response.data,
+                    fileUri: response.uri
+                });
+            }
+        });
+
+    }
 
     render() {
         return (
@@ -78,7 +109,7 @@ class InputImg extends Component {
                         <Row>
                             <Col style={styles.alignCenter}>
                                 <View>
-                                    <TouchableOpacity style={{}}>
+                                    <TouchableOpacity style={{}} onPress={this.launchImageLibrary}>
                                         <ImageBackground
                                             source={require('../../images/icons/upload.png')}
                                             style={{width: wp('8.2%'), height: hp('4%')}}/>
