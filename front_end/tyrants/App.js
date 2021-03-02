@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import ImagePreview from './src/components/inputImages/imagePreview';
 import Home from './src/components/home/Home';
 import InputImg from './src/components/inputImages/inputImage';
+import ImagePreProcess from './src/components/inputImages/imagePreProcess';
 import {createAppContainer} from 'react-navigation';
 import {
   createStackNavigator,
@@ -18,6 +19,7 @@ import {
 } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/stack';
+import SplashScreen from './src/components/splashScreen/splash';
 // const AppNavigator = createStackNavigator({
 //   Home: {screen: Home, navigationOptions: {headerShown: false}},
 //   PreviewImg: {screen: ImagePreview, navigationOptions: {headerShown: false}},
@@ -30,9 +32,11 @@ export default class App extends Component {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false ,cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS}}>
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Splash" component={SplashScreen}/>
+                <Stack.Screen name="Home" component={Home}/>
                 <Stack.Screen name="Preview" component={ImagePreview} />
                 <Stack.Screen name="Camera" component={InputImg} />
+                <Stack.Screen name="Pre-process" component={ImagePreProcess} />
             </Stack.Navigator>
         </NavigationContainer>);
   }
