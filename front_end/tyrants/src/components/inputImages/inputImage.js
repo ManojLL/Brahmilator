@@ -63,7 +63,7 @@ class InputImg extends Component {
                 });
             }
         });
-
+        this.props.navigation.navigate('Preview');
     }
 
     render() {
