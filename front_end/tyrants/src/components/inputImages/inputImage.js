@@ -10,6 +10,7 @@ class InputImg extends Component {
         super(props);
         this.state = {
             takingPic: false,
+            ImageUri:'',
         };
     }
 
@@ -26,13 +27,15 @@ class InputImg extends Component {
 
             try {
                 const data = await this.camera.takePictureAsync(options);
+                console.log(data.uri)
                 this.setState({imageUri: data.uri});
+                this.props.navigation.navigate('Preview', {imgUri: data.uri});
             } catch (err) {
                 Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
             } finally {
                 this.setState({takingPic: false});
-                this.props.navigation.navigate('Preview');
             }
+
         }
     };
 
@@ -57,13 +60,13 @@ class InputImg extends Component {
                 const source = { uri: response.uri };
                 console.log('response', JSON.stringify(response));
                 this.setState({
-                    filePath: response,
-                    fileData: response.data,
-                    fileUri: response.uri
+                    imageUri:response.uri,
                 });
+
+                this.props.navigation.navigate('Preview', {imgUri: response.uri});
             }
         });
-        this.props.navigation.navigate('Preview');
+
     }
 
     render() {
