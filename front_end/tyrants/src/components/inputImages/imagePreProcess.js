@@ -43,7 +43,7 @@ class ImagePreProcess extends Component {
                 </View>
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
-                        source={require('../../images/backgroundImages/inc.png')}
+                        source={{uri:this.props.route.params.imgUri}}
                         style={{width: wp('90%'), height: hp("70%"), marginTop: 10}}/>
                 </View>
 
@@ -116,3 +116,4 @@ const styles = StyleSheet.create({
 
 });
 export default ImagePreProcess;
+
