@@ -179,7 +179,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('./segmented_img/img1/' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('./segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         else:
             x_linescopy.pop(0)
@@ -188,7 +188,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('./segmented_img/img1/' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('./segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         # print(letter[e][0],x_linescopy[0], word)
 
@@ -200,7 +200,7 @@ def letter_seg(lines_img, x_lines, i):
 
 
 print("\n........Program Initiated.......\n")
-src_img = cv2.imread('img_3.jpg', 1)
+src_img = cv2.imread('plate2.jpg', 1)
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
