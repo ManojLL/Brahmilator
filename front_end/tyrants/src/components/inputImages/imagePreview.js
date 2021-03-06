@@ -5,10 +5,26 @@ import {
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
-    Button,Image
+    Button, Image,Platform,CameraRoll
 } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {dirPicutures} from "./dirStorage";
+const moment = require('moment');
 
+const RNFS = require('react-native-fs');
+
+
+const moveAttachment = async (filePath, newFilepath) => {
+    return new Promise((resolve, reject) => {
+        RNFS.mkdir(dirPicutures)
+            .then(() => {
+                RNFS.moveFile(filePath, newFilepath)
+                    .then(() => resolve(true))
+                    .catch(error => reject(error));
+            })
+            .catch(err => reject(err));
+    });
+};
 
 class ImagePreview extends Component {
     constructor(props) {
@@ -18,7 +34,20 @@ class ImagePreview extends Component {
         };
     }
 
-
+    saveImage = async(filePath) => {
+        try {
+            console.log(filePath)
+            // set new image name and filepath
+            const newImageName = `${moment().format('DDMMYY_HHmmSSS')}.jpg`;
+            const newFilepath = `${dirPicutures}/${newImageName}`;
+            // move and save image to new filepath
+            console.log(newFilepath)
+            const imageMoved = await moveAttachment(filePath, newFilepath);
+            console.log('image moved', imageMoved);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     render() {
         return (
@@ -26,7 +55,7 @@ class ImagePreview extends Component {
 
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <Image
-                        source={{uri:this.props.route.params.imgUri}}
+                        source={{uri: this.props.route.params.imgUri}}
                         // source={require(this.props.navigation.state.params.imgUri)}
                         style={{width: wp('90%'), height: hp("70%")}}/>
                 </View>
@@ -40,12 +69,13 @@ class ImagePreview extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1, flexDirection: 'row-reverse'}}>
-                        <TouchableOpacity onPress={() => this.props.navigation.push('Pre-process',{imgUri:this.props.route.params.imgUri})}>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.push('Pre-process', {imgUri: this.props.route.params.imgUri})}>
                             <ImageBackground
                                 source={require('../../images/icons/process.png')}
                                 style={{width: wp('7%'), height: hp('3%'), marginRight: 20}}/>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.saveImage(this.props.route.params.imgUri)}>
                             <ImageBackground
                                 source={require('../../images/icons/save.png')}
                                 style={{width: wp('7%'), height: hp('3%'), marginRight: 20}}/>
