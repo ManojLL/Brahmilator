@@ -20,7 +20,7 @@ class InputImg extends Component {
     {
         let tstate = this.state.flash;
         if (tstate === RNCamera.Constants.FlashMode.off){
-            tstate = RNCamera.Constants.FlashMode.torch;
+            tstate = RNCamera.Constants.FlashMode.on;
         } else {
             tstate = RNCamera.Constants.FlashMode.off;
         }
