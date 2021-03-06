@@ -30,7 +30,7 @@ class BottomNavigator extends Component {
 
                 }}>
 
-                    <TouchableOpacity style={[styles.button, styles.actionBtn]} onPress={() => this.props.navigation.push('Camera')}>
+                    <TouchableOpacity style={[styles.button, styles.actionBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
 
                         <Image style={{
                             width: wp('9%'),
@@ -97,10 +97,7 @@ class BottomNavigator extends Component {
                                     height: hp('4%'),
                                 }}
 
-                                source={require('../../images/icons/user.png')}
-
-
-                            >
+                                source={require('../../images/icons/user.png')}>
 
                             </Image>
 
