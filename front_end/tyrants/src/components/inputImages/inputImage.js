@@ -112,7 +112,7 @@ class InputImg extends Component {
                             <View style={{flex: 1, flexDirection: 'row-reverse'}}>
                                 <TouchableOpacity  onPress={() => this.toggleTorch() }>
                                     <ImageBackground
-                                        source={require('../../images/icons/save.png')}
+                                        source={require('../../images/icons/flash.png')}
                                         style={{width:  wp('5%'), height: hp('3%')}}/>
                                 </TouchableOpacity>
                             </View>

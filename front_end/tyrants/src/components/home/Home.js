@@ -7,9 +7,10 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -48,10 +49,11 @@ class Home extends Component {
                 </View>
 
                 <View style={[styles.centerItems]}>
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')} >
-                        <Text style={{color:'#000000'}}>{'Get started'}</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')}>
+                        <Text style={{color: '#000000'}}>{'Get started'}</Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
         );
     }
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     img: {
         width: wp('8%'),
         height: hp('5%'),
-            },
+    },
     textContainer: {
         marginTop: 20,
         justifyContent: 'center',
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
         paddingLeft: 60,
         paddingRight: 60,
         backgroundColor: '#FFC542',
-        borderRadius:15,
+        borderRadius: 15,
     },
 
 
