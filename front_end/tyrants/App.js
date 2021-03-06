@@ -20,7 +20,8 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/stack';
 import SplashScreen from './src/components/splashScreen/splash';
-import MainMenu from "./src/menuAndOutPut/mainMenu";
+import MainMenu from "./src/components/menuAndOutPut/mainMenu";
+import BottomNavigator from "./src/components/navigators/BottomNavigator";
 // const AppNavigator = createStackNavigator({
 //   Home: {screen: Home, navigationOptions: {headerShown: false}},
 //   PreviewImg: {screen: ImagePreview, navigationOptions: {headerShown: false}},
@@ -39,6 +40,7 @@ export default class App extends Component {
                 <Stack.Screen name="Camera" component={InputImg} />
                 <Stack.Screen name="Pre-process" component={ImagePreProcess} />
                 <Stack.Screen name="Main-Menu" component={MainMenu} />
+                <Stack.Screen name="BorderNav" component={BottomNavigator} />
             </Stack.Navigator>
         </NavigationContainer>);
   }

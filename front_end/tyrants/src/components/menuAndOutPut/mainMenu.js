@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {ActivityIndicator, StyleSheet, Text, View} from "react-native";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import BottomNavigator from "../navigators/BottomNavigator";
 
 
 class MainMenu extends Component {
@@ -35,7 +36,9 @@ class MainMenu extends Component {
                     <View style={[styles.centerItems]}>
                         <Text style={{color: '#ffffff'}}>MAIN MENU </Text>
 
-                    </View>}
+                    </View>
+                }
+                <BottomNavigator navigation={this.props.navigation}/>
             </View>
         );
     }
