@@ -20,7 +20,6 @@ class MainMenu extends Component {
         setTimeout(() => {
             this.setState({isLoading: false});
         }, 3000);// Once You Call the API Action loading will be true
-
     };
 
 
@@ -34,7 +33,7 @@ class MainMenu extends Component {
                     </View>
                     :
                     <View style={[styles.centerItems]}>
-                        <Text style={{color: '#ffffff'}}>ewewe</Text>
+                        <Text style={{color: '#ffffff'}}>MAIN MENU </Text>
 
                     </View>}
             </View>
