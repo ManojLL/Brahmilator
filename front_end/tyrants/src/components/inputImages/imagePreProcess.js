@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
+    Alert,
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
@@ -16,12 +17,22 @@ class ImagePreProcess extends Component {
         this.state = {};
     }
 
+    closeClick = ()=>{
+        Alert.alert(
+            'Alert Title',
+            'Alert message here...',
+            [
+                {text: 'NO',style:  'cancel'},
+                {text: 'YES', onPress: () => this.props.navigation.navigate('Home')},
+            ]
+        );
+    }
     render() {
         return (
             <View style={styles.container}>
                 <View style={[styles.toolBar, styles.centerItems]}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+                        <TouchableOpacity onPress={() =>this.closeClick() }>
                             <ImageBackground
                                 source={require('../../images/icons/close.png')}
                                 style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
