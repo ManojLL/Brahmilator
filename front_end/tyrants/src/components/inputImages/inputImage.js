@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component,useState} from 'react';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import { View,Text,StyleSheet,ImageBackground, TouchableOpacity, Button, Alert,} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import * as ImagePicker from 'react-native-image-picker';
+
 
 class InputImg extends Component {
     constructor(props) {
@@ -11,7 +12,19 @@ class InputImg extends Component {
         this.state = {
             takingPic: false,
             ImageUri:'',
+            flash:RNCamera.Constants.FlashMode.off,
         };
+    }
+
+    toggleTorch()
+    {
+        let tstate = this.state.flash;
+        if (tstate === RNCamera.Constants.FlashMode.off){
+            tstate = RNCamera.Constants.FlashMode.torch;
+        } else {
+            tstate = RNCamera.Constants.FlashMode.off;
+        }
+        this.setState({flash:tstate})
     }
 
     takePicture = async () => {
@@ -80,6 +93,7 @@ class InputImg extends Component {
                         captureAudio={false}
                         style={{flex: 1}}
                         type={RNCamera.Constants.Type.back}
+                        flashMode={this.state.flash}
                         androidCameraPermissionOptions={{
                             title: 'Permission to use camera',
                             message: 'We need your permission to use your camera',
@@ -96,7 +110,7 @@ class InputImg extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row-reverse'}}>
-                                <TouchableOpacity>
+                                <TouchableOpacity  onPress={() => this.toggleTorch() }>
                                     <ImageBackground
                                         source={require('../../images/icons/save.png')}
                                         style={{width:  wp('5%'), height: hp('3%')}}/>
