@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
+    Alert,
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
@@ -16,19 +17,29 @@ class ImagePreProcess extends Component {
         this.state = {};
     }
 
+    closeClick = ()=>{
+        Alert.alert(
+            'Alert Title',
+            'Alert message here...',
+            [
+                {text: 'NO',style:  'cancel'},
+                {text: 'YES', onPress: () => this.props.navigation.navigate('Home')},
+            ]
+        );
+    }
     render() {
         return (
             <View style={styles.container}>
                 <View style={[styles.toolBar, styles.centerItems]}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+                        <TouchableOpacity onPress={() =>this.closeClick() }>
                             <ImageBackground
                                 source={require('../../images/icons/close.png')}
                                 style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1, flexDirection: 'row-reverse'}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Main-Menu')}>
                             <ImageBackground
                                 source={require('../../images/icons/process.png')}
                                 style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
@@ -43,7 +54,7 @@ class ImagePreProcess extends Component {
                 </View>
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
-                        source={require('../../images/backgroundImages/inc.png')}
+                        source={{uri:this.props.route.params.imgUri}}
                         style={{width: wp('90%'), height: hp("70%"), marginTop: 10}}/>
                 </View>
 
@@ -116,3 +127,4 @@ const styles = StyleSheet.create({
 
 });
 export default ImagePreProcess;
+
