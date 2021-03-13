@@ -1,7 +1,8 @@
 import os
 from flask import Flask, redirect, url_for, request, jsonify, Response, abort, json
 import filetype
-
+import services
+from util import make_response
 app = Flask(__name__)
 
 
@@ -12,17 +13,20 @@ def translateLetters():
         image_name = image.filename
         image.save(os.path.join(os.getcwd(), image_name))
         if filetype.is_image(image_name):
-            letter = {'letters': ['a', 'b', 'c', 'd']}
-            count = 1
-            os.remove(image_name)
+            classify_letters = services.classify_letters(image_name)
+            result = {'letters': classify_letters,'suggestions':{'c':1}}
+            response = make_response(result,True,200)
             # todo: pre processing part
             # todo :  predictions
             # todo : get result and add to response
-            return Response(json.dumps(letter), status=200, mimetype='application/json')
+            os.remove(image_name)
+            return Response(response=response, status=200, mimetype='application/json')
         else:
-            return Response(json.dumps({'result': 'not an image'}), status=200, mimetype='application/json')
+            response = make_response('The file is NOT an Image', False, 200)
+            return Response(response=response, status=200, mimetype='application/json')
     except:
-        return Response(json.dumps({'massege': 'file not found'}), status=404, mimetype='application/json')
+        response = make_response('The file is NOT FOUND', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
 
 
 # @app.route("/api/getWords", methods=["POST"])
