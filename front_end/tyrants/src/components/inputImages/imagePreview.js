@@ -55,7 +55,7 @@ class ImagePreview extends Component {
 
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <Image
-                        source={{uri: this.props.route.params.imgUri}}
+                        source={{uri: this.props.route.params.imgUri.uri}}
                         // source={require(this.props.navigation.state.params.imgUri)}
                         style={{width: wp('90%'), height: hp("70%")}}/>
                 </View>
