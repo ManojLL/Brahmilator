@@ -116,9 +116,4 @@ dilatation(0)
 morphology_operations(0)
 threshold(0)
 
-plt.figure(figsize=(16, 16))
-plt.title('Original Image')
-plt.imshow(original_image_resize)
-plt.show()
-
 cv2.waitKey(0)
