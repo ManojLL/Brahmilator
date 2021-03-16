@@ -200,7 +200,7 @@ def letter_seg(lines_img, x_lines, i):
 
 
 print("\n........Program Initiated.......\n")
-src_img = cv2.imread('plate2.jpg', 1)
+src_img = cv2.imread('sample_plate.jpg', 1)
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
@@ -250,7 +250,7 @@ upper_lines, lower_lines = line_array(count_x)
 
 upperlines, lowerlines = refine_array(upper_lines, lower_lines)
 
-print(upperlines, lowerlines)
+# print(upperlines, lowerlines)
 if len(upperlines) == len(lowerlines):
     lines = []
     for y in upperlines:
