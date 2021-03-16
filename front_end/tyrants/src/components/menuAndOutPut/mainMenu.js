@@ -8,13 +8,12 @@ import BottomNavigator from '../navigators/BottomNavigator';
 
 const createFormData = (photo) => {
     const data = new FormData();
-
-    data.append('image', {
-        uri: photo.uri,
-        type: 'image/jpg',
-        fileName: photo.fileName,
-    });
+    data.append('image', photo.uri);
     return data;
+};
+const headers = {
+    'content-type': 'multipart/form-data',
+    accept: 'application/json',
 };
 
 class MainMenu extends Component {
@@ -29,15 +28,18 @@ class MainMenu extends Component {
         this.loadAPI();
     }
 
-
     loadAPI = () => {
         console.log(this.props.route.params.imgUri);
         this.setState({isLoading: true});
         // setTimeout(() => {
         //     this.setState({isLoading: false});
         // }, 3000);// Once You Call the API Action loading will be true
-        fetch(' http://localhost:5000/api/getLetters', {
+        fetch('http://127.0.0.1:5000/api/getLetters', {
             method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
             body: createFormData(this.props.route.params.imgUri),
         })
             .then((response) => response.json())
