@@ -122,8 +122,8 @@ def refine_array(array_upper, array_lower):
         if array_lower[y] + 5 < array_lower[y + 1]:
             lowerlines.append(array_lower[y] + 10)
 
-    #upperlines.append(array_upper[-1] - 10)
-    #lowerlines.append(array_lower[-1] + 10)
+    upperlines.append(array_upper[-1] - 10)
+    lowerlines.append(array_lower[-1] + 10)
 
     return upperlines, lowerlines
 
@@ -200,7 +200,7 @@ def letter_seg(lines_img, x_lines, i):
 
 
 print("\n........Program Initiated.......\n")
-src_img = cv2.imread('img_2.jpg', 1)
+src_img = cv2.imread('plate2.jpg', 1)
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
