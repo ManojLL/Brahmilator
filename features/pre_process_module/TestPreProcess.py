@@ -86,7 +86,7 @@ def threshold(val):
     cv2.imshow(title_window, dst)
 
 
-original_image = cv2.imread('testImage.jpg')
+original_image = cv2.imread('image.jpg')
 original_image_resize = cv2.resize(original_image, (0, 0), fx=0.75, fy=0.75)
 src = cv2.cvtColor(original_image_resize, cv2.COLOR_BGR2GRAY)
 
