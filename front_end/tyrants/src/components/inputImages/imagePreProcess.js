@@ -39,7 +39,7 @@ class ImagePreProcess extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1, flexDirection: 'row-reverse'}}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Main-Menu')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Main-Menu',{imgUri: this.props.route.params.imgUri})}>
                             <ImageBackground
                                 source={require('../../images/icons/process.png')}
                                 style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
@@ -54,7 +54,7 @@ class ImagePreProcess extends Component {
                 </View>
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
-                        source={{uri:this.props.route.params.imgUri}}
+                        source={{uri:this.props.route.params.imgUri.uri}}
                         style={{width: wp('90%'), height: hp("70%"), marginTop: 10}}/>
                 </View>
 
