@@ -65,7 +65,7 @@ while True:
         minThresh = thresh
         ret, imgThresh = cv2.threshold(imgGray, minThresh, 255, 0)
 
-    # 1. Erosion
+        # 1. Erosion
     kernelValue = getKernelValue(kernel_erode_dialate)
     if kernelValue == 0 or iterErode == 0:
         imgErode = imgThresh  # No change
@@ -135,3 +135,4 @@ while True:
         cv2.imwrite('Output/output.jpg', cv2.cvtColor(outputImage, cv2.COLOR_GRAY2BGR))
 
 cv2.waitKey(0)
+
