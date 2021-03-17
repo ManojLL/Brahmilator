@@ -96,6 +96,14 @@ while True:
         kernel_closing = np.ones((closing_kern_odd, closing_kern_odd), np.uint8)
         imgClose = cv2.morphologyEx(imgOpen, cv2.MORPH_CLOSE, kernel_closing)
 
+    # 5. gradient
+    gradient_kern_odd = getKernelValue(gradient_kern)
+    if gradient_kern_odd == 0:
+        imgGradient = imgClose
+    else:
+        kernel_gradient = np.ones((gradient_kern_odd, gradient_kern_odd), np.uint8)
+        imgGradient = cv2.morphologyEx(imgClose, cv2.MORPH_GRADIENT, kernel_gradient)
+
     outputImage = imgBlackhat
 
     cv2.imshow("Result", outputImage)
