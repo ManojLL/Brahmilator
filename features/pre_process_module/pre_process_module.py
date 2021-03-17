@@ -80,6 +80,22 @@ while True:
         kernel = np.ones((kernelValue, kernelValue), np.uint8)
         imgDialated = cv2.dilate(imgErode, kernel, iterations=iterDilate)
 
+    # 3. Opening
+    opening_kern_odd = getKernelValue(opening_kern)
+    if opening_kern_odd == 0:
+        imgOpen = imgDialated
+    else:
+        kernel_opening = np.ones((opening_kern_odd, opening_kern_odd), np.uint8)
+        imgOpen = cv2.morphologyEx(imgDialated, cv2.MORPH_OPEN, kernel_opening)
+
+    # 4. Closing
+    closing_kern_odd = getKernelValue(closing_kern)
+    if closing_kern_odd == 0:
+        imgClose = imgOpen
+    else:
+        kernel_closing = np.ones((closing_kern_odd, closing_kern_odd), np.uint8)
+        imgClose = cv2.morphologyEx(imgOpen, cv2.MORPH_CLOSE, kernel_closing)
+
     outputImage = imgBlackhat
 
     cv2.imshow("Result", outputImage)
