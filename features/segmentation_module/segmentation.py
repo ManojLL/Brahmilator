@@ -5,8 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-#np.set_printoptions(threshold='1')
-sys.setrecursionlimit(10**6)
+# np.set_printoptions(threshold='1')
+sys.setrecursionlimit(10 ** 6)
+
 
 # ------------------Functions------------------#
 
@@ -25,7 +26,7 @@ def showimages():
 # cv2.imshow("Contour Image", final_contr)
 # cv2.imshow('noise_remove Image', noise_remove)
 
-# plt.show()
+    plt.show()
 
 
 def closewindows():
@@ -108,7 +109,7 @@ def refine_endword(array):
     for y in range(len(array) - 1):
         if array[y] + 1 < array[y + 1]:
             refine_list.append(array[y])
-    #refine_list.append(array[-1])
+    # refine_list.append(array[-1])
     return refine_list
 
 
@@ -200,7 +201,7 @@ def letter_seg(lines_img, x_lines, i):
 
 
 print("\n........Program Initiated.......\n")
-src_img = cv2.imread('sample_plate.jpg', 1)
+src_img = cv2.imread('../pre_process_module/Output/output.jpg')
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
@@ -240,7 +241,7 @@ for y in range(height):
     for x in range(width):
         if bin_img[y][x] == 255:
             count_x[y] = count_x[y] + 1
-# print(count_x[y])
+print(count_x[y])
 
 # t = np.arange(0,height, 1)
 # plt.plot(t, count_x[t])
@@ -304,7 +305,7 @@ for i in range(len(lines_img)):
 for i in range(len(x_lines)):
     x_lines[i].append(width)
 
-#print(x_lines)
+# print(x_lines)
 # -------------/Word Detection-----------------#
 
 # -------------Letter Segmentation-------------#
