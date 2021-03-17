@@ -104,6 +104,22 @@ while True:
         kernel_gradient = np.ones((gradient_kern_odd, gradient_kern_odd), np.uint8)
         imgGradient = cv2.morphologyEx(imgClose, cv2.MORPH_GRADIENT, kernel_gradient)
 
+    # 6. tophat
+    top_hat_kern_odd = getKernelValue(top_hat_kern)
+    if top_hat_kern_odd == 0:
+        imgTophat = imgGradient
+    else:
+        kernel_topHat = np.ones((top_hat_kern_odd, top_hat_kern_odd), np.uint8)
+        imgTophat = cv2.morphologyEx(imgGradient, cv2.MORPH_TOPHAT, kernel_topHat)
+
+    # 7. blackhat
+    black_hat_kern_odd = getKernelValue(black_hat_kern)
+    if black_hat_kern_odd == 0:
+        imgBlackhat = imgTophat
+    else:
+        kernel_blackHat = np.ones((black_hat_kern_odd, black_hat_kern_odd), np.uint8)
+        imgBlackhat = cv2.morphologyEx(imgTophat, cv2.MORPH_BLACKHAT, kernel_blackHat)
+
     outputImage = imgBlackhat
 
     cv2.imshow("Result", outputImage)
