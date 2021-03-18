@@ -69,7 +69,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -118,6 +118,9 @@
       <workItem from="1615784416653" duration="408000" />
       <workItem from="1615784841452" duration="2957000" />
       <workItem from="1615864558750" duration="354000" />
+      <workItem from="1615866660630" duration="2787000" />
+      <workItem from="1615871836152" duration="599000" />
+      <workItem from="1616045868842" duration="41000" />
     </task>
     <servers />
   </component>
@@ -136,40 +139,6 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1615787820967">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1615787820967" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <default-breakpoints>
@@ -182,6 +151,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/segmentation_py$segmentation.coverage" NAME="segmentation Coverage Results" MODIFIED="1615787630100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/segmentation_py$segmentation.coverage" NAME="segmentation Coverage Results" MODIFIED="1615866679868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
