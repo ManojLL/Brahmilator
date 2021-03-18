@@ -5,8 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-#np.set_printoptions(threshold='1')
-sys.setrecursionlimit(10**6)
+# np.set_printoptions(threshold='1')
+sys.setrecursionlimit(10 ** 6)
+
 
 # ------------------Functions------------------#
 
@@ -25,7 +26,7 @@ def showimages():
 # cv2.imshow("Contour Image", final_contr)
 # cv2.imshow('noise_remove Image', noise_remove)
 
-# plt.show()
+    plt.show()
 
 
 def closewindows():
@@ -108,7 +109,7 @@ def refine_endword(array):
     for y in range(len(array) - 1):
         if array[y] + 1 < array[y + 1]:
             refine_list.append(array[y])
-    #refine_list.append(array[-1])
+    # refine_list.append(array[-1])
     return refine_list
 
 
@@ -179,7 +180,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('./segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         else:
             x_linescopy.pop(0)
@@ -188,7 +189,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('./segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         # print(letter[e][0],x_linescopy[0], word)
 
@@ -200,7 +201,7 @@ def letter_seg(lines_img, x_lines, i):
 
 
 print("\n........Program Initiated.......\n")
-src_img = cv2.imread('plate2.jpg', 1)
+src_img = cv2.imread('../pre_process_module/Output/output.jpg')
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
@@ -240,7 +241,7 @@ for y in range(height):
     for x in range(width):
         if bin_img[y][x] == 255:
             count_x[y] = count_x[y] + 1
-# print(count_x[y])
+print(count_x[y])
 
 # t = np.arange(0,height, 1)
 # plt.plot(t, count_x[t])
@@ -250,7 +251,7 @@ upper_lines, lower_lines = line_array(count_x)
 
 upperlines, lowerlines = refine_array(upper_lines, lower_lines)
 
-print(upperlines, lowerlines)
+# print(upperlines, lowerlines)
 if len(upperlines) == len(lowerlines):
     lines = []
     for y in upperlines:
@@ -304,7 +305,7 @@ for i in range(len(lines_img)):
 for i in range(len(x_lines)):
     x_lines[i].append(width)
 
-#print(x_lines)
+# print(x_lines)
 # -------------/Word Detection-----------------#
 
 # -------------Letter Segmentation-------------#
