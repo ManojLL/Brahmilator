@@ -4,10 +4,10 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-model_save_path = "D:/Studies/IIT/Level 5/2 Sem/SDGP/SDGP_THE_Tyrants/features/classification_model/saved-models/saved-models-mobilenet4"
-TESTDIR = "D:/Studies/IIT/Level 5/2 Sem/SDGP/SDGP_THE_Tyrants/brahmi_backend/data"
+model = "../features/classification_model/saved-models/saved-models-mobilenet4"
+data = "input_data"
 
-loaded_model = tf.keras.models.load_model(model_save_path)
+loaded_model = tf.keras.models.load_model(model)
 
 CATEGORIES = ["ba", "da", "ha", "la", "na", "ta"]
 
@@ -18,7 +18,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 def classify_letters():
-    test_path = os.path.join(TESTDIR)
+    test_path = os.path.join(data)
     testing_results = {}
     results = []
 
