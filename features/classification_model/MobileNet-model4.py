@@ -4,9 +4,9 @@ from tensorflow.python.keras.layers import Dense
 from tensorflow.python.keras.models import Model
 from tensorflow.python.keras.optimizer_v2.adam import Adam
 
-train_path = "data/train"     # 66 classes
-test_path = "Early_Brahmi/test"
-valid_path = "Early_Brahmi/validation"
+train_path = "data/train"
+test_path = "data/test"
+valid_path = "data/validation"
 
 train_batches = ImageDataGenerator(
     preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
@@ -23,7 +23,7 @@ mobile.summary()
 
 x = mobile.layers[-6].output
 
-output = Dense(units=6, activation='softmax')(x)
+output = Dense(units=7, activation='softmax')(x)
 
 model = Model(inputs=mobile.input, outputs=output)
 
