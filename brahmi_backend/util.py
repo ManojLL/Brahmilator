@@ -1,6 +1,5 @@
 import json
 
-
 def make_response(result, ok,code):
     if isinstance(result, str):
         response = {
