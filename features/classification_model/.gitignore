@@ -4,4 +4,4 @@
 /logs/*
 /venv/*
 /variables
-/saved_models/*
+/saved-models/*

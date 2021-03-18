@@ -6,6 +6,10 @@ import {
     ImageBackground,
     TouchableOpacity
 } from 'react-native';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 class Home extends Component {
     constructor(props) {
@@ -20,10 +24,10 @@ class Home extends Component {
                     justifyContent: 'center',
                     alignItems: 'center', marginTop: 8,
                 }}>
-                    <ImageBackground 
+                    <ImageBackground
                         source={require('../../images/icons/homeImge1.png')}
                         style={styles.img}/>
-                        
+
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>Welcome to Welcome to</Text>
@@ -41,14 +45,15 @@ class Home extends Component {
                     <ImageBackground
                         source={require('../../images/backgroundImages/homeImg.png')}
 
-                        style={{width: 330, height: 300, marginTop: 40}}/>
+                        style={{width: wp('80%'), height: hp('40%'), marginTop: 40}}/>
                 </View>
 
                 <View style={[styles.centerItems]}>
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')} >
-                        <Text style={{color:'#000000'}}>{'Get started'}</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')}>
+                        <Text style={{color: '#000000'}}>{'Get started'}</Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
         );
     }
@@ -57,48 +62,45 @@ class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#333',
-        height: '100%',
+        height: '100%'
     },
     centerItems: {
         justifyContent: 'center',
         alignItems: 'center',
     },
     img: {
-        width: "38%",
-        height: 64,    
-        marginLeft:"22%"
-        
-        
+        width: wp('8%'),
+        height: hp('5%'),
     },
     textContainer: {
         marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 24,
+
     },
     text: {
-        fontSize: 30,
+        fontSize: hp('4%'),
         color: '#fff',
         fontWeight: 'bold',
     },
     specText: {
-        fontSize: 30,
+        fontSize: hp('4%'),
         color: '#FFC542',
         fontWeight: 'bold',
     },
     subTitle: {
-        marginTop: 20,
+        marginTop: hp('5%'),
         justifyContent: 'center',
         alignItems: 'center',
     },
     button: {
-        marginTop: 40,
+        marginTop: hp('10%'),
         paddingTop: 15,
         paddingBottom: 15,
         paddingLeft: 60,
         paddingRight: 60,
         backgroundColor: '#FFC542',
-        borderRadius:15,
+        borderRadius: 15,
     },
 
 
