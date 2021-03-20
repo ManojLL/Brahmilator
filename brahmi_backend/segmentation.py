@@ -5,13 +5,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+input_data = "input_data"
+
 # np.set_printoptions(threshold='1')
 sys.setrecursionlimit(10 ** 6)
 
 
 # ------------------Functions------------------#
 
-def showimages():
+def showimages(src_img, bin_img, final_thr):
     cv2.namedWindow('Source Image', cv2.WINDOW_AUTOSIZE)
     cv2.namedWindow('Threshold Image', cv2.WINDOW_AUTOSIZE)
     cv2.namedWindow('Binary Image', cv2.WINDOW_AUTOSIZE)
@@ -29,7 +31,7 @@ def showimages():
     plt.show()
 
 
-def closewindows():
+def closewindows(final_thr, src_img, final_contr):
     k = cv2.waitKey(0)
     if k & 0xFF == ord('s'):
         comment = input("Comment:-\n ")
@@ -40,7 +42,7 @@ def closewindows():
     elif k & 0xFF == int(27):
         cv2.destroyAllWindows()
     else:
-        closewindows()
+        closewindows(final_thr, src_img, final_contr)
 
 
 def line_array(array):
@@ -141,7 +143,7 @@ def letter_width(contours):
     return letter_width_sum / count
 
 
-def end_wrd_dtct(lines, i, bin_img, mean_lttr_width):
+def end_wrd_dtct(lines, i, bin_img, mean_lttr_width, width, final_thr):
     count_y = np.zeros(shape=width)
     for x in range(width):
         for y in range(lines[i][0], lines[i][1]):
@@ -180,7 +182,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('segmented_letters/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         else:
             x_linescopy.pop(0)
@@ -189,7 +191,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('segmented_letters/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         # print(letter[e][0],x_linescopy[0], word)
 
@@ -199,147 +201,143 @@ def letter_seg(lines_img, x_lines, i):
 
 # -------------Thresholding Image--------------#
 
+def image_segmentation(img):
+    print("\n........Program Initiated.......\n")
+    test_path = os.path.join(input_data)
+    src_img = cv2.imread(os.path.join(test_path, img))
+    copy = src_img.copy()
+    height = src_img.shape[0]
+    width = src_img.shape[1]
 
-print("\n........Program Initiated.......\n")
-src_img = cv2.imread('../pre_process_module/Output/output.jpg')
-copy = src_img.copy()
-height = src_img.shape[0]
-width = src_img.shape[1]
+    print("\n Resizing Image........")
+    src_img = cv2.resize(copy, dsize=(1320, int(1320 * height / width)), interpolation=cv2.INTER_AREA)
 
-print("\n Resizing Image........")
-src_img = cv2.resize(copy, dsize=(1320, int(1320 * height / width)), interpolation=cv2.INTER_AREA)
+    height = src_img.shape[0]
+    width = src_img.shape[1]
 
-height = src_img.shape[0]
-width = src_img.shape[1]
+    print("#---------Image Info:--------#")
+    print("\tHeight =", height, "\n\tWidth =", width)
+    print("#----------------------------#")
 
-print("#---------Image Info:--------#")
-print("\tHeight =", height, "\n\tWidth =", width)
-print("#----------------------------#")
+    grey_img = cv2.cvtColor(src_img, cv2.COLOR_BGR2GRAY)
 
-grey_img = cv2.cvtColor(src_img, cv2.COLOR_BGR2GRAY)
+    print("Applying Adaptive Threshold with kernel :- 21 X 21")
+    bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
+    bin_img1 = bin_img.copy()
+    bin_img2 = bin_img.copy()
 
-print("Applying Adaptive Threshold with kernel :- 21 X 21")
-bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
-bin_img1 = bin_img.copy()
-bin_img2 = bin_img.copy()
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+    kernel1 = np.array([[1, 0, 1], [0, 1, 0], [1, 0, 1]], dtype=np.uint8)
+    # final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_OPEN, kernel)
+    # final_thr = cv2.dilate(bin_img,kernel1,iterations = 1)
+    print("Noise Removal From Image.........")
+    final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_CLOSE, kernel)
+    contr_retrival = final_thr.copy()
 
-kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
-kernel1 = np.array([[1, 0, 1], [0, 1, 0], [1, 0, 1]], dtype=np.uint8)
-# final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_OPEN, kernel)
-# final_thr = cv2.dilate(bin_img,kernel1,iterations = 1)
-print("Noise Removal From Image.........")
-final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_CLOSE, kernel)
-contr_retrival = final_thr.copy()
+    # -------------/Thresholding Image-------------#
 
-# -------------/Thresholding Image-------------#
+    # -------------Line Detection------------------#
+    print("Beginning Character Semenation..............")
+    count_x = np.zeros(shape=(height))
+    for y in range(height):
+        for x in range(width):
+            if bin_img[y][x] == 255:
+                count_x[y] = count_x[y] + 1
+    print(count_x[y])
 
+    # t = np.arange(0,height, 1)
+    # plt.plot(t, count_x[t])
+    # plt.axis([0, height, 0, 350])
 
-# -------------Line Detection------------------#
-print("Beginning Character Semenation..............")
-count_x = np.zeros(shape=(height))
-for y in range(height):
-    for x in range(width):
-        if bin_img[y][x] == 255:
-            count_x[y] = count_x[y] + 1
-print(count_x[y])
+    upper_lines, lower_lines = line_array(count_x)
 
-# t = np.arange(0,height, 1)
-# plt.plot(t, count_x[t])
-# plt.axis([0, height, 0, 350])
+    upperlines, lowerlines = refine_array(upper_lines, lower_lines)
 
-upper_lines, lower_lines = line_array(count_x)
+    # print(upperlines, lowerlines)
+    if len(upperlines) == len(lowerlines):
+        lines = []
+        for y in upperlines:
+            final_thr[y][:] = 255
+        for y in lowerlines:
+            final_thr[y][:] = 255
+        for y in range(len(upperlines)):
+            lines.append((upperlines[y], lowerlines[y]))
 
-upperlines, lowerlines = refine_array(upper_lines, lower_lines)
-
-# print(upperlines, lowerlines)
-if len(upperlines) == len(lowerlines):
-    lines = []
-    for y in upperlines:
-        final_thr[y][:] = 255
-    for y in lowerlines:
-        final_thr[y][:] = 255
-    for y in range(len(upperlines)):
-        lines.append((upperlines[y], lowerlines[y]))
-
-else:
-    print("Too much noise in image, unable to process.\nPlease try with another image. Ctrl-C to exit:- ")
-    showimages()
-    k = cv2.waitKey(0)
-    while 1:
+    else:
+        print("Too much noise in image, unable to process.\nPlease try with another image. Ctrl-C to exit:- ")
+        # showimages(src_img, bin_img, final_thr)
         k = cv2.waitKey(0)
-        if k & 0xFF == ord('q'):
-            cv2.destroyAllWindows()
-            exit()
+        while 1:
+            k = cv2.waitKey(0)
+            if k & 0xFF == ord('q'):
+                cv2.destroyAllWindows()
+                exit()
 
-lines = np.array(lines)
+    lines = np.array(lines)
 
-no_of_lines = len(lines)
+    no_of_lines = len(lines)
 
-print("\nGiven Text has   # ", no_of_lines, " #   no. of lines")
+    print("\nGiven Text has   # ", no_of_lines, " #   no. of lines")
 
-lines_img = []
+    lines_img = []
 
-for i in range(no_of_lines):
-    lines_img.append(bin_img2[lines[i][0]:lines[i][1], :])
+    for i in range(no_of_lines):
+        lines_img.append(bin_img2[lines[i][0]:lines[i][1], :])
 
-# -------------/Line Detection-----------------#
+    # -------------/Line Detection-----------------#
 
+    # -------------Letter Width Calculation--------#
 
-# -------------Letter Width Calculation--------#
+    contours, hierarchy = cv2.findContours(contr_retrival, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    final_contr = np.zeros((final_thr.shape[0], final_thr.shape[1], 3), dtype=np.uint8)
+    cv2.drawContours(src_img, contours, -1, (0, 255, 0), 1)
 
-contours, hierarchy = cv2.findContours(contr_retrival, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-final_contr = np.zeros((final_thr.shape[0], final_thr.shape[1], 3), dtype=np.uint8)
-cv2.drawContours(src_img, contours, -1, (0, 255, 0), 1)
+    mean_lttr_width = letter_width(contours)
+    print("\nAverage Width of Each Letter:- ", mean_lttr_width)
 
-mean_lttr_width = letter_width(contours)
-print("\nAverage Width of Each Letter:- ", mean_lttr_width)
+    # -------------/Letter Width Calculation-------#
 
-# -------------/Letter Width Calculation-------#
+    # --------------Word Detection-----------------#
+    x_lines = []
 
-# --------------Word Detection-----------------#
-x_lines = []
+    for i in range(len(lines_img)):
+        x_lines.append(end_wrd_dtct(lines, i, bin_img, mean_lttr_width, width, final_thr))
 
-for i in range(len(lines_img)):
-    x_lines.append(end_wrd_dtct(lines, i, bin_img, mean_lttr_width))
+    for i in range(len(x_lines)):
+        x_lines[i].append(width)
 
-for i in range(len(x_lines)):
-    x_lines[i].append(width)
+    # print(x_lines)
+    # -------------/Word Detection-----------------#
 
-# print(x_lines)
-# -------------/Word Detection-----------------#
+    # -------------Letter Segmentation-------------#
 
-# -------------Letter Segmentation-------------#
+    for i in range(len(lines)):
+        letter_seg(lines_img, x_lines, i)
 
-for i in range(len(lines)):
-    letter_seg(lines_img, x_lines, i)
+    # ------------\Letter Segmentation-------------#
 
-# ------------\Letter Segmentation-------------#
+    # -------------Character segmenting------------#
 
+    chr_img = bin_img1.copy()
 
-# -------------Character segmenting------------#
+    contours, hierarchy = cv2.findContours(chr_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # print(len(contours))
+    # final_contr = np.zeros((final_thr.shape[0],final_thr.shape[1],3), dtype = np.uint8)
+    # cv2.drawContours(src_img, contours, -1, (0,255,0), 1)
 
-chr_img = bin_img1.copy()
+    for cnt in contours:
+        if cv2.contourArea(cnt) > 20:
+            x, y, w, h = cv2.boundingRect(cnt)
+            cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-contours, hierarchy = cv2.findContours(chr_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-# print(len(contours))
-# final_contr = np.zeros((final_thr.shape[0],final_thr.shape[1],3), dtype = np.uint8)
-# cv2.drawContours(src_img, contours, -1, (0,255,0), 1)
+    # -------------/Character segmenting-----------#
 
-for cnt in contours:
-    if cv2.contourArea(cnt) > 20:
-        x, y, w, h = cv2.boundingRect(cnt)
-        cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    # -------------Displaying Image----------------#
 
-# -------------/Character segmenting-----------#
+    # showimages(src_img, bin_img, final_thr)
 
+    # -------------/Displaying Image---------------#
 
-# -------------Displaying Image----------------#
+    # -------------Closing Windows-----------------#
 
-showimages()
-
-# -------------/Displaying Image---------------#
-
-
-# -------------Closing Windows-----------------#
-
-closewindows()
+    # closewindows(final_thr, src_img, final_contr)
