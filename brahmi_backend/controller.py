@@ -3,10 +3,12 @@ from flask import Flask, redirect, url_for, request, jsonify, Response, abort, j
 import filetype
 import services
 from util import make_response
+from segmentation import image_segmentation
 
 app = Flask(__name__)
 
 input_data = "input_data"
+pre_process_data = "pre_process_data"
 
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
@@ -15,6 +17,7 @@ def translateLetters():
         image_name = image.filename
         image.save(os.path.join(input_data, image_name))
         if filetype.is_image(os.path.join(input_data, image_name)):
+            image_segmentation(image_name)
             classify_letters = services.classify_letters()
             result = {'letter': classify_letters}
             response = make_response(result,True,200)
@@ -28,10 +31,6 @@ def translateLetters():
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
-
-# @app.route("/api/preProcess", methods=["POST"])
-# def preProcessImage():
-#     print("todo")
 
 if __name__ == '__main__':
     app.run()
