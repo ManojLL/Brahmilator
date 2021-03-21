@@ -45,6 +45,9 @@ class Result extends Component {
       {
         value: "Arabic",
       },
+      {
+        value: "Tamil",
+      },
     ];
     return (
       <View style={styles.container}>
