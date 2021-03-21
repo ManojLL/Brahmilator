@@ -4,3 +4,4 @@ front_end/tyrants/.idea
 .gitignore
 front_end/tyrants/package-lock.json
 front_end/tyrants/package.json
+/venv/*
