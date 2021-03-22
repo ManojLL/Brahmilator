@@ -44,7 +44,7 @@ class Choice extends Component {
                 </View>
 
 
-                <View >
+                <View style={[styles.centerItems]}>
                     <ImageBackground
                         source={require('../../images/backgroundImages/userImage.png')}
 

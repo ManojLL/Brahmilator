@@ -30,7 +30,7 @@ class Home extends Component {
 
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>Welcome to Welcome to</Text>
+                    <Text style={styles.text}>Welcome to </Text>
                     <View>
                         <Text><Text style={styles.specText}>Brahimilator ,</Text><Text
                             style={styles.text}> mobile </Text></Text>
