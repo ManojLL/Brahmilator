@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  View,
-  Platform,
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    View,
+    Platform,
 } from 'react-native';
 import {
     widthPercentageToDP as wp,
@@ -16,7 +16,7 @@ const createFormData = (photo) => {
     const data = new FormData();
     console.log(photo)
     let i = {
-        uri:photo.uri,
+        uri: photo.uri,
         type: 'multipart/form-data',
         name: 'image.jpg',
     };
@@ -42,13 +42,13 @@ class MainMenu extends Component {
 
     loadAPI = () => {
         console.log(this.props.route.params.imgUri);
-        this.setState({isLoading: true});
+        this.setState({ isLoading: true });
         // setTimeout(() => {
         //     this.setState({isLoading: false});
         // }, 3000);// Once You Call the API Action loading will be true
-       fetch('https://192.168.8.168:5000/api/getLetters', {
+        fetch('https://192.168.8.168:5000/api/getLetters', {
             method: 'POST',
-            mode:'no-cors ',
+            mode: 'no-cors ',
             headers: {
                 accept: 'application/json',
                 'Content-Type': 'multipart/form-data',
@@ -57,11 +57,11 @@ class MainMenu extends Component {
         })
             .then((response) => response.json())
             .then((response) => {
-                this.setState({isLoading: false});
+                this.setState({ isLoading: false });
                 console.log(response);
             })
             .catch((error) => {
-                this.setState({isLoading: false});
+                this.setState({ isLoading: false });
                 console.log('upload error', error);
                 alert('Upload failed!');
             });
@@ -72,15 +72,15 @@ class MainMenu extends Component {
             <View style={[styles.container]}>
                 {this.state.isLoading ? (
                     <View style={[styles.centerItems]}>
-                        <ActivityIndicator size="large" color="#ffffff"/>
-                        <Text style={{color: '#ffffff'}}>LOADING ...</Text>
+                        <ActivityIndicator size="large" color="#ffffff" />
+                        <Text style={{ color: '#ffffff' }}>LOADING ...</Text>
                     </View>
                 ) : (
                     <View style={[styles.centerItems]}>
-                        <Text style={{color: '#ffffff'}}>MAIN MENU </Text>
+                        <Text style={{ color: '#ffffff' }}>MAIN MENU </Text>
                     </View>
                 )}
-                <BottomNavigator navigation={this.props.navigation}/>
+                <BottomNavigator navigation={this.props.navigation} />
             </View>
         );
     }
