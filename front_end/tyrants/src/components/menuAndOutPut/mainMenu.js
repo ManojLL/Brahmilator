@@ -82,7 +82,7 @@ class MainMenu extends Component {
                         <View>
                             <TouchableOpacity
                                 style={styles.button}
-                                onPress={() => this.props.navigation.push("")}
+                                onPress={() => this.props.navigation.push('Result')}
                             >
                                 <Text style={{ color: "#000000", fontWeight: "bold" }}>
                                     {"Translated Letters"}
@@ -93,7 +93,7 @@ class MainMenu extends Component {
                         <View style={[styles.centerItems]}>
                             <TouchableOpacity
                                 style={styles.button}
-                                onPress={() => this.props.navigation.push("")}
+                                onPress={() => this.props.navigation.push('Result')}
                             >
                                 <Text style={{ color: "#000000", fontWeight: "bold" }}>
                                     {"Translated Words"}
@@ -104,7 +104,7 @@ class MainMenu extends Component {
                         <View style={[styles.centerItems]}>
                             <TouchableOpacity
                                 style={styles.button}
-                                onPress={() => this.props.navigation.push("")}
+                                onPress={() => this.props.navigation.push('Result')}
                             >
                                 <Text style={{ color: "#000000", fontWeight: "bold" }}>
                                     {"Translated Sentences"}

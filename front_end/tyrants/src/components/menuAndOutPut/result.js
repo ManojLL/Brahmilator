@@ -222,7 +222,7 @@ class Result extends Component {
                 height: hp("11%"),
               }}
               resizeMode="contain"
-              source={require("./images/icons/save2.png")}
+              source={require("../../images/icons/save2.png")}
             />
           </TouchableOpacity>
         </ScrollView>
@@ -254,7 +254,7 @@ class Result extends Component {
                   height: hp("11%"),
                 }}
                 resizeMode="contain"
-                source={require("./images/icons/camera.png")}
+                source={require("../../images/icons/camera.png")}
               />
             </TouchableOpacity>
           </View>
@@ -297,7 +297,7 @@ class Result extends Component {
                     width: wp("7%"),
                     height: hp("4%"),
                   }}
-                  source={require("./images/icons/homeNav.png")}
+                  source={require("../../images/icons/homeNav.png")}
                 ></Image>
               </TouchableOpacity>
             </View>
@@ -315,7 +315,7 @@ class Result extends Component {
                     width: wp("7%"),
                     height: hp("4%"),
                   }}
-                  source={require("./images/icons/userIcon.png")}
+                  source={require("../../images/icons/user.png")}
                 ></Image>
               </TouchableOpacity>
             </View>
