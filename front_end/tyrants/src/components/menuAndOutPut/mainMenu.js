@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -8,7 +16,13 @@ import BottomNavigator from '../navigators/BottomNavigator';
 
 const createFormData = (photo) => {
     const data = new FormData();
-    data.append('image', photo.uri);
+    console.log(photo)
+    let i = {
+        uri:photo.uri,
+        type: 'multipart/form-data',
+        name: 'image.jpg',
+    };
+    data.append('image', i);
     return data;
 };
 const headers = {
@@ -34,8 +48,9 @@ class MainMenu extends Component {
         // setTimeout(() => {
         //     this.setState({isLoading: false});
         // }, 3000);// Once You Call the API Action loading will be true
-        fetch('http://127.0.0.1:5000/api/getLetters', {
+       fetch('https://192.168.8.168:5000/api/getLetters', {
             method: 'POST',
+            mode:'no-cors ',
             headers: {
                 accept: 'application/json',
                 'Content-Type': 'multipart/form-data',
@@ -64,9 +79,36 @@ class MainMenu extends Component {
                     </View>
                 ) : (
                     <View style={[styles.centerItems]}>
-                        <Text style={{color: '#ffffff'}}>MAIN MENU </Text>
+                        <View>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
+                        <Text style={{ color: '#000000', fontWeight: 'bold' }}>{'Translated Letters'}</Text>
+                    </TouchableOpacity>
                     </View>
+
+                    <View style={[styles.centerItems]}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
+                        <Text style={{ color: '#000000', fontWeight: 'bold' }}>{'Translated Words'}</Text>
+                    </TouchableOpacity>                  
+                    </View>
+
+                    <View style={[styles.centerItems]}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
+                        <Text style={{ color: '#000000',  fontWeight: 'bold' }}>{'Translated Sentences'}</Text>
+                    </TouchableOpacity>                 
+                    </View>
+
+                    </View>
+
+                    
                 )}
+                <View  style={[styles.centerItems]}>
+                    <ImageBackground
+                        source={require('../../images/backgroundImages/userImage.png')}
+
+                        style={{ width: wp('90%'), height: hp('50%'), marginTop: 0, marginLeft: 50 }} />
+
+                </View>
+
                 <BottomNavigator navigation={this.props.navigation}/>
             </View>
         );
@@ -82,6 +124,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    button: {
+        marginTop: hp('5%'),
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 60,
+        paddingRight: 60,
+        backgroundColor: '#FFC542',
+        borderRadius: 15,
     },
 });
 
