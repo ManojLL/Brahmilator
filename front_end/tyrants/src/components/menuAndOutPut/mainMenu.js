@@ -4,6 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
+  ImageBackground,
+  TouchableOpacity,
   Platform,
 } from 'react-native';
 import {
@@ -77,9 +79,36 @@ class MainMenu extends Component {
                     </View>
                 ) : (
                     <View style={[styles.centerItems]}>
-                        <Text style={{color: '#ffffff'}}>MAIN MENU </Text>
+                        <View>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
+                        <Text style={{ color: '#000000', fontWeight: 'bold' }}>{'Translated Letters'}</Text>
+                    </TouchableOpacity>
                     </View>
+
+                    <View style={[styles.centerItems]}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
+                        <Text style={{ color: '#000000', fontWeight: 'bold' }}>{'Translated Words'}</Text>
+                    </TouchableOpacity>                  
+                    </View>
+
+                    <View style={[styles.centerItems]}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
+                        <Text style={{ color: '#000000',  fontWeight: 'bold' }}>{'Translated Sentences'}</Text>
+                    </TouchableOpacity>                 
+                    </View>
+
+                    </View>
+
+                    
                 )}
+                <View  style={[styles.centerItems]}>
+                    <ImageBackground
+                        source={require('../../images/backgroundImages/userImage.png')}
+
+                        style={{ width: wp('90%'), height: hp('50%'), marginTop: 0, marginLeft: 50 }} />
+
+                </View>
+
                 <BottomNavigator navigation={this.props.navigation}/>
             </View>
         );
@@ -95,6 +124,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    button: {
+        marginTop: hp('5%'),
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 60,
+        paddingRight: 60,
+        backgroundColor: '#FFC542',
+        borderRadius: 15,
     },
 });
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
@@ -22,39 +22,36 @@ class Choice extends Component {
     render() {
         return (
             <View style={styles.container}>
-                
-               
+
+
 
                 <View style={[styles.centerItems]}>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
-                        <Text style={{color:'#000000',fontSize: hp('2%'),fontWeight: 'bold'}}>{'Translated Letters'}</Text>
+                        <Text style={{ color: '#000000', fontSize: hp('2%'), fontWeight: 'bold' }}>{'Translated Letters'}</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={[styles.centerItems]}>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
-                        <Text style={{color:'#000000',fontSize: hp('2%'),fontWeight: 'bold'}}>{'Translated Words'}</Text>
+                        <Text style={{ color: '#000000', fontSize: hp('2%'), fontWeight: 'bold' }}>{'Translated Words'}</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={[styles.centerItems]}>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('')}>
-                        <Text style={{color:'#000000',fontSize: hp('2%'),fontWeight: 'bold'}}>{'Translated Sentences'}</Text>
+                        <Text style={{ color: '#000000', fontSize: hp('2%'), fontWeight: 'bold' }}>{'Translated Sentences'}</Text>
                     </TouchableOpacity>
                 </View>
 
 
-                <View style={{
-                    justifyContent: 'center',
-                    
-                }}>
-                    <ImageBackground 
+                <View style={[styles.centerItems]}>
+                    <ImageBackground
                         source={require('../../images/backgroundImages/userImage.png')}
 
-                        style={{width: wp('90%'), height: hp('50%'), marginTop: 0, marginLeft: 50}}/>
-                        
+                        style={{ width: wp('90%'), height: hp('50%'), marginTop: 0, marginLeft: 50 }} />
+
                 </View>
-                
+
             </View>
         );
     }
@@ -73,8 +70,6 @@ const styles = StyleSheet.create({
         width: wp('9%'),
         height: hp('5%'),
     },
-    
-   
     button: {
         marginTop: hp('10%'),
         paddingTop: 15,
