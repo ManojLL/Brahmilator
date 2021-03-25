@@ -72,7 +72,7 @@ class ImagePreProcess extends Component {
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity>
                                     <ImageBackground
-                                        source={require('../../images/icons/threshold.png')}
+                                        source={require('../../images/icons/threshold.svg')}
                                         style={{width: wp('11.6%'), height: hp('4.8%')}}/>
                                 </TouchableOpacity>
                             </Col>
