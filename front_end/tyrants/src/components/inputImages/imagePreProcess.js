@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
     toolBar: {
         backgroundColor: '#000',
-        height: '25%',
+        height: '15%',
         flex: 1, flexDirection: 'row',
         padding: 6,
     },
