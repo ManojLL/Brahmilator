@@ -16,7 +16,6 @@ import BottomNavigator from "../navigators/BottomNavigator";
 
 const createFormData = (photo) => {
     const data = new FormData();
-    console.log(photo);
     let i = {
         uri: photo.uri,
         type: "multipart/form-data",
@@ -39,34 +38,34 @@ class MainMenu extends Component {
     }
 
     componentDidMount() {
-        this.loadAPI();
+        this.loadAPI()
     }
 
-    loadAPI = () => {
-        console.log(this.props.route.params.imgUri);
+    loadAPI = async () => {
         this.setState({ isLoading: true });
-        // setTimeout(() => {
-        //     this.setState({isLoading: false});
-        // }, 3000);// Once You Call the API Action loading will be true
-        fetch("https://192.168.8.168:5000/api/getLetters", {
-            method: "POST",
-            mode: "no-cors ",
-            headers: {
-                accept: "application/json",
-                "Content-Type": "multipart/form-data",
-            },
-            body: createFormData(this.props.route.params.imgUri),
-        })
-            .then((response) => response.json())
-            .then((response) => {
-                this.setState({ isLoading: false });
-                console.log(response);
+        try {
+            await fetch("https://192.168.8.186:5000/api/getLetters/", {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: createFormData(this.props.route.imageUri),
             })
-            .catch((error) => {
-                this.setState({ isLoading: false });
-                console.log("upload error", error);
-                alert("Upload failed!");
-            });
+                .then(response => response.json())
+                .then((json) => {
+                    this.setState({isLoading: false});
+                    console.log(json);
+                    alert("wamda komlo");
+                })
+                .catch((error) => {
+                    this.setState({isLoading: false});
+                    console.log("upload error", error);
+                    alert("Upload failed!");
+                });
+        }catch (error) {
+            console.error(error);
+        }
     };
 
     render() {
