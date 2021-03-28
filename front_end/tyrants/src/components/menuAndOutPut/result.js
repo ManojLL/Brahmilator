@@ -339,7 +339,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 20,
     backgroundColor: "orange",
-    margin: 10,
     textAlign: "center",
     fontSize: 20,
     paddingTop: 70,
