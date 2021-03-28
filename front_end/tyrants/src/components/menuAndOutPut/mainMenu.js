@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
     ActivityIndicator,
     StyleSheet,
@@ -15,19 +15,16 @@ import {
 import BottomNavigator from "../navigators/BottomNavigator";
 
 const createFormData = (photo) => {
-    const data = new FormData();
     let i = {
         uri: photo.uri,
         type: "multipart/form-data",
         name: "image.jpg",
     };
-    data.append("image", i);
+    const data = new FormData();
+    data.append('image', i)
     return data;
 };
-const headers = {
-    "content-type": "multipart/form-data",
-    accept: "application/json",
-};
+
 
 class MainMenu extends Component {
     constructor(props) {
@@ -38,21 +35,22 @@ class MainMenu extends Component {
     }
 
     componentDidMount() {
-        this.loadAPI()
+        this.loadAPI().then(r => console.log(r))
     }
 
     loadAPI = async () => {
-        this.setState({ isLoading: true });
+        this.setState({isLoading: true});
+
         try {
-            await fetch("https://192.168.8.186:5000/api/getLetters/", {
+            await fetch(' http://192.168.8.186:5000/api/getLetters', {
                 method: 'POST',
+                mode:'no-cors',
                 headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
+                    "content-type": "multipart/form-data",
                 },
-                body: createFormData(this.props.route.imageUri),
+                body: createFormData(this.props.route.params.imgUri)
             })
-                .then(response => response.json())
+                // .then(response => response.json())
                 .then((json) => {
                     this.setState({isLoading: false});
                     console.log(json);
@@ -63,7 +61,7 @@ class MainMenu extends Component {
                     console.log("upload error", error);
                     alert("Upload failed!");
                 });
-        }catch (error) {
+        } catch (error) {
             console.error(error);
         }
     };
@@ -73,8 +71,8 @@ class MainMenu extends Component {
             <View style={[styles.container]}>
                 {this.state.isLoading ? (
                     <View style={[styles.centerItems]}>
-                        <ActivityIndicator size="large" color="#ffffff" />
-                        <Text style={{ color: "#ffffff" }}>LOADING ...</Text>
+                        <ActivityIndicator size="large" color="#ffffff"/>
+                        <Text style={{color: "#ffffff"}}>LOADING ...</Text>
                     </View>
                 ) : (
                     <View style={[styles.centerItems]}>
@@ -83,7 +81,7 @@ class MainMenu extends Component {
                                 style={styles.button}
                                 onPress={() => this.props.navigation.push('Result')}
                             >
-                                <Text style={{ color: "#000000", fontWeight: "bold" }}>
+                                <Text style={{color: "#000000", fontWeight: "bold"}}>
                                     {"Translated Letters"}
                                 </Text>
                             </TouchableOpacity>
@@ -94,7 +92,7 @@ class MainMenu extends Component {
                                 style={styles.button}
                                 onPress={() => this.props.navigation.push('Result')}
                             >
-                                <Text style={{ color: "#000000", fontWeight: "bold" }}>
+                                <Text style={{color: "#000000", fontWeight: "bold"}}>
                                     {"Translated Words"}
                                 </Text>
                             </TouchableOpacity>
@@ -105,7 +103,7 @@ class MainMenu extends Component {
                                 style={styles.button}
                                 onPress={() => this.props.navigation.push('Result')}
                             >
-                                <Text style={{ color: "#000000", fontWeight: "bold" }}>
+                                <Text style={{color: "#000000", fontWeight: "bold"}}>
                                     {"Translated Sentences"}
                                 </Text>
                             </TouchableOpacity>
@@ -124,7 +122,7 @@ class MainMenu extends Component {
                     />
                 </View>
 
-                <BottomNavigator navigation={this.props.navigation} />
+                <BottomNavigator navigation={this.props.navigation}/>
             </View>
         );
     }
