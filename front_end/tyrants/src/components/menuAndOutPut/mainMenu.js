@@ -31,6 +31,9 @@ class MainMenu extends Component {
         super(props);
         this.state = {
             isLoading: true,
+            letters: [],
+            suggestions: [],
+            find: false,
         };
     }
 
@@ -42,19 +45,24 @@ class MainMenu extends Component {
         this.setState({isLoading: true});
 
         try {
-            await fetch(' http://192.168.8.186:5000/api/getLetters', {
+            await fetch('http://192.168.8.186:5000/api/getLetters', {
                 method: 'POST',
-                mode:'no-cors',
+                mode: 'no-cors',
                 headers: {
                     "content-type": "multipart/form-data",
                 },
                 body: createFormData(this.props.route.params.imgUri)
             })
-                // .then(response => response.json())
+                .then(response => response.json())
                 .then((json) => {
                     this.setState({isLoading: false});
-                    console.log(json);
-                    alert("wamda komlo");
+                    console.log(json.status_code)
+                    if (json.status_code === '200') {
+                        this.setState({letters: json.outPut.letter, find: true})
+                        console.log(this.state.letters, this.state.find)
+                    } else {
+                        this.setState({find: false})
+                    }
                 })
                 .catch((error) => {
                     this.setState({isLoading: false});
@@ -75,52 +83,55 @@ class MainMenu extends Component {
                         <Text style={{color: "#ffffff"}}>LOADING ...</Text>
                     </View>
                 ) : (
+
                     <View style={[styles.centerItems]}>
-                        <View>
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() => this.props.navigation.push('Result')}
-                            >
-                                <Text style={{color: "#000000", fontWeight: "bold"}}>
-                                    {"Translated Letters"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
+                        {this.state.find ? (
+                            <View>
+                                <View>
+                                    <TouchableOpacity
+                                        style={styles.button}
+                                        onPress={() => this.props.navigation.push('ResultLetter')}
+                                    >
+                                        <Text style={{color: "#000000", fontWeight: "bold"}}>
+                                            {"Translated Letters"}
+                                        </Text>
+                                    </TouchableOpacity>
 
-                        <View style={[styles.centerItems]}>
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() => this.props.navigation.push('Result')}
-                            >
-                                <Text style={{color: "#000000", fontWeight: "bold"}}>
-                                    {"Translated Words"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
+                                </View>
 
-                        <View style={[styles.centerItems]}>
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() => this.props.navigation.push('Result')}
-                            >
-                                <Text style={{color: "#000000", fontWeight: "bold"}}>
-                                    {"Translated Sentences"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
+                                <View>
+                                    <TouchableOpacity
+                                        style={styles.button}
+                                        onPress={() => this.props.navigation.push('Result')}
+                                    >
+                                        <Text style={{color: "#000000", fontWeight: "bold"}}>
+                                            {"Translated Words"}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                                <View>
+                                    <TouchableOpacity
+                                        style={styles.button}
+                                        onPress={() => this.props.navigation.push('Result', {
+                                            letters: 'u',
+                                            suggetion: 'wwdwdwdw'
+                                        })}
+                                    >
+                                        <Text style={{color: "#000000", fontWeight: "bold"}}>
+                                            {"Translated Sentences"}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        ) : (
+                            <View>
+                                <Text style={{color: "#ffffff"}}>CAN'T TRANSLATE THE IMAGE</Text>
+                            </View>
+                        )}
+
                     </View>
                 )}
-                <View style={[styles.centerItems]}>
-                    <ImageBackground
-                        source={require("../../images/backgroundImages/userImage.png")}
-                        style={{
-                            width: wp("90%"),
-                            height: hp("50%"),
-                            marginTop: 0,
-                            marginLeft: 50,
-                        }}
-                    />
-                </View>
 
                 <BottomNavigator navigation={this.props.navigation}/>
             </View>
@@ -137,6 +148,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+    }, centerItems1: {
+        flex: 1,
+        justifyContent: "center",
+        // alignItems: "center",
     },
 
     button: {
