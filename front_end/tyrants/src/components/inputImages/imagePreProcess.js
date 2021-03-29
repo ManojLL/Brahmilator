@@ -7,11 +7,15 @@ import {
     ImageBackground,
     TouchableOpacity,
     Button,
+    LogBox,
 } from 'react-native';
+
+
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import SvgUri from 'react-native-svg-uri';
 
+LogBox.ignoreAllLogs();
 class ImagePreProcess extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +32,7 @@ class ImagePreProcess extends Component {
             ]
         );
     }
+
     render() {
         return (
             <View style={styles.container}>
