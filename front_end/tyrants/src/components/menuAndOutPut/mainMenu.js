@@ -34,6 +34,7 @@ class MainMenu extends Component {
             letters: [],
             suggestions: [],
             find: false,
+            img:[],
         };
     }
 
@@ -90,7 +91,7 @@ class MainMenu extends Component {
                                 <View>
                                     <TouchableOpacity
                                         style={styles.button}
-                                        onPress={() => this.props.navigation.push('ResultLetter')}
+                                        onPress={() => this.props.navigation.push('ResultLetter', {letters: this.state.letters,images:this.state.img})}
                                     >
                                         <Text style={{color: "#000000", fontWeight: "bold"}}>
                                             {"Translated Letters"}

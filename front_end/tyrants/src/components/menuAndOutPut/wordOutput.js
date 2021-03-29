@@ -5,7 +5,7 @@ import {
     Text,
     View,
     ScrollView,
-    TouchableOpacity,
+    TouchableOpacity, ImageBackground,
 } from "react-native";
 import {
     widthPercentageToDP as wp,
@@ -25,7 +25,14 @@ import BottomNavigator from "../navigators/BottomNavigator";
 class ResultLetter extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            letters: [],
+            img: []
+        };
+    }
+
+    componentDidMount() {
+        this.setState({letters: this.props.route.params.letters, img: this.props.route.params.images})
     }
 
     render() {
@@ -51,53 +58,55 @@ class ResultLetter extends Component {
             },
         ];
         return (
-            <View style={styles.container}>
-                <View style={[{flexDirection: "row", alignItems: "center"}]}>
-                    <View style={[{flex: 1, flexDirection: "row"}]}>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.titleText}>Translation</Text>
+            <View>
+                <View style={styles.container}>
+                    <View style={[{flexDirection: "row", alignItems: "center"}]}>
+                        <View style={[{flex: 1, flexDirection: "row"}]}>
+                            <View style={styles.textContainer}>
+                                <Text style={styles.titleText}>Translated letters</Text>
+                            </View>
+                        </View>
+                        <View
+                            style={[
+                                {
+                                    justifyContent: "space-evenly",
+                                    marginVertical: 10,
+                                    color: "#FFC542",
+                                },
+                            ]}
+                        >
+                            <Dropdown
+                                label="Select"
+                                data={data}
+                                style={{
+                                    marginTop: 5,
+                                    fontWeight: "bold",
+                                    fontFamily: "SF Pro Rounded",
+                                    fontSize: 16,
+                                    textAlign: "right",
+                                }}
+                            />
                         </View>
                     </View>
-                    <View
-                        style={[
-                            {
-                                justifyContent: "space-evenly",
-                                marginVertical: 10,
-                                color: "#FFC542",
-                            },
-                        ]}
-                    >
-                        <Dropdown
-                            label="Select"
-                            data={data}
-                            style={{
-                                marginTop: 5,
-                                fontWeight: "bold",
-                                fontFamily: "SF Pro Rounded",
-                                fontSize: 16,
-                                textAlign: "right",
-                            }}
-                        />
-                    </View>
+
+                    <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: hp('7%')}}>
+                        {this.state.letters.map((letter,index) => (
+                            <View style={{flex: 1, flexDirection: 'row',}} key={index}>
+                                <ImageBackground
+                                    source={require('../../images/icons/retake.png')}
+                                    style={{width: wp('35%'), height: hp('20%'), marginLeft: 20}}/>
+                                <View style={{justifyContent: "center"}}>
+                                    <Text
+                                        style={{color: "#ffffff", marginLeft: 20, fontSize: hp('3%'),}}>{letter}</Text>
+                                </View>
+
+                            </View>
+                        ))}
+
+
+                    </ScrollView>
+
                 </View>
-
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    {/* Translated inscription in Sinhala  */}
-                    <Textarea
-                        containerStyle={styles.textareaContainer}
-                        style={styles.textarea}
-                        onChangeText={this.onChange}
-                        defaultValue={this.state.text}
-                        editable={false}
-                        maxLength={1000}
-                        placeholder={
-                            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,"
-                        }
-                        placeholderTextColor={"#c7c7c7"}
-                        underlineColorAndroid={"transparent"}
-                    />
-
-                </ScrollView>
                 <BottomNavigator navigation={this.props.navigation}/>
             </View>
         );
