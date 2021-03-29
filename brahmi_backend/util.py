@@ -1,6 +1,7 @@
 import json
 
-def make_response(result, ok,code):
+
+def make_response(result, ok, code):
     if isinstance(result, str):
         response = {
             'status_code': str(code),
@@ -12,7 +13,7 @@ def make_response(result, ok,code):
     response = {
         'status_code': str(code),
         'status': str(ok),
-        'outPut':result
+        'outPut': result
     }
 
     return json.dumps(response)
