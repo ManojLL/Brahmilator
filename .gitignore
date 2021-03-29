@@ -1,7 +1,8 @@
 front_end/tyrants/.gitignore
-front_end/tyrants/.idea
-/.idea
-/.gitignore
 front_end/tyrants/package-lock.json
 front_end/tyrants/package.json
 /venv/*
+brahmi_backend/.idea/
+features/.idea/
+front_end/tyrants/android/java_pid36510.hprof
+brahmi_backend/segmentation_module/.idea/
