@@ -1,5 +1,7 @@
 front_end/tyrants/.gitignore
 front_end/tyrants/.idea/*
+front_end/tyrants/node_modules/*
+front_end/tyrants/package-lock.json
 .idea/*
 .gitignore
 front_end/tyrants/package-lock.json
