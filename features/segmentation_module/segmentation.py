@@ -22,10 +22,6 @@ def showimages():
     cv2.imshow("Binary Image", bin_img)
     cv2.imshow("Threshold Image", final_thr)
 
-
-# cv2.imshow("Contour Image", final_contr)
-# cv2.imshow('noise_remove Image', noise_remove)
-
     plt.show()
 
 
@@ -221,15 +217,6 @@ grey_img = cv2.bitwise_not(grey_img)
 
 print("Applying Adaptive Threshold with kernel :- 21 X 21")
 bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
-
-# im_floodfill = bin_img.copy()
-# h, w = bin_img.shape[:2]
-# mask = np.zeros((h + 2, w + 2), np.uint8)
-# cv2.floodFill(im_floodfill, mask, (0, 0), 255);
-# im_floodfill_inv = cv2.bitwise_not(im_floodfill)
-# im_out = bin_img | im_floodfill_inv
-# cv2.imshow("Foreground", im_out)
-
 
 bin_img1 = bin_img.copy()
 bin_img2 = bin_img.copy()
