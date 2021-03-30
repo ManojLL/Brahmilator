@@ -186,7 +186,7 @@ def letter_seg(lines_img, x_lines, i):
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
             cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
-                        255 - letter_img)
+                        letter_img)
         # print(letter[e][0],x_linescopy[0], word)
 
 
