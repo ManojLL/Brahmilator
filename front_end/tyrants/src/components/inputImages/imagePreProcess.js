@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
@@ -7,55 +7,61 @@ import {
     ImageBackground,
     TouchableOpacity,
     Button,
+    LogBox,
 } from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {Col, Row, Grid} from 'react-native-easy-grid';
 
+
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import SvgUri from 'react-native-svg-uri';
+
+LogBox.ignoreAllLogs();
 class ImagePreProcess extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
-    closeClick = ()=>{
+    closeClick = () => {
         Alert.alert(
             'Alert Title',
             'Alert message here...',
             [
-                {text: 'NO',style:  'cancel'},
-                {text: 'YES', onPress: () => this.props.navigation.navigate('Home')},
+                { text: 'NO', style: 'cancel' },
+                { text: 'YES', onPress: () => this.props.navigation.navigate('Home') },
             ]
         );
     }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={[styles.toolBar, styles.centerItems]}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                        <TouchableOpacity onPress={() =>this.closeClick() }>
-                            <ImageBackground
-                                source={require('../../images/icons/close.png')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <TouchableOpacity onPress={() => this.closeClick()}>
+                            <SvgUri
+                                source={require('../../images/icons/close.svg')}
+                                style={{ width: wp('7%'), height: hp('3%'), marginLeft: 20 }} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{flex: 1, flexDirection: 'row-reverse'}}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Main-Menu',{imgUri: this.props.route.params.imgUri})}>
-                            <ImageBackground
-                                source={require('../../images/icons/process.png')}
-                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
+                    <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Main-Menu', { imgUri: this.props.route.params.imgUri })}>
+                            <SvgUri
+                                source={require('../../images/icons/retake.svg')}
+                                style={{ width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8 }} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera')}>
-                            <ImageBackground
-                                source={require('../../images/icons/retake.png')}
-                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
+                            <SvgUri
+                                source={require('../../images/icons/process.svg')}
+                                style={{ width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8 }} />
                         </TouchableOpacity>
                     </View>
 
                 </View>
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
-                        source={{uri:this.props.route.params.imgUri.uri}}
-                        style={{width: wp('90%'), height: hp("70%"), marginTop: 10}}/>
+                        source={{ uri: this.props.route.params.imgUri.uri }}
+                        style={{ width: wp('90%'), height: hp("70%"), marginTop: 10 }} />
                 </View>
 
 
@@ -64,37 +70,37 @@ class ImagePreProcess extends Component {
                         <Row>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity>
-                                    <ImageBackground
-                                        source={require('../../images/icons/exposure.png')}
-                                        style={{width: wp('11%'), height: hp('5%')}}/>
+                                    <SvgUri
+                                        source={require('../../images/icons/exposure.svg')}
+                                        style={{ width: wp('11%'), height: hp('5%') }} />
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity>
-                                    <ImageBackground
-                                        source={require('../../images/icons/threshold.png')}
-                                        style={{width: wp('11.6%'), height: hp('4.8%')}}/>
+                                    <SvgUri
+                                        source={require('../../images/icons/threshold.svg')}
+                                        style={{ width: wp('11%'), height: hp('5%') }} />
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity>
-                                    <ImageBackground
-                                        source={require('../../images/icons/erosion.png')}
-                                        style={{width: wp('9.6%'), height: hp('4.8%')}}/>
+                                    <SvgUri
+                                        source={require('../../images/icons/erosion.svg')}
+                                        style={{ width: wp('11%'), height: hp('5%') }} />
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity>
-                                    <ImageBackground
-                                        source={require('../../images/icons/morph.png')}
-                                        style={{width: wp('8.5%'), height: hp('5.5%')}}/>
+                                    <SvgUri
+                                        source={require('../../images/icons/morph.svg')}
+                                        style={{ width: wp('11%'), height: hp('5%') }} />
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity>
-                                    <ImageBackground
-                                        source={require('../../images/icons/dialation.png')}
-                                        style={{width: wp('9.6%'), height: hp('4.8%')}}/>
+                                    <SvgUri
+                                        source={require('../../images/icons/dialation.svg')}
+                                        style={{ width: wp('11%'), height: hp('5%') }} />
                                 </TouchableOpacity>
                             </Col>
                         </Row>
@@ -121,7 +127,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
         height: '15%',
         flex: 1, flexDirection: 'row',
-        padding: 10,
+        padding: 6,
     },
 
 

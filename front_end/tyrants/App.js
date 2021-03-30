@@ -22,6 +22,8 @@ import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/sta
 import SplashScreen from './src/components/splashScreen/splash';
 import MainMenu from "./src/components/menuAndOutPut/mainMenu";
 import BottomNavigator from "./src/components/navigators/BottomNavigator";
+import Result from "./src/components/menuAndOutPut/result";
+import ResultLetter from "./src/components/menuAndOutPut/wordOutput";
 // const AppNavigator = createStackNavigator({
 //   Home: {screen: Home, navigationOptions: {headerShown: false}},
 //   PreviewImg: {screen: ImagePreview, navigationOptions: {headerShown: false}},
@@ -41,6 +43,8 @@ export default class App extends Component {
                 <Stack.Screen name="Pre-process" component={ImagePreProcess} />
                 <Stack.Screen name="Main-Menu" component={MainMenu} />
                 <Stack.Screen name="BorderNav" component={BottomNavigator} />
+                <Stack.Screen name="Result" component={Result}/>
+                <Stack.Screen name="ResultLetter" component={ResultLetter}/>
             </Stack.Navigator>
         </NavigationContainer>);
   }

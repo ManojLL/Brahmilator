@@ -1,9 +1,12 @@
 front_end/tyrants/.gitignore
+<<<<<<< HEAD
 front_end/tyrants/.idea/*
 front_end/tyrants/node_modules/*
 front_end/tyrants/package-lock.json
 .idea/*
 .gitignore
+=======
+>>>>>>> 2df34998017b3f68d61b381a0a5901060d460124
 front_end/tyrants/package-lock.json
 front_end/tyrants/package.json
 /venv/*
