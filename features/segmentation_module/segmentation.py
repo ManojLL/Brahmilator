@@ -22,6 +22,10 @@ def showimages():
     cv2.imshow("Binary Image", bin_img)
     cv2.imshow("Threshold Image", final_thr)
 
+
+# cv2.imshow("Contour Image", final_contr)
+# cv2.imshow('noise_remove Image', noise_remove)
+
     plt.show()
 
 
@@ -108,6 +112,7 @@ def refine_endword(array):
     # refine_list.append(array[-1])
     return refine_list
 
+
 def refine_array(array_upper, array_lower):
     upperlines = []
     lowerlines = []
@@ -174,7 +179,17 @@ def letter_seg(lines_img, x_lines, i):
             letter_index += 1
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
-            letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
+            try:
+                letter_img = cv2.resize(letter_img_tmp, dsize=(256, 256), interpolation=cv2.INTER_LINEAR)
+            except Exception as e:
+                print(str(e))
+            # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
+            # im_floodfill = im_th.copy()
+            # h, w = im_th.shape[:2]
+            # mask = np.zeros((h + 2, w + 2), np.uint8)
+            # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+            # im_floodfill_inv = cv2.bitwise_not(im_floodfill)
+            # im_out = im_th | im_floodfill_inv
 
             cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         letter_img)
@@ -184,7 +199,17 @@ def letter_seg(lines_img, x_lines, i):
             letter_index = 1
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
-            letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
+            letter_img = cv2.resize(letter_img_tmp, dsize=(256, 256), interpolation=cv2.INTER_LINEAR)
+
+
+            # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
+            # im_floodfill = im_th.copy()
+            # h, w = im_th.shape[:2]
+            # mask = np.zeros((h + 2, w + 2), np.uint8)
+            # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+            # im_floodfill_inv = cv2.bitwise_not(im_floodfill)
+            # im_out = im_th | im_floodfill_inv
+
             cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         letter_img)
         # print(letter[e][0],x_linescopy[0], word)
@@ -213,11 +238,10 @@ print("\tHeight =", height, "\n\tWidth =", width)
 print("#----------------------------#")
 
 grey_img = cv2.cvtColor(src_img, cv2.COLOR_BGR2GRAY)
-grey_img = cv2.bitwise_not(grey_img)
 
 print("Applying Adaptive Threshold with kernel :- 21 X 21")
-bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
-
+# bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
+bin_img = grey_img
 bin_img1 = bin_img.copy()
 bin_img2 = bin_img.copy()
 
@@ -226,7 +250,7 @@ kernel1 = np.array([[1, 0, 1], [0, 1, 0], [1, 0, 1]], dtype=np.uint8)
 # final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_OPEN, kernel)
 # final_thr = cv2.dilate(bin_img,kernel1,iterations = 1)
 print("Noise Removal From Image.........")
-final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_CLOSE, kernel)
+final_thr = cv2.morphologyEx(grey_img, cv2.MORPH_CLOSE, kernel)
 contr_retrival = final_thr.copy()
 
 # -------------/Thresholding Image-------------#
