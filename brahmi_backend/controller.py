@@ -4,6 +4,7 @@ import filetype
 import services
 import cv2
 from tqdm import tqdm
+from googletrans import Translator
 from util import make_response
 from segmentation import image_segmentation
 from pre_process_module import preprocessImage
@@ -83,6 +84,13 @@ def prePrecessImage():
         print(e)
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
+
+@app.route("/api/translate/<value>", methods=["POST"])
+def translate(value):
+    translator = Translator()
+    translate = translator.translate(value, src='si', dest='en')
+    response = make_response(translate.text, False, 200)
+    return Response(response=response, status=200, mimetype='application/json')
 
 
 if __name__ == '__main__':
