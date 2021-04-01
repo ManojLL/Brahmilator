@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-classification_model = "../features/classification_model/saved-models/saved-models-mobilenet4"
+classification_model = "../features/classification_model/saved-models/saved-models-mobilenet6"
 segmented_letters = "segmented_letters"
 
 loaded_model = tf.keras.models.load_model(classification_model)
