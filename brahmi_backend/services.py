@@ -4,18 +4,20 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-classification_model = "../features/classification_model/saved-models/saved-models-mobilenet6"
+classification_model = "../features/classification_model/saved-models/saved-models-mobilenet3"
 segmented_letters = "segmented_letters"
 
 loaded_model = tf.keras.models.load_model(classification_model)
 
 CATEGORIES = ["a", "ga+i", "ka", "ma", "ra", "sa3"]
 
+
 def prepare(filepath):
     IMG_SIZE = 224
     img_array = cv2.imread(filepath)
     new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
+
 
 def classify_letters():
     test_path = os.path.join(segmented_letters)

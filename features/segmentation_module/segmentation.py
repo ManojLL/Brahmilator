@@ -22,10 +22,6 @@ def showimages():
     cv2.imshow("Binary Image", bin_img)
     cv2.imshow("Threshold Image", final_thr)
 
-
-# cv2.imshow("Contour Image", final_contr)
-# cv2.imshow('noise_remove Image', noise_remove)
-
     plt.show()
 
 
@@ -112,7 +108,6 @@ def refine_endword(array):
     # refine_list.append(array[-1])
     return refine_list
 
-
 def refine_array(array_upper, array_lower):
     upperlines = []
     lowerlines = []
@@ -180,8 +175,9 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
+
             cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
-                        255 - letter_img)
+                        letter_img)
         else:
             x_linescopy.pop(0)
             word += 1
@@ -190,7 +186,7 @@ def letter_seg(lines_img, x_lines, i):
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
             cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
-                        255 - letter_img)
+                        letter_img)
         # print(letter[e][0],x_linescopy[0], word)
 
 
@@ -217,9 +213,11 @@ print("\tHeight =", height, "\n\tWidth =", width)
 print("#----------------------------#")
 
 grey_img = cv2.cvtColor(src_img, cv2.COLOR_BGR2GRAY)
+grey_img = cv2.bitwise_not(grey_img)
 
 print("Applying Adaptive Threshold with kernel :- 21 X 21")
 bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
+
 bin_img1 = bin_img.copy()
 bin_img2 = bin_img.copy()
 

@@ -4,19 +4,22 @@ import os
 
 input_data = "input_data"
 
+
 def empty(a):
     pass
+
 
 def getKernelValue(input):
     result = 0
     if input == 0:
-        result = 0  # means no input
+        result = 0  # means no input_data
     elif input % 2 != 1:
         result = input + 1
     elif input % 2 == 1:
         result = input
 
     return result
+
 
 def preprocessImage(image_name):
     path = os.path.join(input_data, image_name)
@@ -137,5 +140,3 @@ def preprocessImage(image_name):
     cv2.waitKey(0)
 
     cv2.destroyAllWindows()
-
-

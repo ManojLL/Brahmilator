@@ -15,6 +15,7 @@ input_data = "input_data"
 pre_process_data = "pre_process_data"
 segmented_letters = "segmented_letters"
 
+
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
     try:
@@ -25,7 +26,7 @@ def translateLetters():
             image_segmentation(image_name)
             classify_letters = services.classify_letters()
             result = {'letter': classify_letters}
-            response = make_response(result,True,200)
+            response = make_response(result, True, 200)
             os.remove(os.path.join(input_data, image_name))
             return Response(response=response, status=200, mimetype='application/json')
         else:
@@ -37,7 +38,7 @@ def translateLetters():
         return Response(response=response, status=404, mimetype='application/json')
 
 
-@app.route('/api/segmentedImage', methods= ['POST'])
+@app.route('/api/segmentedImage', methods=['POST'])
 def segmentedImages():
     try:
         image = request.files["image"]
@@ -94,4 +95,4 @@ def translate(value):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run('0.0.0.0')
