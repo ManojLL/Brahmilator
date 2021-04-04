@@ -49,19 +49,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac72ccc3-8388-4e88-9f1b-1083688460ac" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/segmentation_module.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pre_process_module/pre_process_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pre_process_module/pre_process_module.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/segmented_img1_1_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/segmented_img1_1_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/segmented_img1_1_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/segmented_img1_1_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/segmented_img1_1_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/segmented_img1_1_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/segmented_img1_1_7.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/segmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/segmentation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -103,7 +92,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.segmentation">
+    <configuration name="pre_process_module" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="segmentation_module" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../pre_process_module" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../pre_process_module/pre_process_module.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="segmentation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="segmentation_module" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -129,6 +140,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.segmentation" />
+        <item itemvalue="Python.pre_process_module" />
       </list>
     </recent_temporary>
   </component>
@@ -151,7 +163,8 @@
       <workItem from="1615871836152" duration="599000" />
       <workItem from="1616045868842" duration="41000" />
       <workItem from="1617282431829" duration="98000" />
-      <workItem from="1617282752324" duration="1327000" />
+      <workItem from="1617282752324" duration="3547000" />
+      <workItem from="1617548700009" duration="1211000" />
     </task>
     <servers />
   </component>
@@ -183,6 +196,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/segmentation_py$segmentation.coverage" NAME="segmentation Coverage Results" MODIFIED="1617283498003" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/segmentation_py$pre_process_module.coverage" NAME="pre_process_module Coverage Results" MODIFIED="1617549782980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../pre_process_module" />
+    <SUITE FILE_PATH="coverage/segmentation_py$segmentation.coverage" NAME="segmentation Coverage Results" MODIFIED="1617549845537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

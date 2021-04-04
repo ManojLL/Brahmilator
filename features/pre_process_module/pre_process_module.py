@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-path = "image2.jpg"
+path = "plate3.jpg"
 img = cv2.imread(path)
 
 

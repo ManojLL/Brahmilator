@@ -3,10 +3,21 @@ import sys
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import os
+import os, shutil
 
 # np.set_printoptions(threshold='1')
 sys.setrecursionlimit(10 ** 6)
+
+folder = 'test'
+for filename in os.listdir(folder):
+    file_path = os.path.join(folder, filename)
+    try:
+        if os.path.isfile(file_path) or os.path.islink(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except Exception as e:
+        print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 # ------------------Functions------------------#
@@ -22,9 +33,8 @@ def showimages():
     cv2.imshow("Binary Image", bin_img)
     cv2.imshow("Threshold Image", final_thr)
 
-
-# cv2.imshow("Contour Image", final_contr)
-# cv2.imshow('noise_remove Image', noise_remove)
+    # cv2.imshow("Contour Image", final_contr)
+    # cv2.imshow('noise_remove Image', noise_remove)
 
     plt.show()
 
@@ -201,7 +211,6 @@ def letter_seg(lines_img, x_lines, i):
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(256, 256), interpolation=cv2.INTER_LINEAR)
 
-
             # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
             # im_floodfill = im_th.copy()
             # h, w = im_th.shape[:2]
@@ -285,13 +294,13 @@ if len(upperlines) == len(lowerlines):
 
 else:
     print("Too much noise in image, unable to process.\nPlease try with another image. Ctrl-C to exit:- ")
-    showimages()
-    k = cv2.waitKey(0)
-    while 1:
-        k = cv2.waitKey(0)
-        if k & 0xFF == ord('q'):
-            cv2.destroyAllWindows()
-            exit()
+    # showimages()
+    # k = cv2.waitKey(0)
+    # while 1:
+    #     k = cv2.waitKey(0)
+    #     if k & 0xFF == ord('q'):
+    #         cv2.destroyAllWindows()
+    #         exit()
 
 lines = np.array(lines)
 
