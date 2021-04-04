@@ -294,13 +294,13 @@ if len(upperlines) == len(lowerlines):
 
 else:
     print("Too much noise in image, unable to process.\nPlease try with another image. Ctrl-C to exit:- ")
-    showimages()
-    k = cv2.waitKey(0)
-    while 1:
-        k = cv2.waitKey(0)
-        if k & 0xFF == ord('q'):
-            cv2.destroyAllWindows()
-            exit()
+    # showimages()
+    # k = cv2.waitKey(0)
+    # while 1:
+    #     k = cv2.waitKey(0)
+    #     if k & 0xFF == ord('q'):
+    #         cv2.destroyAllWindows()
+    #         exit()
 
 lines = np.array(lines)
 
