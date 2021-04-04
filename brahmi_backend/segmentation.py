@@ -8,6 +8,7 @@ input_data = "input_data"
 
 sys.setrecursionlimit(10 ** 6)
 
+
 def line_array(array):
     list_x_upper = []
     list_x_lower = []
