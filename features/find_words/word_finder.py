@@ -5,7 +5,7 @@ def charCount(word):
     return dict
 
 
-def possible_words(lwords, charSet):
+def possible_words(lwords, charSet, input2):
     for word in lwords:
         flag = 1
         chars = charCount(word)
@@ -16,10 +16,11 @@ def possible_words(lwords, charSet):
                 if charSet.count(key) != chars[key]:
                     flag = 0
         if flag == 1:
-            print(word)
+            index = lwords.index(word)
+            print(word + ' : ' + input2[index])
 
 
-if __name__ == "__main__":
-    input = ['go', 'bat', 'me', 'eat', 'goal', 'boy', 'run']
-    charSet = ['e', 'o', 'b', 'a', 'm', 'g', 'l']
-    possible_words(input, charSet)
+input = ['go', 'bat', 'me', 'eat', 'goal', 'boy', 'run']
+input2 = ['g+o', 'b+a+t', 'm+e', 'e+a+t', 'g+o+a+l', 'b+o+y', 'r+u+n']
+charSet = ['e', 'o', 'b', 'a', 'm', 'g', 'l']
+possible_words(input, charSet, input2)
