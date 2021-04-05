@@ -18,6 +18,7 @@ segmented_letters = "segmented_letters"
 
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
+    global image_name
     try:
         image = request.files["image"]
         image_name = image.filename
@@ -30,12 +31,12 @@ def translateLetters():
             os.remove(os.path.join(input_data, image_name))
             return Response(response=response, status=200, mimetype='application/json')
         else:
-            response = make_response('The file is NOT an Image', False, 200)
-            return Response(response=response, status=200, mimetype='application/json')
+            response = make_response('The file is NOT an Image', False, 403)
+            return Response(response=response, status=403, mimetype='application/json')
     except Exception as e:
+        os.remove(os.path.join(input_data, image_name))
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
-
 
 @app.route('/api/segmentedImage', methods=['POST'])
 def segmentedImages():
