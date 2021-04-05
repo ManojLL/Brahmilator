@@ -4,12 +4,8 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-<<<<<<< HEAD
+classification_model = "saved-models-mobilenet6"
 
-classification_model = "/saved-models-mobilenet6"
-=======
-classification_model = "../features/classification_model/saved-models/saved-models-mobilenet6"
->>>>>>> 383bf2c3adae846144e72783b77da05d5790714c
 segmented_letters = "segmented_letters"
 
 loaded_model = tf.keras.models.load_model(classification_model)
