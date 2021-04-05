@@ -4,12 +4,18 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
+<<<<<<< HEAD
 classification_model = "../features/classification_model/saved-models/saved-models-mobilenet4"
+=======
+classification_model = "../features/classification_model/saved-models/saved-models-mobilenet6"
+>>>>>>> 219706497af134045af8da7f79d4f15824c5bfac
 segmented_letters = "segmented_letters"
 
 loaded_model = tf.keras.models.load_model(classification_model)
 
-CATEGORIES = ["a", "ga+i", "ka", "ma", "ra", "sa3"]
+CATEGORIES = ["a", "ba", "bha", "ca", "cha", "da1", "da2", "dha1", "dha2", "e", "ga", "gha", "ha", "i", "ja", "jha",
+              "ka", "kha", "la", "la2", "ma", "na1", "na2", "o", "pa", "pha", "ra", "sa1", "sa2", "sa3", "ta1", "tha1",
+              "tha2", "u", "u2", "va", "ya"]
 
 
 def prepare(filepath):
@@ -29,11 +35,7 @@ def classify_letters():
         testing_results[img] = CATEGORIES[int(np.argmax(prediction))]
         os.remove(os.path.join(test_path, img))
 
-    print()
-    print("------ Results ------")
     for x in testing_results:
-        print(x, " : ", testing_results[x])
         results.append(testing_results[x])
-    print("---------------------")
 
     return results
