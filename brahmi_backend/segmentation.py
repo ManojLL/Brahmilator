@@ -139,7 +139,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             try:
-                letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_LINEAR)
+                letter_img = cv2.resize(letter_img_tmp, dsize=(224, 224), interpolation=cv2.INTER_LINEAR)
             except Exception as e:
                 print(str(e))
             cv2.imwrite(
@@ -152,7 +152,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             try:
-                letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_LINEAR)
+                letter_img = cv2.resize(letter_img_tmp, dsize=(224, 224), interpolation=cv2.INTER_LINEAR)
             except Exception as e:
                 print(str(e))
             cv2.imwrite(
