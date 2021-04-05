@@ -1,6 +1,3 @@
-# Function to print words which can be created
-# using given set of characters
-
 def charCount(word):
     dict = {}
     for i in word:
@@ -23,6 +20,6 @@ def possible_words(lwords, charSet):
 
 
 if __name__ == "__main__":
-    input = ['go', 'bat', 'me', 'eat', 'goal', 'boy', 'run', 'ate']
-    charSet = ['e', 'o', 'b', 'a', 'm', 'g', 'l', 't']
+    input = ['go', 'bat', 'me', 'eat', 'goal', 'boy', 'run']
+    charSet = ['e', 'o', 'b', 'a', 'm', 'g', 'l']
     possible_words(input, charSet)

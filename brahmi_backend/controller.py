@@ -24,12 +24,20 @@ def translateLetters():
         image_name = image.filename
         image.save(os.path.join(input_data, image_name))
         if filetype.is_image(os.path.join(input_data, image_name)):
-            image_segmentation(image_name)
-            classify_letters = services.classify_letters()
-            result = {'letter': classify_letters}
-            response = make_response(result, True, 200)
-            os.remove(os.path.join(input_data, image_name))
-            return Response(response=response, status=200, mimetype='application/json')
+            flag = image_segmentation(image_name)
+            if (flag == True):
+                classify_letters = services.classify_letters()
+                result = {'letter': classify_letters}
+                response = make_response(result, True, 200)
+                os.remove(os.path.join(input_data, image_name))
+                return Response(response=response, status=200, mimetype='application/json')
+            else:
+                test_path = os.path.join(segmented_letters)
+                for img in tqdm(os.listdir(test_path)):
+                    os.remove(os.path.join(test_path, img))
+                os.remove(os.path.join(input_data, image_name))
+                response = make_response("Too much noise", True, 200)
+                return Response(response=response, status=200, mimetype='application/json')
         else:
             response = make_response('The file is NOT an Image', False, 403)
             return Response(response=response, status=403, mimetype='application/json')
