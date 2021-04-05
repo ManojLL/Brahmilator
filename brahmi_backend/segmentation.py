@@ -221,14 +221,8 @@ def image_segmentation(img):
         for y in range(len(upperlines)):
             lines.append((upperlines[y], lowerlines[y]))
 
-    # else:
-    #     print("Too much noise in image, unable to process")
-    #     k = cv2.waitKey(0)
-    #     while 1:
-    #         k = cv2.waitKey(0)
-    #         if k & 0xFF == ord('q'):
-    #             cv2.destroyAllWindows()
-    #             exit()
+    else:
+        return False
 
     lines = np.array(lines)
 
@@ -274,3 +268,5 @@ def image_segmentation(img):
             cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # -------------/Character segmenting-----------#
+
+    return True
