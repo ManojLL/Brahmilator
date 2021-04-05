@@ -49,7 +49,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac72ccc3-8388-4e88-9f1b-1083688460ac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../brahmi_backend/segmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../brahmi_backend/segmentation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -164,6 +164,7 @@
       <workItem from="1617282752324" duration="3547000" />
       <workItem from="1617548700009" duration="1211000" />
       <workItem from="1617549953400" duration="319000" />
+      <workItem from="1617604677068" duration="381000" />
     </task>
     <servers />
   </component>
