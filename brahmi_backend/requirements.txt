@@ -6,3 +6,4 @@ filetype==1.0.7
 services==0.1.1
 Flask==1.1.2
 matplotlib==3.3.4
+googletrans==3.0.0
