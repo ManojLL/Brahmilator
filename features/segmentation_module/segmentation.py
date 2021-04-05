@@ -8,7 +8,7 @@ import os, shutil
 # np.set_printoptions(threshold='1')
 sys.setrecursionlimit(10 ** 6)
 
-folder = 'test'
+folder = 'output'
 for filename in os.listdir(folder):
     file_path = os.path.join(folder, filename)
     try:
@@ -190,7 +190,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             try:
-                letter_img = cv2.resize(letter_img_tmp, dsize=(256, 256), interpolation=cv2.INTER_LINEAR)
+                letter_img = cv2.resize(letter_img_tmp, dsize=(224, 224), interpolation=cv2.INTER_LINEAR)
             except Exception as e:
                 print(str(e))
             # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
@@ -209,7 +209,10 @@ def letter_seg(lines_img, x_lines, i):
             letter_index = 1
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
-            letter_img = cv2.resize(letter_img_tmp, dsize=(256, 256), interpolation=cv2.INTER_LINEAR)
+            try:
+                letter_img = cv2.resize(letter_img_tmp, dsize=(224, 224), interpolation=cv2.INTER_LINEAR)
+            except Exception as e:
+                print(str(e))
 
             # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
             # im_floodfill = im_th.copy()

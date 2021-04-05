@@ -1,13 +1,24 @@
+import os
+import shutil
 import sys
 
 import cv2
 import numpy as np
-import os
 
 input_data = "input_data"
 
 sys.setrecursionlimit(10 ** 6)
 
+folder = 'segmented_letters'
+for filename in os.listdir(folder):
+    file_path = os.path.join(folder, filename)
+    try:
+        if os.path.isfile(file_path) or os.path.islink(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except Exception as e:
+        print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 def line_array(array):
     list_x_upper = []
