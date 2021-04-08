@@ -13,6 +13,7 @@ import {
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import BottomNavigator from "../navigators/BottomNavigator";
+import NetInfo from "@react-native-community/netinfo";
 
 const createFormData = (photo) => {
     let i = {
@@ -35,11 +36,22 @@ class MainMenu extends Component {
             suggestions: [],
             find: false,
             img:[],
+            connection : true,
+            errorMessage:''
         };
     }
 
     componentDidMount() {
-        this.loadAPI().then(r => console.log(r))
+        NetInfo.fetch().then(state=>{
+            if(state.isConnected){
+                this.loadAPI().then(r => console.log(r))
+            }else {
+                alert("connect to ineter net and try again")
+                this.setState({connection : false})
+                this.props.navigation.navigate('Pre-process', {imgUri: this.props.route.params.imgUri})
+            }
+        })
+
     }
 
     loadAPI = async () => {
@@ -63,7 +75,7 @@ class MainMenu extends Component {
                         this.setState({letters: json.outPut.letter, find: true})
                         console.log(this.state.letters, this.state.find)
                     } else {
-                        this.setState({find: false})
+                        this.setState({find: false,errorMessage:json.outPut})
                     }
                 })
                 .catch((error) => {
@@ -129,6 +141,8 @@ class MainMenu extends Component {
                         ) : (
                             <View>
                                 <Text style={{color: "#ffffff"}}>CAN'T TRANSLATE THE IMAGE</Text>
+                                {}
+                                <Text style={{color: "#ffffff"}}>ERROR : {this.state.errorMessage}</Text>
                             </View>
                         )}
 
