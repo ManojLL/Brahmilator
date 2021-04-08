@@ -52,8 +52,8 @@ class ImagePreview extends Component {
 
     closeClick = () => {
         Alert.alert(
-            'Alert Title',
-            'Alert message here...',
+            'GO BACK',
+            '',
             [
                 { text: 'NO', style: 'cancel' },
                 { text: 'YES', onPress: () => this.props.navigation.navigate('Camera') },
