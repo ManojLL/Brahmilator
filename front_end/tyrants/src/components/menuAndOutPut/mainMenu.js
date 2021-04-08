@@ -36,6 +36,7 @@ class MainMenu extends Component {
             suggestions: [],
             find: false,
             img:[],
+            connection : true,
         };
     }
 
@@ -45,7 +46,8 @@ class MainMenu extends Component {
                 this.loadAPI().then(r => console.log(r))
             }else {
                 alert("connect to ineter net and try again")
-                // todo rederect
+                this.setState({connection : false})
+                this.props.navigation.navigate('Pre-process', {imgUri: this.props.route.params.imgUri})
             }
         })
 
