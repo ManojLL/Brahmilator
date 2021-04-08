@@ -5,6 +5,7 @@ import {
     Text,
     View,
     ScrollView,
+    LogBox,
     TouchableOpacity, ImageBackground,
 } from "react-native";
 import {
@@ -21,7 +22,7 @@ import {
     AccordionList,
 } from "accordion-collapse-react-native";
 import BottomNavigator from "../navigators/BottomNavigator";
-
+LogBox.ignoreAllLogs();
 class ResultLetter extends Component {
     constructor(props) {
         super(props);
@@ -63,7 +64,7 @@ class ResultLetter extends Component {
                     <View style={[{flexDirection: "row", alignItems: "center"}]}>
                         <View style={[{flex: 1, flexDirection: "row"}]}>
                             <View style={styles.textContainer}>
-                                <Text style={styles.titleText}>Translated letters</Text>
+                                <Text style={styles.titleText}> Translated letters</Text>
                             </View>
                         </View>
                         <View
@@ -72,6 +73,7 @@ class ResultLetter extends Component {
                                     justifyContent: "space-evenly",
                                     marginVertical: 10,
                                     color: "#FFC542",
+                                    width:80,
                                 },
                             ]}
                         >
@@ -79,11 +81,12 @@ class ResultLetter extends Component {
                                 label="Select"
                                 data={data}
                                 style={{
-                                    marginTop: 5,
+                                    marginTop: 4,
                                     fontWeight: "bold",
                                     fontFamily: "SF Pro Rounded",
                                     fontSize: 16,
                                     textAlign: "right",
+                                    
                                 }}
                             />
                         </View>
@@ -105,10 +108,11 @@ class ResultLetter extends Component {
 
 
                     </ScrollView>
-
+                    <BottomNavigator navigation={this.props.navigation}/>
                 </View>
-                <BottomNavigator navigation={this.props.navigation}/>
+                
             </View>
+            
         );
     }
 }
@@ -117,8 +121,8 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#333",
         height: "100%",
-        paddingLeft: 5,
-        paddingRight: 5,
+        // paddingLeft: 5,
+        // paddingRight: 5,
     },
     welcome: {
         flex: 1,
