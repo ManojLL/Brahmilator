@@ -5,7 +5,7 @@ import {
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
-    Button, Image, Platform, CameraRoll
+    Button, Image, Platform, CameraRoll,Alert
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { dirPicutures } from "./dirStorage";
@@ -32,7 +32,15 @@ class ImagePreview extends Component {
         super(props);
         this.state = {
             ImageUri: '',
+            width:0,
+            height:0,
         };
+    }
+
+    componentDidMount() {
+       // Image.getSize(this.props.route.params.imgUri.uri,(width, height) =>{
+       //     console.log(width*90/(100*wp),height)
+       // })
     }
 
     saveImage = async (filePath) => {
@@ -50,20 +58,31 @@ class ImagePreview extends Component {
         }
     };
 
+    closeClick = () => {
+        Alert.alert(
+            'GO BACK',
+            '',
+            [
+                { text: 'NO', style: 'cancel' },
+                { text: 'YES', onPress: () => this.props.navigation.navigate('Camera') },
+            ]
+        );
+    }
+
     render() {
         return (
             <View style={styles.container}>
 
                 <View style={[styles.imagePrev, styles.centerItems]}>
-                    <Image
+                    <ImageBackground
                         source={{ uri: this.props.route.params.imgUri.uri }}
                         // source={require(this.props.navigation.state.params.imgUri)}
-                        style={{ width: wp('90%'), height: hp("70%") }} />
+                        style={{ width: wp('90%'), height: hp('85%') }} resizeMode={'contain'} />
                 </View>
                 <View style={[styles.toolBar, styles.centerItems]}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <TouchableOpacity activeOpacity={0.5}
-                            onPress={() => this.props.navigation.navigate('Camera')}>
+                            onPress={() => this.closeClick()}>
                             <SvgUri
                                 source={require('../../images/icons/process.svg')}
                                 style={{ width: wp('7%'), height: hp('3%'), marginLeft: 20 }} />

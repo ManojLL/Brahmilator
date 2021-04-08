@@ -19,13 +19,24 @@ LogBox.ignoreAllLogs();
 class ImagePreProcess extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            exposureModal: false,
+            exposureValue: 0,
+            thresholdModal: false,
+            thresholdValue: 0,
+            erosionModal: false,
+            erosionValue: 0,
+            morphModal: false,
+            morphValue: 0,
+            dialationModal: false,
+            dialationValue: 0,
+        };
     }
 
     closeClick = () => {
         Alert.alert(
-            'Alert Title',
-            'Alert message here...',
+            'GO BACK',
+            '',
             [
                 { text: 'NO', style: 'cancel' },
                 { text: 'YES', onPress: () => this.props.navigation.navigate('Home') },
@@ -61,7 +72,7 @@ class ImagePreProcess extends Component {
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
                         source={{ uri: this.props.route.params.imgUri.uri }}
-                        style={{ width: wp('90%'), height: hp("70%"), marginTop: 10 }} />
+                        style={{ width: wp('90%'), height: hp("70%"), marginTop: 10 }} resizeMode={'contain'} />
                 </View>
 
 
