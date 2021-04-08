@@ -8,7 +8,7 @@ model_save_path = "./saved-models/saved-models-mobilenet"
 model_save_path1 = "./saved-models/saved-models-mobilenet1"
 model_save_path2 = "./saved-models/saved-models-mobilenet2"
 model_save_path3 = "./saved-models/saved-models-mobilenet3"
-TESTDIR = "Early_Brahmi/test/"
+TESTDIR = "brahmi_data/test"
 
 loaded_model = tf.keras.models.load_model(model_save_path2)
 
@@ -19,13 +19,13 @@ CATEGORIES = ["a", "ba", "ba+i", "ba+o", "ba+u", "bha", "ca", "ca+e", "cha", "da
               "pa+e", "pa+i", "pa+u", "pha", "ra", "sa1", "sa2", "sa3", "ta", "ta+e", "ta+i", "ta+u", "ta1", "tha1",
               "tha2", "u", "u2", "va", "ya", "ya+e"]  # 66
 
-CATEGORIES1 = ["a", "ba", "ba+i", "ba+o", "ba+u", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da+u", "da1",
-               "dha1", "dha2", "e", "ga", "ga+i", "gha", "ha", "ha+a", "i",
-               "ja", "jha", "jha+e", "jha+i", "jha+u", "ka", "ka+e", "ka+i", "kha", "la", "la+e", "la+u", "la2", "ma",
-               "ma+i", "na", "na+e", "na+u", "na2", "na2+i", "o", "pa",
-               "pa+e", "pa+i", "pa+u", "pha", "ra", "sa1", "sa1+e", "sa1+i", "sa1+o", "sa1+u", "sa2", "sa3", "ta",
-               "ta+e", "ta+i", "ta+u", "ta1", "tha1",
-               "tha2", "u", "u2", "va", "va+e", "va+i", "ya", "ya+e"]  # 71
+CATEGORIES1 = ["a", "ba", "ba+i", "ba+o", "ba+u", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da+u", "da1", "da1+i",
+               "dha1", "dha2", "dha2+i",  "e", "ga", "ga+i", "gha", "gha+i", "ha", "ha+a", "i",
+               "ja", "jha", "jha+i", "ka", "ka+e", "ka+i", "kha", "la", "la+e", "la+u", "la2", "ma",
+               "ma+i", "na", "na+e", "na+i", "na+u", "na2", "o", "pa",
+               "pa+i", "pa+u", "pha", "ra", "sa+e", "sa+i", "sa+o", "sa+u", "sa1", "sa2", "sa3", "ta",
+               "ta+e", "ta+i", "ta+u", "ta1", "tha+e", "tha1",
+               "tha2", "u", "u2", "va", "va+e", "va+i", "ya", "ya+e"]  # 72
 
 CATEGORIES2 = ["a", "da", "ga", "ha", "ka", "la", "ta", "va"]  # 8
 
@@ -44,12 +44,13 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-test_path = os.path.join(TESTDIR, "a")
+test_path = os.path.join(TESTDIR, "da")
 
 testing_results = {}
 
 for img in tqdm(os.listdir(test_path)):
     prediction = loaded_model.predict([prepare(os.path.join(test_path, img))])
+    prediction
     testing_results[img] = CATEGORIES2[int(np.argmax(prediction))]
 
 print()
