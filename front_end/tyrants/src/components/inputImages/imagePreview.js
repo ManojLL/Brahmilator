@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
-    Button, Image,Platform,CameraRoll
+    Button, Image, Platform, CameraRoll,Alert
 } from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {dirPicutures} from "./dirStorage";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { dirPicutures } from "./dirStorage";
+import SvgUri from 'react-native-svg-uri';
 const moment = require('moment');
 
 const RNFS = require('react-native-fs');
@@ -34,7 +35,7 @@ class ImagePreview extends Component {
         };
     }
 
-    saveImage = async(filePath) => {
+    saveImage = async (filePath) => {
         try {
             console.log(filePath)
             // set new image name and filepath
@@ -49,36 +50,47 @@ class ImagePreview extends Component {
         }
     };
 
+    closeClick = () => {
+        Alert.alert(
+            'GO BACK',
+            '',
+            [
+                { text: 'NO', style: 'cancel' },
+                { text: 'YES', onPress: () => this.props.navigation.navigate('Camera') },
+            ]
+        );
+    }
+
     render() {
         return (
             <View style={styles.container}>
 
                 <View style={[styles.imagePrev, styles.centerItems]}>
-                    <Image
-                        source={{uri: this.props.route.params.imgUri.uri}}
+                    <ImageBackground
+                        source={{ uri: this.props.route.params.imgUri.uri }}
                         // source={require(this.props.navigation.state.params.imgUri)}
-                        style={{width: wp('90%'), height: hp("70%")}}/>
+                        style={{ width: wp('96%'), height: hp("80%") }} />
                 </View>
                 <View style={[styles.toolBar, styles.centerItems]}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
                         <TouchableOpacity activeOpacity={0.5}
-                                          onPress={() => this.props.navigation.navigate('Camera')}>
-                            <ImageBackground
-                                source={require('../../images/icons/retake.png')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            onPress={() => this.closeClick()}>
+                            <SvgUri
+                                source={require('../../images/icons/process.svg')}
+                                style={{ width: wp('7%'), height: hp('3%'), marginLeft: 20 }} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{flex: 1, flexDirection: 'row-reverse'}}>
+                    <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.push('Pre-process', {imgUri: this.props.route.params.imgUri})}>
-                            <ImageBackground
-                                source={require('../../images/icons/process.png')}
-                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20}}/>
+                            onPress={() => this.props.navigation.push('Pre-process', { imgUri: this.props.route.params.imgUri })}>
+                            <SvgUri
+                                source={require('../../images/icons/retake.svg')}
+                                style={{ width: wp('7%'), height: hp('3%'), marginRight: 20 }} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>this.saveImage(this.props.route.params.imgUri)}>
-                            <ImageBackground
-                                source={require('../../images/icons/save.png')}
-                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20}}/>
+                        <TouchableOpacity onPress={() => this.saveImage(this.props.route.params.imgUri)}>
+                            <SvgUri
+                                source={require('../../images/icons/save.svg')}
+                                style={{ width: wp('7%'), height: hp('3%'), marginRight: 20 }} />
                         </TouchableOpacity>
                     </View>
 

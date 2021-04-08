@@ -1,5 +1,6 @@
 import React, {Component,useState} from 'react';
 import {Col, Row, Grid} from 'react-native-easy-grid';
+import SvgUri from 'react-native-svg-uri';
 import { View,Text,StyleSheet,ImageBackground, TouchableOpacity, Button, Alert,} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -104,15 +105,15 @@ console.log(response)
                         <View style={[styles.toolBar]}>
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-                                    <ImageBackground
-                                        source={require('../../images/icons/close.png')}
+                                    <SvgUri
+                                        source={require('../../images/icons/close.svg')}
                                         style={{width: wp('5%'), height: hp('3%')}}/>
                                 </TouchableOpacity>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row-reverse'}}>
                                 <TouchableOpacity  onPress={() => this.toggleTorch() }>
-                                    <ImageBackground
-                                        source={require('../../images/icons/flash.png')}
+                                    <SvgUri
+                                        source={require('../../images/icons/flash.svg')}
                                         style={{width:  wp('5%'), height: hp('3%')}}/>
                                 </TouchableOpacity>
                             </View>
@@ -127,8 +128,8 @@ console.log(response)
                             <Col style={styles.alignCenter}>
                                 <View>
                                     <TouchableOpacity style={{}} onPress={this.launchImageLibrary}>
-                                        <ImageBackground
-                                            source={require('../../images/icons/upload.png')}
+                                        <SvgUri
+                                            source={require('../../images/icons/upload.svg')}
                                             style={{width: wp('8.2%'), height: hp('4%')}}/>
                                     </TouchableOpacity>
                                 </View>

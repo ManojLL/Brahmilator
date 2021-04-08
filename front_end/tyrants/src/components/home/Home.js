@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
@@ -10,6 +10,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import SvgUri from 'react-native-svg-uri';
 
 class Home extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class Home extends Component {
                 }}>
                     <ImageBackground
                         source={require('../../images/icons/homeImge1.png')}
-                        style={styles.img}/>
+                        style={styles.img} />
 
                 </View>
                 <View style={styles.textContainer}>
@@ -42,15 +43,15 @@ class Home extends Component {
                     <Text>at your service</Text>
                 </View>
                 <View style={styles.centerItems}>
-                    <ImageBackground
-                        source={require('../../images/backgroundImages/homeImg.png')}
+                    <SvgUri
+                        source={require('../../images/backgroundImages/homeImg.svg')}
 
-                        style={{width: wp('80%'), height: hp('40%'), marginTop: 40}}/>
+                        style={{ width: wp('80%'), height: hp('40%'), marginTop: 40 }} />
                 </View>
 
                 <View style={[styles.centerItems]}>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.push('Camera')}>
-                        <Text style={{color: '#000000'}}>{'Get started'}</Text>
+                        <Text style={{ color: '#000000' }}>{'Get started'}</Text>
                     </TouchableOpacity>
                 </View>
 
