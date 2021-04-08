@@ -19,7 +19,18 @@ LogBox.ignoreAllLogs();
 class ImagePreProcess extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            exposureModal: false,
+            exposureValue: 0,
+            thresholdModal: false,
+            thresholdValue: 0,
+            erosionModal: false,
+            erosionValue: 0,
+            morphModal: false,
+            morphValue: 0,
+            dialationModal: false,
+            dialationValue: 0,
+        };
     }
 
     closeClick = () => {
