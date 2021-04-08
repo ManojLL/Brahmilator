@@ -13,6 +13,7 @@ import {
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import BottomNavigator from "../navigators/BottomNavigator";
+import NetInfo from "@react-native-community/netinfo";
 
 const createFormData = (photo) => {
     let i = {
@@ -39,7 +40,15 @@ class MainMenu extends Component {
     }
 
     componentDidMount() {
-        this.loadAPI().then(r => console.log(r))
+        NetInfo.fetch().then(state=>{
+            if(state.isConnected){
+                this.loadAPI().then(r => console.log(r))
+            }else {
+                alert("connect to ineter net and try again")
+                // todo rederect
+            }
+        })
+
     }
 
     loadAPI = async () => {
