@@ -13,6 +13,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.1.6",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/netinfo": "^6.0.0",
     "@react-navigation/native": "^5.9.2",
     "@react-navigation/stack": "^5.14.2",
     "accordion-collapse-react-native": "^1.0.0",
@@ -20,7 +21,7 @@
     "react": "16.13.1",
     "react-collapsible": "^2.8.3",
     "react-dom": "^17.0.1",
-    "react-native": "^0.64.0",
+    "react-native": "^0.63.4",
     "react-native-camera": "^3.42.0",
     "react-native-collapsible": "^1.4.0",
     "react-native-easy-grid": "^0.2.2",

@@ -37,6 +37,7 @@ class MainMenu extends Component {
             find: false,
             img:[],
             connection : true,
+            errorMessage:''
         };
     }
 
@@ -74,7 +75,7 @@ class MainMenu extends Component {
                         this.setState({letters: json.outPut.letter, find: true})
                         console.log(this.state.letters, this.state.find)
                     } else {
-                        this.setState({find: false})
+                        this.setState({find: false,errorMessage:json.outPut})
                     }
                 })
                 .catch((error) => {
@@ -140,6 +141,8 @@ class MainMenu extends Component {
                         ) : (
                             <View>
                                 <Text style={{color: "#ffffff"}}>CAN'T TRANSLATE THE IMAGE</Text>
+                                {}
+                                <Text style={{color: "#ffffff"}}>ERROR : {this.state.errorMessage}</Text>
                             </View>
                         )}
 
