@@ -32,7 +32,15 @@ class ImagePreview extends Component {
         super(props);
         this.state = {
             ImageUri: '',
+            width:0,
+            height:0,
         };
+    }
+
+    componentDidMount() {
+       // Image.getSize(this.props.route.params.imgUri.uri,(width, height) =>{
+       //     console.log(width*90/(100*wp),height)
+       // })
     }
 
     saveImage = async (filePath) => {
@@ -69,7 +77,7 @@ class ImagePreview extends Component {
                     <ImageBackground
                         source={{ uri: this.props.route.params.imgUri.uri }}
                         // source={require(this.props.navigation.state.params.imgUri)}
-                        style={{ width: wp('96%'), height: hp("80%") }} />
+                        style={{ width: wp('90%'), height: hp('85%') }} resizeMode={'contain'} />
                 </View>
                 <View style={[styles.toolBar, styles.centerItems]}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
