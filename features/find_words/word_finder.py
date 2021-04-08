@@ -1,26 +1,30 @@
-def charCount(word):
-    dict = {}
-    for i in word:
-        dict[i] = dict.get(i, 0) + 1
-    return dict
+def Possible_Words(character):
+   x = {}
+   for n in character:
+      x[n] = x.get(n, 0) + 1
+   return x
+
+def character_set(w, character, str):
+   for char in w:
+      value = 1
+      m = Possible_Words(char)
+      for k in m:
+         if k not in character:
+            value = 0
+         else:
+            if character.count(k) != m[k]:
+               value = 0
+      if value == 1:
+         if (char in str):
+             print(char)
 
 
-def possible_words(lwords, charSet, input2):
-    for word in lwords:
-        flag = 1
-        chars = charCount(word)
-        for key in chars:
-            if key not in charSet:
-                flag = 0
-            else:
-                if charSet.count(key) != chars[key]:
-                    flag = 0
-        if flag == 1:
-            index = lwords.index(word)
-            print(word + ' : ' + input2[index])
 
+data = ['fat', 'tap', 'day', 'fun', 'man', 'ant', 'bag', 'aim']
+words = ['m', 'p', 'e', 'd', 'f', 'a', 't', 'y', 'i']
 
-input = ['go', 'bat', 'me', 'eat', 'goal', 'boy', 'run']
-input2 = ['g+o', 'b+a+t', 'm+e', 'e+a+t', 'g+o+a+l', 'b+o+y', 'r+u+n']
-charSet = ['e', 'o', 'b', 'a', 'm', 'g', 'l']
-possible_words(input, charSet, input2)
+str = ""
+for x in range(len(words)):
+    str += words[x]
+
+character_set(data, words, str)
