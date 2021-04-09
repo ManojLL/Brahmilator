@@ -1,28 +1,35 @@
-id,word,meaning,letter_seperation
-1,agatana,ones who is present,a+ga+ta+na
-2,agatase,ones who are present,a+ga+ta+se
-3,agataanaagatasa,to those who are present or will be present,a+ga+ta+a+na+a+ga+ta+sa
-4,agatamagana,all who are come,a+ga+ta+ma+ga+ta
-5,Agabala,foremost in strength,A+ga+ba+la
-6,Agi,fire/god of fire,A+(ga+i)
-7,Agi-data,given by god of fire,A+(ga+i)-da+ta
-8,Agi-deva,one whose diety is Agni,A+(ga+i)+(da+e)+va
-9,Agi-buti,one who owes his existence to agni,A+(ga+i)+(ba+u)+(ta+i)
-10,nila,dark complexioned,(na+i)+la
-11,samuda,ocean,sa+(ma+u)+da
-12,parumaka,chief,pa+(ra+u)+ma+ka
-13,bata,brother/lord,ba+ta
-14,naga,younger sister,na+ga
-15,Naga,devine cobra,Na+ga
-16,lene,cave,(la+e)+(na+e)
-17,sena,army,(sa+e)+na
-18,terasa,chief monk,(ta+e)+ra+sa
-19,mala ,champion,ma+la
-20,marumanaka,grand son,ma+(ra+u)+ma+na+ka
-21,cada,moon,ca+da
-22,ha,be verb(is/are),ha
-23,Tisa,name of an asterism,(Ta+i)+sa
-24,anubuti,one who has experienced good,a+(na+u)+(ba+u)+(ta+i)
-29,anagata,one who has not come/absent,a+na+ga+ta
-30,,,
-33,abaya,fearless,a+ba+ya
+id,word,meaning
+1,agatana,ones who is present
+2,agatase,ones who are present
+3,agataanaagatasa,to those who are present or will be present
+4,agatamagana,all who are come
+5,Agabala,foremost in strength
+6,Agi,fire/god of fire
+7,Agi-data,given by god of fire
+8,Agi-deva,one whose diety is Agni
+9,Agi-buti,one who owes his existence to agni
+10,nila,dark complexioned
+11,samuda,ocean
+12,parumaka,chief
+13,bata,brother/lord
+14,naga,younger sister
+15,Naga,devine cobra
+16,lene,cave
+17,sena,army
+18,terasa,chief monk
+19,mala ,champion
+20,marumanaka,grand son
+21,cada,moon
+22,ha,be verb(is/are)
+23,Tisa,name of an asterism
+24,anubuti,one who has experienced good
+29,anagata,one who has not come/absent
+30,Anodi,faultless
+33,abaya,fearless
+34,aparimita,boundless
+35,abala,sourness
+36,Amara,immortal
+37,Avirada,one who has no opponant
+38,Uga,strong
+39,kama,work
+40,kavi,poet
