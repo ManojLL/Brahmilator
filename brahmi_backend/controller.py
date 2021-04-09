@@ -6,9 +6,11 @@ from googletrans import Translator
 import io
 from base64 import encodebytes
 from PIL import Image
+import pymongo
 from util import make_response
 import brahmi_classifier
 from segmentation import image_segmentation
+from possible_word_finder import searchForWords
 
 app = Flask(__name__)
 
@@ -95,6 +97,19 @@ def segmentedImages():
         os.remove(os.path.join(input_data, image_name))
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
+
+@app.route('/api/getPossibleWords', methods=['POST'])
+def getPossibleWords():
+    data = request.args.getlist("letters")
+
+    myclient = pymongo.MongoClient("mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+    mydb = myclient["brahmilator_database"]
+    column = mydb["words"]
+
+    result = searchForWords(column, data)
+
+    response = make_response(result, True, 200)
+    return Response(response=response, status=200, mimetype='application/json')
 
 @app.route("/api/translate/<sentence>/<src_lan>/<dest_lan>", methods=["POST"])
 def translate(sentence, src_lan, dest_lan):
