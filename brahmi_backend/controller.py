@@ -92,10 +92,10 @@ def prePrecessImage():
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
-@app.route("/api/translate/<value>", methods=["POST"])
-def translate(value):
+@app.route("/api/translate/<sentence>/<src_lan>/<dest_lan>", methods=["POST"])
+def translate(sentence, src_lan, dest_lan):
     translator = Translator()
-    translate = translator.translate(value, src='si', dest='en')
+    translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
     response = make_response(translate.text, False, 200)
     return Response(response=response, status=200, mimetype='application/json')
 
