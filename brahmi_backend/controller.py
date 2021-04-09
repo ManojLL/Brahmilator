@@ -6,6 +6,9 @@ import cv2
 from tqdm import tqdm
 from googletrans import Translator
 import base64
+import io
+from base64 import encodebytes
+from PIL import Image
 import json
 import io
 from flask import send_file
@@ -63,19 +66,18 @@ def segmentedImages():
 
             test_path = os.path.join(segmented_letters)
 
-            response = []
+            segmented_images = []
 
             for img in tqdm(os.listdir(test_path)):
-                with open(os.path.join(test_path, img), "rb") as image_file:
-                    encoded_string = base64.b64encode(image_file.read())
-
-                response.append(encoded_string)
-
+                image_path = os.path.join(test_path, img)
+                encoded_img = get_response_image(image_path)
+                segmented_images.append(encoded_img)
                 os.remove(os.path.join(test_path, img))
 
-            print(*response, sep="\n\n\n")
+            result = {'images': segmented_images}
 
-            return Response(response=response, status=200, mimetype='image/jpeg')
+            response = make_response(result, True, 200)
+            return Response(response=response, status=200, mimetype='application/json')
         else:
             response = make_response('The file is NOT an Image', False, 200)
             return Response(response=response, status=200, mimetype='application/json')
@@ -83,6 +85,14 @@ def segmentedImages():
         print(e)
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
+
+def get_response_image(image_path):
+    pil_img = Image.open(image_path, mode='r') # reads the PIL image
+    byte_arr = io.BytesIO()
+    pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
+    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
+    return encoded_img
+
 
 @app.route("/api/preprocessImage", methods=["POST"])
 def prePrecessImage():
