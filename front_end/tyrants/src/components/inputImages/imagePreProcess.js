@@ -67,6 +67,7 @@ class ImagePreProcess extends Component {
                         />
 
                         <View style={styles.modalItems}>
+                            <Text style={{color:'#ffffff'}}> exposure </Text>
                             <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
                                 <SvgUri
                                     source={require('../../images/icons/save.svg')}
@@ -101,6 +102,7 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
+                            <Text style={{color:'#ffffff'}}> threshold </Text>
                             <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
                                 <SvgUri
                                     source={require('../../images/icons/save.svg')}
@@ -136,6 +138,7 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
+                            <Text style={{color:'#ffffff'}}> erosion </Text>
                             <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
                                 <SvgUri
                                     source={require('../../images/icons/save.svg')}
@@ -170,6 +173,7 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
+                            <Text style={{color:'#ffffff'}}> morph </Text>
                             <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
                                 <SvgUri
                                     source={require('../../images/icons/save.svg')}
@@ -204,6 +208,7 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
+                            <Text style={{color:'#ffffff'}}> dialation </Text>
                             <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
                                 <SvgUri
                                     source={require('../../images/icons/save.svg')}
