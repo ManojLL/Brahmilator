@@ -1,19 +1,35 @@
 import pymongo
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["mydatabase"]
+myclient = pymongo.MongoClient(
+    "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+print(myclient.test)
 
-print(client.list_database_names())
+# Creating the database
+mydb = myclient["brahmilator_database"]
+print("database created")
 
-dblist = client.list_database_names()
-if "mydatabase" in dblist:
-  print("The database exists.")
+dblist = myclient.list_database_names()
+if "brahmilator_database" in dblist:
+    print("The database exists")
 
+column = mydb["words"]
 
-column_index_one = db["word"]
-column_index_two = db["meaning"]
-
-words = { "akara": "house", "biku": "monk" }
+words = [
+    {"brahmi": "akara", "eng": "house"},
+    {"brahmi": "biku", "eng": "monk"},
+]
 
 # insert data into the column one -> word
-x = column_index_one.insert_one(words)
+x = column.insert_many(words)
+
+# print list of the _id values of the inserted documents:
+print(x.inserted_ids)
+
+myquery = {"brahmi": "biku"}
+
+mydoc = column.find(myquery)
+
+for x in mydoc:
+    print(x)
+
+column.delete_many({})
