@@ -1,6 +1,7 @@
 /.idea
 /assets
 /brahmi_data/*
+/brahmi_data_reduced/*
 /logs/*
 /venv/*
 /variables
