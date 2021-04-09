@@ -65,12 +65,13 @@ class ImagePreProcess extends Component {
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#000000"
                         />
+
+                        <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
+                            <SvgUri
+                                source={require('../../images/icons/save.svg')}
+                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
-                        <SvgUri
-                            source={require('../../images/icons/save.svg')}
-                            style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
-                    </TouchableOpacity>
                 </Modal>
 
                 {/* thresholdModal*/}
@@ -90,10 +91,13 @@ class ImagePreProcess extends Component {
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#000000"
                         />
+
+                        <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
+                            <SvgUri
+                                source={require('../../images/icons/save.svg')}
+                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
-                        <Text>Hide Me!</Text>
-                    </TouchableOpacity>
                 </Modal>
 
 
@@ -114,10 +118,13 @@ class ImagePreProcess extends Component {
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#000000"
                         />
+
+                        <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
+                            <SvgUri
+                                source={require('../../images/icons/save.svg')}
+                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
-                        <Text>Hide Me!</Text>
-                    </TouchableOpacity>
                 </Modal>
 
                 {/* morphModal*/}
@@ -137,10 +144,13 @@ class ImagePreProcess extends Component {
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#000000"
                         />
+
+                        <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
+                            <SvgUri
+                                source={require('../../images/icons/save.svg')}
+                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
-                        <Text>Hide Me!</Text>
-                    </TouchableOpacity>
                 </Modal>
 
                 {/* dialationModal*/}
@@ -160,10 +170,13 @@ class ImagePreProcess extends Component {
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#000000"
                         />
+
+                        <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
+                            <SvgUri
+                                source={require('../../images/icons/save.svg')}
+                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
-                        <Text>Hide Me!</Text>
-                    </TouchableOpacity>
                 </Modal>
 
                 <View style={[styles.toolBar, styles.centerItems]}>
