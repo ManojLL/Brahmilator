@@ -5,6 +5,8 @@ import services
 import cv2
 from tqdm import tqdm
 from googletrans import Translator
+import base64
+import json
 import io
 from flask import send_file
 from base64 import encodebytes
@@ -64,9 +66,11 @@ def segmentedImages():
             response = []
 
             for img in tqdm(os.listdir(test_path)):
-                image = cv2.imread(os.path.join(test_path, img))
-                _, img_encoded = cv2.imencode('.jpg', image)
-                response.append(img_encoded.tostring())
+                with open(os.path.join(test_path, img), "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+
+                response.append(encoded_string)
+
                 os.remove(os.path.join(test_path, img))
 
             print(*response, sep="\n\n\n")
