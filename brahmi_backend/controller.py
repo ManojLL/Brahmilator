@@ -67,7 +67,7 @@ def segmentedImages():
                 image = cv2.imread(os.path.join(test_path, img))
                 _, img_encoded = cv2.imencode('.jpg', image)
                 response.append(img_encoded.tostring())
-                # os.remove(os.path.join(test_path, img))
+                os.remove(os.path.join(test_path, img))
 
             print(*response, sep="\n\n\n")
 
