@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 import {
     View,
     Text,
@@ -7,19 +7,31 @@ import {
     ImageBackground,
     TouchableOpacity,
     Button,
-    LogBox,
+    LogBox, Modal,
 } from 'react-native';
+import Slider from '@react-native-community/slider';
 
-
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 import SvgUri from 'react-native-svg-uri';
 
 LogBox.ignoreAllLogs();
+
 class ImagePreProcess extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            exposureModal: false,
+            exposureValue: 0,
+            thresholdModal: false,
+            thresholdValue: 0,
+            erosionModal: false,
+            erosionValue: 0,
+            morphModal: false,
+            morphValue: 0,
+            dialationModal: false,
+            dialationValue: 0,
+        };
     }
 
     closeClick = () => {
@@ -27,8 +39,8 @@ class ImagePreProcess extends Component {
             'GO BACK',
             '',
             [
-                { text: 'NO', style: 'cancel' },
-                { text: 'YES', onPress: () => this.props.navigation.navigate('Home') },
+                {text: 'NO', style: 'cancel'},
+                {text: 'YES', onPress: () => this.props.navigation.navigate('Home')},
             ]
         );
     }
@@ -36,32 +48,151 @@ class ImagePreProcess extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {/* exposureModal*/}
+
+                <Modal
+                    transparent={true}
+                    animationType={'none'}
+                    visible={this.state.exposureModal}
+                    onRequestClose={() => {
+                        console.log('close modal')
+                    }}>
+                    <View>
+                        <Slider
+                            style={{width: 200, height: 40}}
+                            minimumValue={0}
+                            maximumValue={1}
+                            minimumTrackTintColor="#FFFFFF"
+                            maximumTrackTintColor="#000000"
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
+                        <SvgUri
+                            source={require('../../images/icons/save.svg')}
+                            style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                    </TouchableOpacity>
+                </Modal>
+
+                {/* thresholdModal*/}
+
+                <Modal
+                    transparent={true}
+                    animationType={'none'}
+                    visible={this.state.thresholdModal}
+                    onRequestClose={() => {
+                        console.log('close modal')
+                    }}>
+                    <View>
+                        <Slider
+                            style={{width: 200, height: 40}}
+                            minimumValue={0}
+                            maximumValue={1}
+                            minimumTrackTintColor="#FFFFFF"
+                            maximumTrackTintColor="#000000"
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
+                        <Text>Hide Me!</Text>
+                    </TouchableOpacity>
+                </Modal>
+
+
+                {/* erosionModal*/}
+
+                <Modal
+                    transparent={true}
+                    animationType={'none'}
+                    visible={this.state.erosionModal}
+                    onRequestClose={() => {
+                        console.log('close modal')
+                    }}>
+                    <View>
+                        <Slider
+                            style={{width: 200, height: 40}}
+                            minimumValue={0}
+                            maximumValue={1}
+                            minimumTrackTintColor="#FFFFFF"
+                            maximumTrackTintColor="#000000"
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
+                        <Text>Hide Me!</Text>
+                    </TouchableOpacity>
+                </Modal>
+
+                {/* morphModal*/}
+
+                <Modal
+                    transparent={true}
+                    animationType={'none'}
+                    visible={this.state.morphModal}
+                    onRequestClose={() => {
+                        console.log('close modal')
+                    }}>
+                    <View>
+                        <Slider
+                            style={{width: 200, height: 40}}
+                            minimumValue={0}
+                            maximumValue={1}
+                            minimumTrackTintColor="#FFFFFF"
+                            maximumTrackTintColor="#000000"
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
+                        <Text>Hide Me!</Text>
+                    </TouchableOpacity>
+                </Modal>
+
+                {/* dialationModal*/}
+
+                <Modal
+                    transparent={true}
+                    animationType={'none'}
+                    visible={this.state.dialationModal}
+                    onRequestClose={() => {
+                        console.log('close modal')
+                    }}>
+                    <View>
+                        <Slider
+                            style={{width: 200, height: 40}}
+                            minimumValue={0}
+                            maximumValue={1}
+                            minimumTrackTintColor="#FFFFFF"
+                            maximumTrackTintColor="#000000"
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
+                        <Text>Hide Me!</Text>
+                    </TouchableOpacity>
+                </Modal>
+
                 <View style={[styles.toolBar, styles.centerItems]}>
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
                         <TouchableOpacity onPress={() => this.closeClick()}>
                             <SvgUri
                                 source={require('../../images/icons/close.svg')}
-                                style={{ width: wp('7%'), height: hp('3%'), marginLeft: 20 }} />
+                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Main-Menu', { imgUri: this.props.route.params.imgUri })}>
+                    <View style={{flex: 1, flexDirection: 'row-reverse'}}>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('Main-Menu', {imgUri: this.props.route.params.imgUri})}>
                             <SvgUri
                                 source={require('../../images/icons/retake.svg')}
-                                style={{ width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8 }} />
+                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera')}>
                             <SvgUri
                                 source={require('../../images/icons/process.svg')}
-                                style={{ width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8 }} />
+                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
                         </TouchableOpacity>
                     </View>
 
                 </View>
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
-                        source={{ uri: this.props.route.params.imgUri.uri }}
-                        style={{ width: wp('90%'), height: hp("70%"), marginTop: 10 }} />
+                        source={{uri: this.props.route.params.imgUri.uri}}
+                        style={{width: wp('90%'), height: hp("70%"), marginTop: 10}} resizeMode={'contain'}/>
                 </View>
 
 
@@ -69,38 +200,38 @@ class ImagePreProcess extends Component {
                     <Grid>
                         <Row>
                             <Col style={styles.alignCenter}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({exposureModal: true})}>
                                     <SvgUri
                                         source={require('../../images/icons/exposure.svg')}
-                                        style={{ width: wp('11%'), height: hp('5%') }} />
+                                        style={{width: wp('11%'), height: hp('5%')}}/>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({thresholdModal: true})}>
                                     <SvgUri
                                         source={require('../../images/icons/threshold.svg')}
-                                        style={{ width: wp('11%'), height: hp('5%') }} />
+                                        style={{width: wp('11%'), height: hp('5%')}}/>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({erosionModal: true})}>
                                     <SvgUri
                                         source={require('../../images/icons/erosion.svg')}
-                                        style={{ width: wp('11%'), height: hp('5%') }} />
+                                        style={{width: wp('11%'), height: hp('5%')}}/>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({morphModal: true})}>
                                     <SvgUri
                                         source={require('../../images/icons/morph.svg')}
-                                        style={{ width: wp('11%'), height: hp('5%') }} />
+                                        style={{width: wp('11%'), height: hp('5%')}}/>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({dialationModal: true})}>
                                     <SvgUri
                                         source={require('../../images/icons/dialation.svg')}
-                                        style={{ width: wp('11%'), height: hp('5%') }} />
+                                        style={{width: wp('11%'), height: hp('5%')}}/>
                                 </TouchableOpacity>
                             </Col>
                         </Row>

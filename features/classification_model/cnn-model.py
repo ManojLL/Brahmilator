@@ -23,16 +23,17 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 NAME = "Brahmi-CNN"
 
 MODELDIR = "./"
-DATADIR = "Early_Brahmi/train"
+DATADIR = "Data"
 TESTDIR = "Early_Brahmi/test"
 VALDIR = "Early_Brahmi/validation"
 
 CATEGORIES = ["a", "ba", "ba+i", "ba+o", "ba+u", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da+u", "da1",
-              "dha1", "dha2", "e", "ga", "ga+i", "gha", "ha", "ha+a", "i",
-              "ja", "jha", "jha+e", "jha+i", "jha+u", "ka", "ka+e", "ka+i", "kha", "la", "la+e", "la+u", "la2", "ma",
-              "ma+i", "na", "na+e", "na+u", "na2", "na2+i", "o", "pa",
-              "pa+e", "pa+i", "pa+u", "pha", "ra", "sa1", "sa2", "sa3", "ta", "ta+e", "ta+i", "ta+u", "ta1", "tha1",
-              "tha2", "u", "u2", "va", "ya", "ya+e"]
+               "dha1", "dha2", "e", "ga", "ga+i", "gha", "ha", "ha+a", "i",
+               "ja", "jha", "jha+i", "ka", "ka+e", "ka+i", "kha", "la", "la+e", "la+u", "la2", "ma",
+               "ma+i", "na", "na+e", "na+u", "na2", "o", "pa",
+               "pa+i", "pa+u", "pha", "ra", "sa1", "sa+e", "sa+i", "sa+o", "sa+u", "sa2", "sa3", "ta",
+               "ta+e", "ta+i", "ta+u", "ta1", "tha1",
+               "tha2", "u", "u2", "va", "va+e", "va+i", "ya", "ya+e"]
 
 # for category in CATEGORIES:
 #     path = os.path.join(DATADIR, category)  # create path
