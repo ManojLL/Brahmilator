@@ -1,0 +1,20 @@
+id,word,meaning,letter_seperation
+1,agatana,ones who is present,a+ga+ta+na
+2,agatase,ones who are present,a+ga+ta+se
+3,agataanaagatasa,to those who are present or will be present,a+ga+ta+a+na+a+ga+ta+sa
+4,agatamagana,all who are come,a+ga+ta+ma+ga+ta
+5,Agabala,foremost in strength,A+ga+ba+la
+6,Agi,fire/god of fire,A+(ga+i)
+7,Agi-data,given by god of fire,A+(ga+i)-da+ta
+8,Agi-deva,one whose diety is Agni,A+(ga+i)+(da+e)+va
+9,Agi-buti,one who owes his existence to agni,A+(ga+i)+(ba+u)+(ta+i)
+10,nila,dark complexioned,(na+i)+la
+11,samuda,ocean,sa+(ma+u)+da
+12,parumaka,chief,pa+(ra+u)+ma+ka
+13,bata,brother,ba+ta
+14,bata,lord,ba+ta
+15,Bata,devoted/attached,Ba+ta
+16,naga,younger sister,na+ga
+17,Naga,devine cobra,Na+ga
+18,,,
+19,,,
