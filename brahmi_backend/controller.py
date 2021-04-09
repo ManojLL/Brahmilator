@@ -111,8 +111,12 @@ def getPossibleWords():
     response = make_response(result, True, 200)
     return Response(response=response, status=200, mimetype='application/json')
 
-@app.route("/api/translate/<sentence>/<src_lan>/<dest_lan>", methods=["POST"])
-def translate(sentence, src_lan, dest_lan):
+@app.route("/api/translate", methods=["POST"])
+def translate():
+    args = request.args
+    sentence = args['sentence']
+    src_lan = args['src_lan']
+    dest_lan = args['dest_lan']
     translator = Translator()
     translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
     response = make_response(translate.text, False, 200)
