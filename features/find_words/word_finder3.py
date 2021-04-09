@@ -4,6 +4,7 @@ from math import pow
 from dbtest import search
 
 posibilities = []
+result = {}
 
 def printSubsequences(str):
 	n = len(str)
@@ -33,11 +34,11 @@ def read():
 	file1 = open('words.txt', 'r')
 	Lines = file1.readlines()
 
-	count = 0
 	# Strips the newline character
 	for line in Lines:
 		line = line.split()
-		posibilities.append(line)
+		for word in line:
+			posibilities.append(word)
 
 
 # Driver code
@@ -45,13 +46,19 @@ def read():
 str = ['ba', 'ta', 'na', 'ga']
 printSubsequences(str)
 
-# This code is contributed by
-# Sanjit_Prasad
+print(*posibilities, sep=" , ")
+posibilities = dict.fromkeys(posibilities)
+print(*posibilities, sep=" , ")
 
 for x in posibilities:
-	for y in x:
-		myquery = {"word": y}
-		search(myquery)
+	possible_meanings = search(x)
+	if len(possible_meanings) != 0:
+		result[x] = possible_meanings
 
-# open('words.txt', 'w').close()
+print("output")
+for keys,values in result.items():
+    print(keys)
+    print(values)
+
+open('words.txt', 'w').close()
 
