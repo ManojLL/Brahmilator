@@ -57,20 +57,27 @@ class ImagePreProcess extends Component {
                     onRequestClose={() => {
                         console.log('close modal')
                     }}>
-                    <View>
+                    <View style={styles.modal}>
                         <Slider
-                            style={{width: 200, height: 40}}
+                            style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={0}
                             maximumValue={1}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
+                            minimumTrackTintColor="#FFC542"
+                            maximumTrackTintColor="#FFFFFF"
                         />
 
-                        <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
-                            <SvgUri
-                                source={require('../../images/icons/save.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
-                        </TouchableOpacity>
+                        <View style={styles.modalItems}>
+                            <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/save.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/close.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </Modal>
 
@@ -83,20 +90,28 @@ class ImagePreProcess extends Component {
                     onRequestClose={() => {
                         console.log('close modal')
                     }}>
-                    <View>
+                    <View style={styles.modal}>
                         <Slider
-                            style={{width: 200, height: 40}}
+                            style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={0}
                             maximumValue={1}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
+                            minimumTrackTintColor="#FFC542"
+                            maximumTrackTintColor="#FFFFFF"
                         />
 
-                        <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
-                            <SvgUri
-                                source={require('../../images/icons/save.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
-                        </TouchableOpacity>
+
+                        <View style={styles.modalItems}>
+                            <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/save.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/close.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </Modal>
 
@@ -110,20 +125,28 @@ class ImagePreProcess extends Component {
                     onRequestClose={() => {
                         console.log('close modal')
                     }}>
-                    <View>
+                    <View style={styles.modal}>
                         <Slider
-                            style={{width: 200, height: 40}}
+                            style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={0}
                             maximumValue={1}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
+                            minimumTrackTintColor="#FFC542"
+                            maximumTrackTintColor="#FFFFFF"
                         />
 
-                        <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
-                            <SvgUri
-                                source={require('../../images/icons/save.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
-                        </TouchableOpacity>
+
+                        <View style={styles.modalItems}>
+                            <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/save.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/close.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </Modal>
 
@@ -136,20 +159,28 @@ class ImagePreProcess extends Component {
                     onRequestClose={() => {
                         console.log('close modal')
                     }}>
-                    <View>
+                    <View style={styles.modal}>
                         <Slider
-                            style={{width: 200, height: 40}}
+                            style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={0}
                             maximumValue={1}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
+                            minimumTrackTintColor="#FFC542"
+                            maximumTrackTintColor="#FFFFFF"
                         />
 
-                        <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
-                            <SvgUri
-                                source={require('../../images/icons/save.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
-                        </TouchableOpacity>
+
+                        <View style={styles.modalItems}>
+                            <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/save.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/close.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </Modal>
 
@@ -162,20 +193,28 @@ class ImagePreProcess extends Component {
                     onRequestClose={() => {
                         console.log('close modal')
                     }}>
-                    <View>
+                    <View style={styles.modal}>
                         <Slider
-                            style={{width: 200, height: 40}}
+                            style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={0}
                             maximumValue={1}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
+                            minimumTrackTintColor="#FFC542"
+                            maximumTrackTintColor="#FFFFFF"
                         />
 
-                        <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
-                            <SvgUri
-                                source={require('../../images/icons/save.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
-                        </TouchableOpacity>
+
+                        <View style={styles.modalItems}>
+                            <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/save.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
+                                <SvgUri
+                                    source={require('../../images/icons/close.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </Modal>
 
@@ -273,6 +312,16 @@ const styles = StyleSheet.create({
         flex: 1, flexDirection: 'row',
         padding: 6,
     },
+    modal: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: hp('8%'),
+        height: hp('10%'),
+        alignItems: 'center',
+    },
+    modalItems: {
+        flexDirection: 'row',
+    }
 
 
 });
