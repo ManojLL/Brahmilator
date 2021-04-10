@@ -29,7 +29,7 @@ def read_csv(filename):
         return [dict(zip(headers, i)) for i in file_data]
 
 
-words = read_csv("db1.txt")
+words = read_csv("db.csv")
 
 print(words)
 

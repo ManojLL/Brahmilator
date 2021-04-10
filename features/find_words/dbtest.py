@@ -1,18 +1,13 @@
 import pymongo
-import csv
 
-def search(query):
-    # print('db test')
-    print(query)
-    myclient = pymongo.MongoClient(
-        "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+def search(value, column):
+    myquery = {"word": value}
 
-    mydb = myclient["brahmilator_database"]
+    mydoc = column.find(myquery)
 
-    column = mydb["words"]
-
-    mydoc = column.find(query)
+    possible_meanings = []
 
     for x in mydoc:
-        print("response")
-        print(x)
+        possible_meanings.append(x['meaning'])
+
+    return possible_meanings
