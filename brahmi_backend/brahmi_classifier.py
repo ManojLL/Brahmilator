@@ -28,7 +28,6 @@ def classify_letters():
     for img in tqdm(os.listdir(test_path)):
         prediction = loaded_model.predict([prepare(os.path.join(test_path, img))])
         testing_results[img] = CATEGORIES[int(np.argmax(prediction))]
-        os.remove(os.path.join(test_path, img))
 
     for x in testing_results:
         results.append(testing_results[x])
