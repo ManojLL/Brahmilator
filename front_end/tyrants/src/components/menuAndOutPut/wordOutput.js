@@ -97,7 +97,7 @@ class ResultLetter extends Component {
                             <View style={{flex: 1, flexDirection: 'row',}} key={index}>
                                 <ImageBackground
                                     source={{uri:`data:image/png;base64,${this.state.img[index]}`}}
-                                    style={{width: wp('35%'), height: hp('20%'), marginLeft: 20}}/>
+                                    style={{width: wp('35%'), height: hp('20%'), marginLeft: 20,marginBottom:20}}/>
                                 <View style={{justifyContent: "center"}}>
                                     <Text
                                         style={{color: "#ffffff", marginLeft: 20, fontSize: hp('3%'),}}>{letter}</Text>
