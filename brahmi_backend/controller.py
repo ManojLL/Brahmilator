@@ -29,8 +29,24 @@ def translateLetters():
             flag = image_segmentation(image_name)
 
             if (flag == True):
+                result = {}
                 classify_letters = brahmi_classifier.classify_letters()
-                result = {'letter': classify_letters}
+                result['letter'] = classify_letters
+
+                test_path = os.path.join(segmented_letters)
+                segmented_images = []
+
+                for img in tqdm(os.listdir(test_path)):
+                    image_path = os.path.join(test_path, img)
+                    pil_img = Image.open(image_path, mode='r')
+                    byte_arr = io.BytesIO()
+                    pil_img.save(byte_arr, format='PNG')
+                    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')
+                    segmented_images.append(encoded_img)
+                    os.remove(os.path.join(test_path, img))
+
+                result['images'] = segmented_images
+
                 response = make_response(result, True, 200)
                 os.remove(os.path.join(input_data, image_name))
                 return Response(response=response, status=200, mimetype='application/json')
