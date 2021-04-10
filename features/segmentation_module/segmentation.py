@@ -189,8 +189,11 @@ def letter_seg(lines_img, x_lines, i):
             letter_index += 1
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
+
+            cv2.namedWindow('temp', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow("temp",letter_img_tmp)
             try:
-                letter_img = cv2.resize(letter_img_tmp, dsize=(224, 224), interpolation=cv2.INTER_LINEAR)
+                letter_img = cv2.resize(letter_img_tmp, (224, 224), interpolation=cv2.INTER_LINEAR)
             except Exception as e:
                 print(str(e))
             # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
@@ -210,7 +213,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             try:
-                letter_img = cv2.resize(letter_img_tmp, dsize=(224, 224), interpolation=cv2.INTER_LINEAR)
+                letter_img = cv2.resize(letter_img_tmp, (224, 224), interpolation=cv2.INTER_LINEAR)
             except Exception as e:
                 print(str(e))
 
@@ -234,7 +237,7 @@ def letter_seg(lines_img, x_lines, i):
 
 
 print("\n........Program Initiated.......\n")
-src_img = cv2.imread('plate2.jpg')
+src_img = cv2.imread('plate2.png')
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
@@ -275,7 +278,7 @@ for y in range(height):
     for x in range(width):
         if bin_img[y][x] == 255:
             count_x[y] = count_x[y] + 1
-print(count_x[y])
+#print(count_x[y])
 
 # t = np.arange(0,height, 1)
 # plt.plot(t, count_x[t])
