@@ -1,5 +1,7 @@
 import os
-from flask import Flask, request, Response
+
+import flask
+from flask import Flask, request, Response, jsonify
 import filetype
 from tqdm import tqdm
 from googletrans import Translator
@@ -116,8 +118,8 @@ def segmentedImages():
 
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
-    data = request.args.getlist("letters")
-
+    data = request.get_json()['letters']
+    print(data)
     myclient = pymongo.MongoClient("mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
     mydb = myclient["brahmilator_database"]
     column = mydb["words"]
