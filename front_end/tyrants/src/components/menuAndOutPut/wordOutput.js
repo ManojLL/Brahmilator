@@ -86,7 +86,7 @@ class ResultLetter extends Component {
                                     fontFamily: "SF Pro Rounded",
                                     fontSize: 16,
                                     textAlign: "right",
-                                    
+
                                 }}
                             />
                         </View>
@@ -96,7 +96,7 @@ class ResultLetter extends Component {
                         {this.state.letters.map((letter,index) => (
                             <View style={{flex: 1, flexDirection: 'row',}} key={index}>
                                 <ImageBackground
-                                    source={require('../../images/icons/retake.png')}
+                                    source={{uri:`data:image/png;base64,${this.state.img[index]}`}}
                                     style={{width: wp('35%'), height: hp('20%'), marginLeft: 20}}/>
                                 <View style={{justifyContent: "center"}}>
                                     <Text
@@ -110,9 +110,9 @@ class ResultLetter extends Component {
                     </ScrollView>
                     <BottomNavigator navigation={this.props.navigation}/>
                 </View>
-                
+
             </View>
-            
+
         );
     }
 }
