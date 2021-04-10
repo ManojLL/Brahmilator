@@ -10,7 +10,7 @@ model_save_path2 = "./saved-models/saved-models-mobilenet2"
 model_save_path3 = "./saved-models/saved-models-mobilenet3"
 TESTDIR = "brahmi_data_reduced/test"
 
-loaded_model = tf.keras.models.load_model(model_save_path1)
+loaded_model = tf.keras.models.load_model(model_save_path)
 
 CATEGORIES = ["a", "ba", "ba+i", "ba+o", "ba+u", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da+u", "da1",
               "dha1", "dha2", "e", "ga", "ga+i", "gha", "ha", "ha+a", "i",
@@ -41,6 +41,9 @@ CATEGORIES3 = ["a", "ba", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da1
                "pha", "ra", "sa1", "sa1+e", "sa1+u", "sa2", "sa3", "ta", "ta+e", "ta+i", "ta1", "tha1",
                "tha2", "u", "u2", "va", "va+e", "va+i", "ya"]  # 54
 
+Categories = ["ba","ga", "gu", "ha", "le", "na", "na2", "ne", "ra",
+              "sa1", "so", "ta", "ti", "u", "ya"]
+
 
 def prepare(filepath):
     IMG_SIZE = 224
@@ -49,13 +52,13 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-test_path = os.path.join(TESTDIR, "u")
+test_path = os.path.join("output")
 
 testing_results = {}
 
 for img in tqdm(os.listdir(test_path)):
     prediction = loaded_model.predict([prepare(os.path.join(test_path, img))])
-    testing_results[img] = CATEGORIES1Reduced[int(np.argmax(prediction))]
+    testing_results[img] = Categories[int(np.argmax(prediction))]
 
 print()
 print("------ Results ------")
