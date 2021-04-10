@@ -2,6 +2,8 @@
 /assets
 /brahmi_data/*
 /brahmi_data_reduced/*
+/brahmi_data_updated/*
+/output/*
 /logs/*
 /venv/*
 /variables

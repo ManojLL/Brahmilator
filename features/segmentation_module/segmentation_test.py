@@ -220,7 +220,7 @@ def letter_seg(lines_img, x_lines, i):
 
 
 print("\n........Program Initiated.......\n")
-src_img = cv2.imread('plate2.jpg')
+src_img = cv2.imread('plate2.png')
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
