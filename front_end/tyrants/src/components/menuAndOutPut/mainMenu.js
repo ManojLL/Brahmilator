@@ -35,19 +35,19 @@ class MainMenu extends Component {
             letters: [],
             suggestions: [],
             find: false,
-            img:[],
-            connection : true,
-            errorMessage:''
+            img: [],
+            connection: true,
+            errorMessage: ''
         };
     }
 
     componentDidMount() {
-        NetInfo.fetch().then(state=>{
-            if(state.isConnected){
+        NetInfo.fetch().then(state => {
+            if (state.isConnected) {
                 this.loadAPI().then(r => console.log(r))
-            }else {
+            } else {
                 alert("connect to ineter net and try again")
-                this.setState({connection : false})
+                this.setState({connection: false})
                 this.props.navigation.navigate('Pre-process', {imgUri: this.props.route.params.imgUri})
             }
         })
@@ -59,7 +59,7 @@ class MainMenu extends Component {
 
         try {
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('http://192.168.8.176:5000/api/getLetters', {
+            await fetch('http://192.168.8.186:5000/api/getLetters', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -72,10 +72,10 @@ class MainMenu extends Component {
                     this.setState({isLoading: false});
                     console.log(json.status_code)
                     if (json.status_code === '200') {
-                        this.setState({letters: json.outPut.letter,img:json.outPut.images, find: true})
+                        this.setState({letters: json.outPut.letter, img: json.outPut.images, find: true})
                         console.log(this.state.letters, this.state.find)
                     } else {
-                        this.setState({find: false,errorMessage:json.outPut})
+                        this.setState({find: false, errorMessage: json.outPut})
                     }
                 })
                 .catch((error) => {
@@ -104,7 +104,10 @@ class MainMenu extends Component {
                                 <View>
                                     <TouchableOpacity
                                         style={styles.button}
-                                        onPress={() => this.props.navigation.push('ResultLetter', {letters: this.state.letters,images:this.state.img})}
+                                        onPress={() => this.props.navigation.push('ResultLetter', {
+                                            letters: this.state.letters,
+                                            images: this.state.img
+                                        })}
                                     >
                                         <Text style={{color: "#000000", fontWeight: "bold"}}>
                                             {"Translated Letters"}
