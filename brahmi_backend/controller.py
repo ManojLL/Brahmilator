@@ -119,7 +119,6 @@ def segmentedImages():
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
     data = request.get_json()['letters']
-    print(data)
     myclient = pymongo.MongoClient("mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
     mydb = myclient["brahmilator_database"]
     column = mydb["words"]
