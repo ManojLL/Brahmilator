@@ -72,7 +72,7 @@ class MainMenu extends Component {
                     this.setState({isLoading: false});
                     console.log(json.status_code)
                     if (json.status_code === '200') {
-                        this.setState({letters: json.outPut.letter, find: true})
+                        this.setState({letters: json.outPut.letter,img:json.outPut.images, find: true})
                         console.log(this.state.letters, this.state.find)
                     } else {
                         this.setState({find: false,errorMessage:json.outPut})
