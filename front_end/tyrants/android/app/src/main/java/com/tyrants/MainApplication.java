@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.slider.ReactSliderPackage;
+import iyegoroff.RNColorMatrixImageFilters.ColorMatrixImageFiltersPackage;
 import com.horcrux.svg.SvgPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.imagepicker.ImagePickerPackage;

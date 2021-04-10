@@ -13,15 +13,16 @@ dblist = myclient.list_database_names()
 if "brahmilator_database" in dblist:
     print("The database exists")
 
+# Creating db Column to hold data
 column = mydb["words"]
 
+print(column.inserted_id)
 
-# words = [
-#     {"brahmi": "akara", "eng": "house"},
-#     {"brahmi": "biku", "eng": "monk"},
-# ]
 
 def read_csv(filename):
+    # Clear db and re-populate it with new data
+    # column.delete_many({})
+    # Read data from db.txt
     with open(filename) as f:
         file_data = csv.reader(f)
         headers = next(file_data)
@@ -32,17 +33,11 @@ words = read_csv("db1.txt")
 
 print(words)
 
-# insert data into the column one -> word
+# Insert data into the column one -> words
 x = column.insert_many(words)
 
-# print list of the _id values of the inserted documents:
-print(x.inserted_ids)
-
+# Sample Query added
 myquery = {"id": "1"}
-
 mydoc = column.find(myquery)
-
 for x in mydoc:
     print(x)
-
-column.delete_many({})

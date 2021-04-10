@@ -59,7 +59,7 @@ class MainMenu extends Component {
 
         try {
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('http://172.20.10.5:5000/api/getLetters', {
+            await fetch('http://192.168.8.103:5000/api/getLetters', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {

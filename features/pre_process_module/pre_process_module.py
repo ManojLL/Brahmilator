@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-path = "plate3.jpg"
+path = "image3.jpg"
 img = cv2.imread(path)
 
 
@@ -123,7 +123,7 @@ while True:
     outputImage = imgBlackhat
 
     cv2.imshow("Result", outputImage)
-    cv2.imshow("frame", frame)
+    cv2.imshow("Before", frame)
     key = cv2.waitKey(1)
 
     if key == ord("q"):

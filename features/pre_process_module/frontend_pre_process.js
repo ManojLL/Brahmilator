@@ -1,1 +1,1 @@
-<script src="opencv.js" type="text/javascript"></script>
+<script src="opencv.js" type="text/javascript"/>
