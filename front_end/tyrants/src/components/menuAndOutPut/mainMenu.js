@@ -111,7 +111,7 @@ class MainMenu extends Component {
                     if (json.status_code === '200') {
                         this.setState({words: json.outPut})
                         this.props.navigation.push('Result', {
-                            words: this.state.words,
+                            findWords: this.state.words,
                         })
                     }
 

@@ -1,41 +1,34 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
-    Image,
     StyleSheet,
     Text,
     View,
     ScrollView,
-    TouchableOpacity,
-    LogBox,
+
 } from "react-native";
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-//import SearchableDropdown from "react-native-searchable-dropdown";
-import { Dropdown } from "react-native-material-dropdown";
+import {Dropdown} from "react-native-material-dropdown";
 import Textarea from "react-native-textarea";
-import {
-    Collapse,
-    CollapseHeader,
-    CollapseBody,
-    AccordionList,
-} from "accordion-collapse-react-native";
-import SvgUri from 'react-native-svg-uri';
 
-LogBox.ignoreAllLogs();
+import BottomNavigator from "../navigators/BottomNavigator";
+
 class Result extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentLan : 'en',
-            words:{}
+            currentLan: 'en',
+            findWords: {}
         };
     }
 
     componentDidMount() {
-        this.setState({words: this.props.route.params.words})
+        this.setState({findWords: this.props.route.params.findWords})
+        console.log(this.state.findWords)
     }
+
 
     render() {
         //native languages list
@@ -61,35 +54,35 @@ class Result extends Component {
         ];
         return (
             <View style={styles.container}>
-                <View style={[{ flexDirection: "row", alignItems: "center" }]}>
-                    <View style={[{ flex: 1, flexDirection: "row" }]}>
+                <View style={[{flexDirection: "row", alignItems: "center"}]}>
+                    <View style={[{flex: 1, flexDirection: "row"}]}>
                         <View style={styles.textContainer}>
                             <Text style={styles.titleText}>Word Translations </Text>
                         </View>
                     </View>
                     <View
-                            style={[
-                                {
-                                    justifyContent: "space-evenly",
-                                    marginVertical: 10,
-                                    color: "#FFC542",
-                                    width:80,
-                                },
-                            ]}
-                        >
-                            <Dropdown
-                                label="Select"
-                                data={data}
-                                style={{
-                                    marginTop: 4,
-                                    fontWeight: "bold",
-                                    fontFamily: "SF Pro Rounded",
-                                    fontSize: 16,
-                                    textAlign: "right",
+                        style={[
+                            {
+                                justifyContent: "space-evenly",
+                                marginVertical: 10,
+                                color: "#FFC542",
+                                width: 80,
+                            },
+                        ]}
+                    >
+                        <Dropdown
+                            label="Select"
+                            data={data}
+                            style={{
+                                marginTop: 4,
+                                fontWeight: "bold",
+                                fontFamily: "SF Pro Rounded",
+                                fontSize: 16,
+                                textAlign: "right",
 
-                                }}
-                            />
-                        </View>
+                            }}
+                        />
+                    </View>
                 </View>
 
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -108,103 +101,13 @@ class Result extends Component {
                         underlineColorAndroid={"transparent"}
                     />
                     <View>
+                        {
+
+                        }
 
                     </View>
                 </ScrollView>
-                {/* Bottom Navigation Bar */}
-                <View style={{
-                flexDirection: 'column',
-            }}>
-                <View style={{
-
-                    position: 'absolute',
-                    alignSelf: 'center',
-                    backgroundColor: '#333',
-                    width: wp('18%'),
-                    height: hp('9.3%'),
-                    borderRadius: 35,
-                    bottom: hp('5%'),
-                    zIndex: 100
-
-                }}>
-
-                    <TouchableOpacity style={[styles.button, styles.actionBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
-
-                        <SvgUri style={{
-                            width: wp('8%'),
-                            height: hp('4%'),
-                        }}
-                            resizeMode="contain"
-                            source={require('../../images/icons/camera.svg')} />
-                    </TouchableOpacity>
-                </View>
-                <View style={{
-
-                    position: 'absolute',
-                    backgroundColor: '#2E2E2E',
-                    border: 2,
-                    radius: 3,
-                    shadowOpacity: 0.3,
-                    shadowRadius: 5,
-                    shadowOffset: {
-
-                        height: 5, width: 5
-                    },
-                    x: 0,
-                    y: 0,
-                    style: { marginVertical: 5 },
-                    bottom: 0,
-                    width: '100%',
-                    height: hp('10%'),
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingVertical: 20,
-                    paddingHorizontal: wp('20%')
-
-
-                }}>
-
-                    <View style={{
-                        flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
-                    }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-                            <SvgUri
-
-                                style={{
-                                    width: wp('7%'),
-                                    height: hp('4%'),
-                                }}
-
-                                source={require('../../images/icons/homeNav.svg')}
-
-                            />
-
-
-
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{
-                        flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
-                    }}>
-                        <TouchableOpacity>
-                            <SvgUri
-
-                                style={{
-                                    width: wp('7%'),
-                                    height: hp('4%'),
-                                }}
-
-                                source={require('../../images/icons/user.svg')} />
-
-
-
-                        </TouchableOpacity>
-                    </View>
-
-                    {/* </View> */}
-                </View>
-            </View>
+                <BottomNavigator navigation={this.props.navigation}/>
             </View>
         );
     }
@@ -251,7 +154,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         shadowColor: "grey",
         shadowOpacity: 0.1,
-        shadowOffset: { x: 2, y: 0 },
+        shadowOffset: {x: 2, y: 0},
         shadowRadius: 2,
         borderRadius: 30,
         position: "absolute",
@@ -284,7 +187,7 @@ const styles = StyleSheet.create({
 
     actionBtn: {
         backgroundColor: "#FFC542",
-        textShadowOffset: { width: 5, height: 5 },
+        textShadowOffset: {width: 5, height: 5},
         textShadowRadius: 10,
         borderWidth: 2,
         borderColor: "#333",
