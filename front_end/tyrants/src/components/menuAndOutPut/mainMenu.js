@@ -88,6 +88,33 @@ class MainMenu extends Component {
         }
     };
 
+    getWord = async () => {
+
+        const data = {"letters": this.state.letters}
+        try {
+            // Changed the default IP in previous testing (Nimendra)
+            await fetch('http://192.168.8.186:5000/api/getPossibleWords', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then((json) => {
+                    console.log(json)
+                })
+                .catch((error) => {
+                    console.log("upload error", error);
+                    alert("Upload failed!");
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     render() {
         return (
             <View style={[styles.container]}>
@@ -119,7 +146,7 @@ class MainMenu extends Component {
                                 <View>
                                     <TouchableOpacity
                                         style={styles.button}
-                                        onPress={() => this.props.navigation.push('Result')}
+                                        onPress={() => this.getWord()}
                                     >
                                         <Text style={{color: "#000000", fontWeight: "bold"}}>
                                             {"Translated Words"}
