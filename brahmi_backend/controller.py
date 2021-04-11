@@ -19,6 +19,7 @@ app = Flask(__name__)
 input_data = "input_data"
 segmented_letters = "segmented_letters"
 
+
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
     global image_name
@@ -70,18 +71,25 @@ def translateLetters():
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
+
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
-    data = request.get_json()['letters']
-    print(data)
-    myclient = pymongo.MongoClient("mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
-    mydb = myclient["brahmilator_database"]
-    column = mydb["words"]
+    try:
+        data = request.get_json()['letters']
+        print(data)
+        myclient = pymongo.MongoClient(
+            "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+        mydb = myclient["brahmilator_database"]
+        column = mydb["words"]
 
-    result = searchForWords(column, data)
+        result = searchForWords(column, data)
 
-    response = make_response(result, True, 200)
-    return Response(response=response, status=200, mimetype='application/json')
+        response = make_response(result, True, 200)
+        return Response(response=response, status=200, mimetype='application/json')
+    except:
+        response = make_response('Something went wrong', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
+
 
 @app.route("/api/translate", methods=["POST"])
 def translate():
@@ -93,6 +101,7 @@ def translate():
     translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
     response = make_response(translate.text, False, 200)
     return Response(response=response, status=200, mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0')
