@@ -93,14 +93,18 @@ def getPossibleWords():
 
 @app.route("/api/translate", methods=["POST"])
 def translate():
-    args = request.args
-    sentence = args['sentence']
-    src_lan = args['src_lan']
-    dest_lan = args['dest_lan']
-    translator = Translator()
-    translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
-    response = make_response(translate.text, False, 200)
-    return Response(response=response, status=200, mimetype='application/json')
+    try:
+        args = request.args
+        sentence = args['sentence']
+        src_lan = args['src_lan']
+        dest_lan = args['dest_lan']
+        translator = Translator()
+        translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
+        response = make_response(translate.text, False, 200)
+        return Response(response=response, status=200, mimetype='application/json')
+    except:
+        response = make_response('Something went wrong', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
 
 
 if __name__ == '__main__':
