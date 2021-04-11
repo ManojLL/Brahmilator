@@ -27,7 +27,14 @@ LogBox.ignoreAllLogs();
 class Result extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            currentLan : 'en',
+            words:{}
+        };
+    }
+
+    componentDidMount() {
+        this.setState({words: this.props.route.params.words})
     }
 
     render() {
@@ -57,7 +64,7 @@ class Result extends Component {
                 <View style={[{ flexDirection: "row", alignItems: "center" }]}>
                     <View style={[{ flex: 1, flexDirection: "row" }]}>
                         <View style={styles.textContainer}>
-                            <Text style={styles.titleText}> Translation</Text>
+                            <Text style={styles.titleText}>Word Translations </Text>
                         </View>
                     </View>
                     <View
@@ -79,7 +86,7 @@ class Result extends Component {
                                     fontFamily: "SF Pro Rounded",
                                     fontSize: 16,
                                     textAlign: "right",
-                                    
+
                                 }}
                             />
                         </View>
@@ -100,138 +107,9 @@ class Result extends Component {
                         placeholderTextColor={"#c7c7c7"}
                         underlineColorAndroid={"transparent"}
                     />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.titleText}> Suggestions</Text>
-                    </View>
-
                     <View>
-                        {/* Collapsible accordian to view suggested translations */}
-                        <Collapse>
-                            <CollapseHeader>
-                                <View>
-                                    <Text style={styles.subtitle}> Suggested Translation 01</Text>
-                                </View>
-                            </CollapseHeader>
-                            <CollapseBody>
-                                <Text style={styles.description}>
-                                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                                    natoque penatibus et magnis dis parturient montes, nascetur
-                                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                                    eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                    pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                                    In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                                    justo. Nullam dictum felis eu pede mollis pretium. Integer
-                                    tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                                    vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                                    consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                                    dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                                    nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                                    imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                                    ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.
-                                    Maecenas tempus, tellus eget condimentum rhoncus, sem quam
-                                    semper libero, sit amet adipiscing sem neque sed ipsum. Nam
-                                    quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-                                    Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien
-                                    ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet
-                                    orci eget eros faucibus tincidunt. Duis leo. Sed fringilla
-                                    mauris sit amet nibh. Donec sodales sagittis magna. Sed
-                                    consequat, leo eget bibendum sodales, augue velit cursus nunc,
-                                </Text>
-                            </CollapseBody>
-                        </Collapse>
 
-                        <Collapse>
-                            <CollapseHeader>
-                                <View>
-                                    <Text style={styles.subtitle}> Suggested Translation 02</Text>
-                                </View>
-                            </CollapseHeader>
-                            <CollapseBody>
-                                <Text style={styles.description}>
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                                    natoque penatibus et magnis dis parturient montes, nascetur
-                                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                                    eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                    pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                                    In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                                    justo. Nullam dictum felis eu pede mollis pretium. Integer
-                                    tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                                    vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                                    consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                                    dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                                    nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                                    imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                                    ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.
-                                    Maecenas tempus, tellus eget condimentum rhoncus, sem quam
-                                    semper libero, sit amet adipiscing sem neque sed ipsum. Nam
-                                    quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-                                    Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien
-                                    ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet
-                                    orci eget eros faucibus tincidunt. Duis leo. Sed fringilla
-                                    mauris sit amet nibh. Donec sodales sagittis magna. Sed
-                                    consequat, leo eget bibendum sodales, augue velit cursus nunc,
-                                </Text>
-                            </CollapseBody>
-                        </Collapse>
-
-                        <Collapse>
-                            <CollapseHeader>
-                                <View>
-                                    <Text style={styles.subtitle}> Suggested Translation 03</Text>
-                                </View>
-                            </CollapseHeader>
-                            <CollapseBody>
-                                <Text style={styles.description}>
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                                    natoque penatibus et magnis dis parturient montes, nascetur
-                                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                                    eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                    pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                                    In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                                    justo. Nullam dictum felis eu pede mollis pretium. Integer
-                                    tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                                    vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                                    consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                                    dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                                    nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                                    imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                                    ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.
-                                    Maecenas tempus, tellus eget condimentum rhoncus, sem quam
-                                    semper libero, sit amet adipiscing sem neque sed ipsum. Nam
-                                    quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-                                    Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien
-                                    ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet
-                                    orci eget eros faucibus tincidunt. Duis leo. Sed fringilla
-                                    mauris sit amet nibh. Donec sodales sagittis magna. Sed
-                                    consequat, leo eget bibendum sodales, augue velit cursus nunc,
-                                </Text>
-                            </CollapseBody>
-                        </Collapse>
-
-                        <AccordionList
-                            list={this.state.list}
-                            header={this._head}
-                            body={this._body}
-                        />
                     </View>
-                    <TouchableOpacity
-                        style={[styles.button2]}
-                        onPress={() => this.props.navigation.navigate("")}
-                    >
-                        <SvgUri
-                            style={{
-                                width: wp("10%"),
-                                height: hp("11%"),
-                                paddingLeft:35,
-                                paddingTop:45,
-                            }}
-                            resizeMode="contain"
-                            source={require("../../images/icons/save1.svg")}
-                        />
-                    </TouchableOpacity>
                 </ScrollView>
                 {/* Bottom Navigation Bar */}
                 <View style={{
@@ -336,7 +214,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#333",
         height: "100%",
-       
+
     },
     welcome: {
         flex: 1,
