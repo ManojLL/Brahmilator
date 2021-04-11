@@ -14,6 +14,7 @@ import {
 } from "react-native-responsive-screen";
 import BottomNavigator from "../navigators/BottomNavigator";
 import NetInfo from "@react-native-community/netinfo";
+import {cos} from "react-native-reanimated";
 
 const createFormData = (photo) => {
     let i = {
@@ -37,7 +38,8 @@ class MainMenu extends Component {
             find: false,
             img: [],
             connection: true,
-            errorMessage: ''
+            errorMessage: '',
+            words: {}
         };
     }
 
@@ -90,8 +92,9 @@ class MainMenu extends Component {
 
     getWord = async () => {
 
-        const data = {"letters": this.state.letters}
+        const data = {"letters": ['ba','ta','na','ga']}
         try {
+            this.setState({isLoading: true});
             // Changed the default IP in previous testing (Nimendra)
             await fetch('http://192.168.8.186:5000/api/getPossibleWords', {
                 method: 'POST',
@@ -104,9 +107,14 @@ class MainMenu extends Component {
             })
                 .then(response => response.json())
                 .then((json) => {
-                    console.log(json)
+                    this.setState({isLoading: false});
+                    if (json.status_code === '200') {
+                        this.setState({words: json.outPut})
+                    }
+
                 })
                 .catch((error) => {
+                    this.setState({isLoading: false});
                     console.log("upload error", error);
                     alert("Upload failed!");
                 });
@@ -114,6 +122,7 @@ class MainMenu extends Component {
             console.error(error);
         }
     }
+
 
     render() {
         return (
