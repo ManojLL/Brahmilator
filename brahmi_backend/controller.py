@@ -70,52 +70,6 @@ def translateLetters():
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
-@app.route('/api/getSegmentedImage', methods=['POST'])
-def segmentedImages():
-    try:
-        image = request.files["image"]
-        image_name = image.filename
-        image.save(os.path.join(input_data, image_name))
-
-        if filetype.is_image(os.path.join(input_data, image_name)):
-            flag = image_segmentation(image_name)
-
-            if (flag == True):
-                test_path = os.path.join(segmented_letters)
-
-                segmented_images = []
-
-                for img in tqdm(os.listdir(test_path)):
-                    image_path = os.path.join(test_path, img)
-                    pil_img = Image.open(image_path, mode='r')  # reads the PIL image
-                    byte_arr = io.BytesIO()
-                    pil_img.save(byte_arr, format='PNG')  # convert the PIL image to byte array
-                    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')  # encode as base64
-                    segmented_images.append(encoded_img)
-                    os.remove(os.path.join(test_path, img))
-
-                os.remove(os.path.join(input_data, image_name))
-                result = {'images': segmented_images}
-                response = make_response(result, True, 200)
-                return Response(response=response, status=200, mimetype='application/json')
-            else:
-                test_path = os.path.join(segmented_letters)
-
-                for img in tqdm(os.listdir(test_path)):
-                    os.remove(os.path.join(test_path, img))
-
-                os.remove(os.path.join(input_data, image_name))
-                response = make_response("Too much noise in image", True, 200)
-                return Response(response=response, status=200, mimetype='application/json')
-        else:
-            os.remove(os.path.join(input_data, image_name))
-            response = make_response('The file is NOT an Image', False, 200)
-            return Response(response=response, status=200, mimetype='application/json')
-    except Exception as e:
-        os.remove(os.path.join(input_data, image_name))
-        response = make_response('The file is NOT FOUND', False, 404)
-        return Response(response=response, status=404, mimetype='application/json')
-
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
     data = request.get_json()['letters']
