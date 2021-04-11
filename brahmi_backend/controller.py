@@ -19,6 +19,7 @@ app = Flask(__name__)
 input_data = "input_data"
 segmented_letters = "segmented_letters"
 
+
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
     global image_name
@@ -70,6 +71,7 @@ def translateLetters():
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
+
 @app.route('/api/getSegmentedImage', methods=['POST'])
 def segmentedImages():
     try:
@@ -116,28 +118,35 @@ def segmentedImages():
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
+
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
     data = request.get_json()['letters']
-    myclient = pymongo.MongoClient("mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+    myclient = pymongo.MongoClient(
+        "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
     mydb = myclient["brahmilator_database"]
     column = mydb["words"]
 
     result = searchForWords(column, data)
-
-    response = make_response(result, True, 200)
+    print(len(result))
+    if len(result) > 0:
+        response = make_response(result, True, 200)
+    else:
+        response = make_response("no word found", True, 404)
     return Response(response=response, status=200, mimetype='application/json')
+
 
 @app.route("/api/translate", methods=["POST"])
 def translate():
-    args = request.args
-    sentence = args['sentence']
-    src_lan = args['src_lan']
-    dest_lan = args['dest_lan']
+    data = request.get_json()
+    sentence = data['sentence']
+    src_lan = data['src_lan']
+    dest_lan = data['dest_lan']
     translator = Translator()
     translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
     response = make_response(translate.text, False, 200)
     return Response(response=response, status=200, mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0')
