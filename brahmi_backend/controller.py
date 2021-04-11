@@ -74,37 +74,31 @@ def translateLetters():
 
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
-    try:
-        data = request.get_json()['letters']
-        print(data)
-        myclient = pymongo.MongoClient(
-            "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
-        mydb = myclient["brahmilator_database"]
-        column = mydb["words"]
+    data = request.get_json()['letters']
+    myclient = pymongo.MongoClient(
+        "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+    mydb = myclient["brahmilator_database"]
+    column = mydb["words"]
 
-        result = searchForWords(column, data)
-
+    result = searchForWords(column, data)
+    print(len(result))
+    if len(result) > 0:
         response = make_response(result, True, 200)
-        return Response(response=response, status=200, mimetype='application/json')
-    except:
-        response = make_response('Something went wrong', False, 404)
-        return Response(response=response, status=404, mimetype='application/json')
+    else:
+        response = make_response("no word found", True, 404)
+    return Response(response=response, status=200, mimetype='application/json')
 
 
 @app.route("/api/translate", methods=["POST"])
 def translate():
-    try:
-        args = request.args
-        sentence = args['sentence']
-        src_lan = args['src_lan']
-        dest_lan = args['dest_lan']
-        translator = Translator()
-        translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
-        response = make_response(translate.text, False, 200)
-        return Response(response=response, status=200, mimetype='application/json')
-    except:
-        response = make_response('Something went wrong', False, 404)
-        return Response(response=response, status=404, mimetype='application/json')
+    data = request.get_json()
+    sentence = data['sentence']
+    src_lan = data['src_lan']
+    dest_lan = data['dest_lan']
+    translator = Translator()
+    translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
+    response = make_response(translate.text, False, 200)
+    return Response(response=response, status=200, mimetype='application/json')
 
 
 if __name__ == '__main__':
