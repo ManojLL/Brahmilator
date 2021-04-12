@@ -6,15 +6,15 @@ import {
     ScrollView,
 
 } from "react-native";
+import {Col, Row, Grid} from 'react-native-easy-grid';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import {Dropdown} from "react-native-material-dropdown";
-import Textarea from "react-native-textarea";
 
 import BottomNavigator from "../navigators/BottomNavigator";
-import index from "@react-native-community/netinfo/src/index";
+
 
 class Result extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class Result extends Component {
         this.state = {
             currentLan: 'en',
             findWord: this.props.route.params.findWords,
-            wordWithMeaning:this.props.route.params.withMeaning,
+            wordWithMeaning: this.props.route.params.withMeaning,
 
         };
     }
@@ -34,7 +34,6 @@ class Result extends Component {
 
 
     render() {
-        //native languages list
         let data = [
             {
                 label: "English",
@@ -91,8 +90,8 @@ class Result extends Component {
 
                             }}
 
-                            onChangeText={(value)=>{
-                                this.setState({currentLan:value})
+                            onChangeText={(value) => {
+                                this.setState({currentLan: value})
                             }}
                         />
                     </View>
@@ -101,14 +100,40 @@ class Result extends Component {
                 <ScrollView showsVerticalScrollIndicator={false}>
 
                     <View>
-                        {this.state.findWord.map((w,index)=>(
-                            <View key={index}>
-                                <Text
-                                    style={{color: "#ffffff", marginLeft: 20, fontSize: hp('3%'),}}>{w}</Text>
-                            </View>
-                        ))
+                        <Grid>
+                            {this.state.findWord.map((w, index) => (
+                                <Row>
+                                    <Col>
+                                        <View key={index}>
+                                            <Text
+                                                style={{
+                                                    color: "#ffffff",
+                                                    marginLeft: 20,
+                                                    fontSize: hp('3%'),
+                                                }}>{w}</Text>
+                                        </View>
+                                    </Col>
+                                    <Col>
+                                        <View>
+                                            {this.state.wordWithMeaning[w].map((mean,index)=>(
+                                                <View >
+                                                    <Text
+                                                        style={{
+                                                            color: "#ffffff",
+                                                            marginLeft: 20,
+                                                            fontSize: hp('3%'),
+                                                        }} key={index}>{mean}</Text>
+                                                </View>
+                                            ))
 
-                        }
+                                            }
+                                        </View>
+                                    </Col>
+                                </Row>
+                            ))
+
+                            }
+                        </Grid>
 
                     </View>
                 </ScrollView>
