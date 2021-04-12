@@ -112,18 +112,6 @@ def translate():
             temp.append(translate.text)
         output[key] = temp
 
-
-    for key, value in output.items():
-        for word in value:
-            print(key, " - ", word)
-
-    # translated_words = []
-    #
-    # for word in data:
-    #     print(word)
-    #     translate = translator.translate(word, src=src_lan, dest=dest_lan)
-    #     translated_words.append(translate.text)
-    #
     result = {}
     result['possible_words_with_meaning'] = output
     result['src_lan'] = dest_lan
