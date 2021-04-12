@@ -12,7 +12,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-//import SearchableDropdown from "react-native-searchable-dropdown";
+
 
 import BottomNavigator from "../navigators/BottomNavigator";
 

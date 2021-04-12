@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView, ActivityIndicator,
+    ScrollView, ActivityIndicator, LogBox,
 
 } from "react-native";
 import {Col, Row, Grid} from 'react-native-easy-grid';
@@ -27,6 +27,42 @@ class Result extends Component {
         };
     }
 
+    componentDidMount() {
+        LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+    }
+
+    translateWords = async (language) => {
+
+        this.setState({isLoading: true});
+
+
+        try {
+            const data = {"possible_words_with_meaning": this.state.wordWithMeaning,'src_lan':this.state.currentLan,'dest_lan':language}
+            // Changed the default IP in previous testing (Nimendra)
+            await fetch('http://192.168.8.186:5000/api/translate', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    "content-type": "multipart/form-data",
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then((json) => {
+                    this.setState({isLoading: false});
+                    if (json.status_code === '200') {
+                        this.setState({wordWithMeaning:json.outPut.possible_words_with_meaning,currentLan:language})
+                    }
+                })
+                .catch((error) => {
+                    this.setState({isLoading: false});
+                    console.log("upload error", error);
+                    alert("Upload failed!");
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     render() {
         let data = [
@@ -94,7 +130,7 @@ class Result extends Component {
                                     }}
 
                                     onChangeText={(value) => {
-                                        this.setState({currentLan: value})
+                                        this.translateWords(value)
                                     }}
                                 />
                             </View>
