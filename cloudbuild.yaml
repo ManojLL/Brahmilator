@@ -21,6 +21,6 @@ steps:
       - '--platform'
       - managed
       - '--timeout'
-      - 10m
+      - 15m
 images:
   - 'gcr.io/$PROJECT_ID/brahmilator:$COMMIT_SHA'
