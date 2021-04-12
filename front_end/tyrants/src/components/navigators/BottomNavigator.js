@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import SvgUri from 'react-native-svg-uri';
+import NavIcon from '../../images/icons/homeNav.svg'
+import User from '../../images/icons/user.svg'
+import CameraIcon from '../../images/icons/camera.svg'
 
 class BottomNavigator extends Component {
     constructor(props) {
@@ -30,14 +33,14 @@ class BottomNavigator extends Component {
 
                 }}>
 
-                    <TouchableOpacity style={[styles.button, styles.actionBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
-
-                        <SvgUri style={{
-                            width: wp('8%'),
-                            height: hp('4%'),
-                        }}
-                            resizeMode="contain"
-                            source={require('../../images/icons/camera.svg')} />
+                    <TouchableOpacity style={[styles.button, styles.actionBtn]}
+                                      onPress={() => this.props.navigation.navigate('Camera')}>
+                        <View>
+                            <CameraIcon style={{
+                                width: wp('8%'),
+                                height: hp('4%'),
+                            }}/>
+                        </View>
                     </TouchableOpacity>
                 </View>
                 <View style={{
@@ -54,7 +57,7 @@ class BottomNavigator extends Component {
                     },
                     x: 0,
                     y: 0,
-                    style: { marginVertical: 5 },
+                    style: {marginVertical: 5},
                     bottom: 0,
                     width: '100%',
                     height: hp('10%'),
@@ -70,19 +73,18 @@ class BottomNavigator extends Component {
                         flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
                     }}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-                            <SvgUri
+                            <View>
+                                <NavIcon
 
-                                style={{
-                                    width: wp('7%'),
-                                    height: hp('4%'),
-                                }}
-
-                                source={require('../../images/icons/homeNav.svg')}
-
-                            />
+                                    style={{
+                                        width: wp('7%'),
+                                        height: hp('4%'),
+                                    }}
 
 
+                                />
 
+                            </View>
                         </TouchableOpacity>
                     </View>
 
@@ -90,16 +92,16 @@ class BottomNavigator extends Component {
                         flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
                     }}>
                         <TouchableOpacity>
-                            <SvgUri
+                            <View>
+                                <User
 
-                                style={{
-                                    width: wp('7%'),
-                                    height: hp('4%'),
-                                }}
+                                    style={{
+                                        width: wp('7%'),
+                                        height: hp('4%'),
+                                    }}
 
-                                source={require('../../images/icons/user.svg')} />
-
-
+                                />
+                            </View>
 
                         </TouchableOpacity>
                     </View>
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         shadowColor: 'grey',
         shadowOpacity: 0.1,
-        shadowOffset: { x: 2, y: 0 },
+        shadowOffset: {x: 2, y: 0},
         shadowRadius: 2,
         borderRadius: 30,
         position: 'absolute',
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
     actionBtn: {
 
         backgroundColor: '#FFC542',
-        textShadowOffset: { width: 5, height: 5 },
+        textShadowOffset: {width: 5, height: 5},
         textShadowRadius: 10,
         borderWidth: 2,
         borderColor: '#333',

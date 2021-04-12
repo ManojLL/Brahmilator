@@ -46,7 +46,7 @@ class MainMenu extends Component {
     componentDidMount() {
         NetInfo.fetch().then(state => {
             if (state.isConnected) {
-                this.loadAPI().then(r => console.log(r))
+                this.loadAPI()
             } else {
                 alert("connect to ineter net and try again")
                 this.setState({connection: false})

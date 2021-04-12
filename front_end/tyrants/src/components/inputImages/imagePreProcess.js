@@ -10,7 +10,15 @@ import {
     LogBox, Modal,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
-
+import Save from '../../images/icons/save.svg'
+import Close from '../../images/icons/close.svg'
+import Exposer from '../../images/icons/exposure.svg'
+import Retake from '../../images/icons/retake.svg'
+import Process from '../../images/icons/process.svg'
+import Threshold from '../../images/icons/threshold.svg'
+import Erosion from '../../images/icons/erosion.svg'
+import Morph from '../../images/icons/morph.svg'
+import Dialation from '../../images/icons/dialation.svg'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import SvgUri from 'react-native-svg-uri';
@@ -67,16 +75,20 @@ class ImagePreProcess extends Component {
                         />
 
                         <View style={styles.modalItems}>
-                            <Text style={{color:'#ffffff'}}> exposure </Text>
+                            <Text style={{color: '#ffffff'}}> exposure </Text>
                             <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/save.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Save
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.setState({exposureModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/close.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Close
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -102,16 +114,20 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
-                            <Text style={{color:'#ffffff'}}> threshold </Text>
+                            <Text style={{color: '#ffffff'}}> threshold </Text>
                             <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/save.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Save
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.setState({thresholdModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/close.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Close
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -138,16 +154,20 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
-                            <Text style={{color:'#ffffff'}}> erosion </Text>
+                            <Text style={{color: '#ffffff'}}> erosion </Text>
                             <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/save.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Save
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.setState({erosionModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/close.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Close
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -173,16 +193,20 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
-                            <Text style={{color:'#ffffff'}}> morph </Text>
+                            <Text style={{color: '#ffffff'}}> morph </Text>
                             <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/save.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Save
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.setState({morphModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/close.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Close
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -208,16 +232,20 @@ class ImagePreProcess extends Component {
 
 
                         <View style={styles.modalItems}>
-                            <Text style={{color:'#ffffff'}}> dialation </Text>
+                            <Text style={{color: '#ffffff'}}> dialation </Text>
                             <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/save.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Save
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.setState({dialationModal: false})}>
-                                <SvgUri
-                                    source={require('../../images/icons/close.svg')}
-                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                <View>
+                                    <Close
+
+                                        style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -226,22 +254,28 @@ class ImagePreProcess extends Component {
                 <View style={[styles.toolBar, styles.centerItems]}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
                         <TouchableOpacity onPress={() => this.closeClick()}>
-                            <SvgUri
-                                source={require('../../images/icons/close.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            <View>
+                                <Close
+
+                                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}/>
+                            </View>
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1, flexDirection: 'row-reverse'}}>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate('Main-Menu', {imgUri: this.props.route.params.imgUri})}>
-                            <SvgUri
-                                source={require('../../images/icons/retake.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
+                            <View>
+                                <Retake
+                                    // source={require('../../images/icons/retake.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
+                            </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera')}>
-                            <SvgUri
-                                source={require('../../images/icons/process.svg')}
-                                style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
+                            <View>
+                                <Process
+                                    // source={require('../../images/icons/retake.svg')}
+                                    style={{width: wp('7%'), height: hp('3%'), marginRight: 20, marginTop: 8}}/>
+                            </View>
                         </TouchableOpacity>
                     </View>
 
@@ -258,37 +292,42 @@ class ImagePreProcess extends Component {
                         <Row>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity onPress={() => this.setState({exposureModal: true})}>
-                                    <SvgUri
-                                        source={require('../../images/icons/exposure.svg')}
-                                        style={{width: wp('11%'), height: hp('5%')}}/>
+                                    <View>
+                                        <Exposer
+                                            style={{width: wp('11%'), height: hp('5%')}}/>
+                                    </View>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity onPress={() => this.setState({thresholdModal: true})}>
-                                    <SvgUri
-                                        source={require('../../images/icons/threshold.svg')}
-                                        style={{width: wp('11%'), height: hp('5%')}}/>
+                                    <View>
+                                        <Threshold
+                                            style={{width: wp('11%'), height: hp('5%')}}/>
+                                    </View>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity onPress={() => this.setState({erosionModal: true})}>
-                                    <SvgUri
-                                        source={require('../../images/icons/erosion.svg')}
-                                        style={{width: wp('11%'), height: hp('5%')}}/>
+                                    <View>
+                                        <Erosion
+                                            style={{width: wp('11%'), height: hp('5%')}}/>
+                                    </View>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity onPress={() => this.setState({morphModal: true})}>
-                                    <SvgUri
-                                        source={require('../../images/icons/morph.svg')}
-                                        style={{width: wp('11%'), height: hp('5%')}}/>
+                                    <View>
+                                        <Morph
+                                            style={{width: wp('11%'), height: hp('5%')}}/>
+                                    </View>
                                 </TouchableOpacity>
                             </Col>
                             <Col style={styles.alignCenter}>
                                 <TouchableOpacity onPress={() => this.setState({dialationModal: true})}>
-                                    <SvgUri
-                                        source={require('../../images/icons/dialation.svg')}
-                                        style={{width: wp('11%'), height: hp('5%')}}/>
+                                    <View>
+                                        <Dialation
+                                            style={{width: wp('11%'), height: hp('5%')}}/>
+                                    </View>
                                 </TouchableOpacity>
                             </Col>
                         </Row>
