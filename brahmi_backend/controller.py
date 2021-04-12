@@ -104,19 +104,28 @@ def translate():
     dest_lan = request.get_json()['dest_lan']
     translator = Translator()
 
-    print(src_lan)
-    print(dest_lan)
+    output = {}
+    for key, value in data.items():
+        temp = []
+        for word in value:
+            translate = translator.translate(word, src=src_lan, dest=dest_lan)
+            temp.append(translate.text)
+        output[key] = temp
 
 
-    translated_words = []
+    for key, value in output.items():
+        for word in value:
+            print(key, " - ", word)
 
-    for word in data:
-        print(word)
-        translate = translator.translate(word, src=src_lan, dest=dest_lan)
-        translated_words.append(translate.text)
-
+    # translated_words = []
+    #
+    # for word in data:
+    #     print(word)
+    #     translate = translator.translate(word, src=src_lan, dest=dest_lan)
+    #     translated_words.append(translate.text)
+    #
     result = {}
-    result['words'] = translated_words
+    result['words'] = output
     result['src_lan'] = dest_lan
 
     response = make_response(result, False, 200)
