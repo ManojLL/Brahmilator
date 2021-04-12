@@ -39,8 +39,9 @@ class MainMenu extends Component {
             img: [],
             connection: true,
             errorMessage: '',
-            words: {}
-        };
+            words: [],
+            wordsWithM:{}}
+        ;
     }
 
     componentDidMount() {
@@ -109,9 +110,10 @@ class MainMenu extends Component {
                 .then((json) => {
                     this.setState({isLoading: false});
                     if (json.status_code === '200') {
-                        this.setState({words: json.outPut})
+                        this.setState({words: json.outPut.possible_words,wordsWithM:json.outPut.possible_words_with_meaning})
                         this.props.navigation.push('Result', {
                             findWords: this.state.words,
+                            withMeaning:this.state.wordsWithM
                         })
                     }
 
