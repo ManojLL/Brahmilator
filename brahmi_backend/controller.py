@@ -93,6 +93,7 @@ def getPossibleWords():
             result["possible_words_with_meaning"] = words
 
             response = make_response(result, True, 200)
+            return Response(response=response, status=200, mimetype='application/json')
         else:
             response = make_response("no word found", True, 404)
             return Response(response=response, status=200, mimetype='application/json')
