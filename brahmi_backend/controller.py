@@ -80,9 +80,17 @@ def getPossibleWords():
     mydb = myclient["brahmilator_database"]
     column = mydb["words"]
 
-    result = searchForWords(column, data)
-    print(len(result))
-    if len(result) > 0:
+    words = searchForWords(column, data)
+
+    if len(words) > 0:
+        possible_words = []
+        for key, value in words.items():
+            possible_words.append(key)
+
+        result = {}
+        result["possible_words"] = possible_words
+        result["possible_words_with_meaning"] = words
+
         response = make_response(result, True, 200)
     else:
         response = make_response("no word found", True, 404)
