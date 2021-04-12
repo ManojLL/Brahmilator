@@ -62,7 +62,7 @@ class MainMenu extends Component {
 
         try {
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('http://192.168.8.186:5000/api/getLetters', {
+            await fetch('http://192.168.8.176:5000/api/getLetters', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -99,7 +99,7 @@ class MainMenu extends Component {
         try {
             this.setState({isLoading: true});
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('http://192.168.8.186:5000/api/getPossibleWords', {
+            await fetch('http://192.168.8.176:5000/api/getPossibleWords', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {

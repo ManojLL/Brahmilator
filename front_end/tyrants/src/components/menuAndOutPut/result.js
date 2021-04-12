@@ -39,7 +39,7 @@ class Result extends Component {
         try {
             const data = {"possible_words_with_meaning": this.state.wordWithMeaning,'src_lan':this.state.currentLan,'dest_lan':language}
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('http://192.168.8.186:5000/api/translate', {
+            await fetch('http://192.168.8.176:5000/api/translate', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
