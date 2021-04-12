@@ -99,25 +99,29 @@ def getPossibleWords():
 
 @app.route("/api/translate", methods=["POST"])
 def translate():
-    data = request.get_json()['possible_words_with_meaning']
-    src_lan = request.get_json()['src_lan']
-    dest_lan = request.get_json()['dest_lan']
-    translator = Translator()
+    try:
+        data = request.get_json()['possible_words_with_meaning']
+        src_lan = request.get_json()['src_lan']
+        dest_lan = request.get_json()['dest_lan']
+        translator = Translator()
 
-    output = {}
-    for key, value in data.items():
-        temp = []
-        for word in value:
-            translate = translator.translate(word, src=src_lan, dest=dest_lan)
-            temp.append(translate.text)
-        output[key] = temp
+        output = {}
+        for key, value in data.items():
+            temp = []
+            for word in value:
+                translate = translator.translate(word, src=src_lan, dest=dest_lan)
+                temp.append(translate.text)
+            output[key] = temp
 
-    result = {}
-    result['possible_words_with_meaning'] = output
-    result['src_lan'] = dest_lan
+        result = {}
+        result['possible_words_with_meaning'] = output
+        result['src_lan'] = dest_lan
 
-    response = make_response(result, False, 200)
-    return Response(response=response, status=200, mimetype='application/json')
+        response = make_response(result, False, 200)
+        return Response(response=response, status=200, mimetype='application/json')
+    except Exception as e:
+        response = make_response('Something went wrong', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
 
 
 if __name__ == '__main__':
