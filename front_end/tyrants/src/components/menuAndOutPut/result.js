@@ -6,49 +6,57 @@ import {
     ScrollView,
 
 } from "react-native";
+import {Col, Row, Grid} from 'react-native-easy-grid';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import {Dropdown} from "react-native-material-dropdown";
-import Textarea from "react-native-textarea";
 
 import BottomNavigator from "../navigators/BottomNavigator";
+
 
 class Result extends Component {
     constructor(props) {
         super(props);
         this.state = {
             currentLan: 'en',
-            findWords: {}
+            findWord: this.props.route.params.findWords,
+            wordWithMeaning: this.props.route.params.withMeaning,
+
         };
     }
 
     componentDidMount() {
-        this.setState({findWords: this.props.route.params.findWords})
-        console.log(this.state.findWords)
+
+        console.log(this.state.findWord)
     }
 
 
     render() {
-        //native languages list
         let data = [
             {
+                label: "English",
                 value: "English",
             },
             {
+                label: "Spanish",
                 value: "Spanish",
             },
             {
+                label: "French",
                 value: "French",
             },
             {
+                label: "Russian",
                 value: "Russian",
             },
             {
+                label: "Arabic",
                 value: "Arabic",
             },
             {
+                label: "Tamil",
                 value: "Tamil",
             },
         ];
@@ -71,7 +79,7 @@ class Result extends Component {
                         ]}
                     >
                         <Dropdown
-                            label="Select"
+                            label="Select language"
                             data={data}
                             style={{
                                 marginTop: 4,
@@ -81,29 +89,51 @@ class Result extends Component {
                                 textAlign: "right",
 
                             }}
+
+                            onChangeText={(value) => {
+                                this.setState({currentLan: value})
+                            }}
                         />
                     </View>
                 </View>
 
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    {/* Translated inscription in Sinhala  */}
-                    <Textarea
-                        containerStyle={styles.textareaContainer}
-                        style={styles.textarea}
-                        onChangeText={this.onChange}
-                        defaultValue={this.state.text}
-                        editable={false}
-                        maxLength={1000}
-                        placeholder={
-                            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,"
-                        }
-                        placeholderTextColor={"#c7c7c7"}
-                        underlineColorAndroid={"transparent"}
-                    />
-                    <View>
-                        {
 
-                        }
+                    <View>
+                        <Grid>
+                            {this.state.findWord.map((w, index) => (
+                                <Row>
+                                    <Col>
+                                        <View key={index}>
+                                            <Text
+                                                style={{
+                                                    color: "#ffffff",
+                                                    marginLeft: 20,
+                                                    fontSize: hp('3%'),
+                                                }}>{w}</Text>
+                                        </View>
+                                    </Col>
+                                    <Col>
+                                        <View>
+                                            {this.state.wordWithMeaning[w].map((mean,index)=>(
+                                                <View >
+                                                    <Text
+                                                        style={{
+                                                            color: "#ffffff",
+                                                            marginLeft: 20,
+                                                            fontSize: hp('3%'),
+                                                        }} key={index}>{mean}</Text>
+                                                </View>
+                                            ))
+
+                                            }
+                                        </View>
+                                    </Col>
+                                </Row>
+                            ))
+
+                            }
+                        </Grid>
 
                     </View>
                 </ScrollView>
