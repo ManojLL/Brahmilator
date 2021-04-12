@@ -37,21 +37,27 @@ class Result extends Component {
         //native languages list
         let data = [
             {
+                label: "English",
                 value: "English",
             },
             {
+                label: "Spanish",
                 value: "Spanish",
             },
             {
+                label: "French",
                 value: "French",
             },
             {
+                label: "Russian",
                 value: "Russian",
             },
             {
+                label: "Arabic",
                 value: "Arabic",
             },
             {
+                label: "Tamil",
                 value: "Tamil",
             },
         ];
@@ -74,7 +80,7 @@ class Result extends Component {
                         ]}
                     >
                         <Dropdown
-                            label="Select"
+                            label="Select language"
                             data={data}
                             style={{
                                 marginTop: 4,
@@ -83,6 +89,10 @@ class Result extends Component {
                                 fontSize: 16,
                                 textAlign: "right",
 
+                            }}
+
+                            onChangeText={(value)=>{
+                                this.setState({currentLan:value})
                             }}
                         />
                     </View>
