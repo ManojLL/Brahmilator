@@ -32,18 +32,16 @@ class Result extends Component {
     }
 
     translateWords = async (language) => {
-
         this.setState({isLoading: true});
-
-
         try {
             const data = {"possible_words_with_meaning": this.state.wordWithMeaning,'src_lan':this.state.currentLan,'dest_lan':language}
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('http://192.168.8.176:5000/api/translate', {
+            await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/translate', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
-                    "content-type": "multipart/form-data",
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             })
@@ -51,7 +49,8 @@ class Result extends Component {
                 .then((json) => {
                     this.setState({isLoading: false});
                     if (json.status_code === '200') {
-                        this.setState({wordWithMeaning:json.outPut.possible_words_with_meaning,currentLan:language})
+                         this.setState({wordWithMeaning:json.outPut.possible_words_with_meaning,currentLan:language})
+
                     }
                 })
                 .catch((error) => {
@@ -68,28 +67,32 @@ class Result extends Component {
         let data = [
             {
                 label: "English",
-                value: "English",
+                value: "en",
             },
             {
                 label: "Spanish",
-                value: "Spanish",
+                value: "es",
             },
             {
                 label: "French",
-                value: "French",
+                value: "fr",
             },
             {
                 label: "Russian",
-                value: "Russian",
+                value: "ru",
             },
             {
                 label: "Arabic",
-                value: "Arabic",
+                value: "ar",
             },
             {
                 label: "Tamil",
-                value: "Tamil",
+                value: "ta",
             },
+            {
+                label: "Sinhala",
+                value: "si",
+            }
         ];
         return (
             <View style={styles.container}>
