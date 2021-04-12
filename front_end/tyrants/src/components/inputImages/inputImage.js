@@ -1,31 +1,32 @@
-import React, {Component,useState} from 'react';
+import React, {Component, useState} from 'react';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import SvgUri from 'react-native-svg-uri';
-import { View,Text,StyleSheet,ImageBackground, TouchableOpacity, Button, Alert,} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground, TouchableOpacity, Button, Alert,} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import * as ImagePicker from 'react-native-image-picker';
-
+import Flash from '../../images/icons/flash.svg'
+import Close from '../../images/icons/close.svg'
+import Upload from '../../images/icons/upload.svg'
 
 class InputImg extends Component {
     constructor(props) {
         super(props);
         this.state = {
             takingPic: false,
-            ImageUri:'',
-            flash:RNCamera.Constants.FlashMode.off,
+            ImageUri: '',
+            flash: RNCamera.Constants.FlashMode.off,
         };
     }
 
-    toggleTorch()
-    {
+    toggleTorch() {
         let tstate = this.state.flash;
-        if (tstate === RNCamera.Constants.FlashMode.off){
+        if (tstate === RNCamera.Constants.FlashMode.off) {
             tstate = RNCamera.Constants.FlashMode.on;
         } else {
             tstate = RNCamera.Constants.FlashMode.off;
         }
-        this.setState({flash:tstate})
+        this.setState({flash: tstate})
     }
 
     takePicture = async () => {
@@ -71,12 +72,12 @@ class InputImg extends Component {
                 console.log('User tapped custom button: ', response.customButton);
                 alert(response.customButton);
             } else {
-                const source = { uri: response.uri };
+                const source = {uri: response.uri};
                 console.log('response', JSON.stringify(response));
                 this.setState({
-                    imageUri:response.uri,
+                    imageUri: response.uri,
                 });
-console.log(response)
+                console.log(response)
                 this.props.navigation.navigate('Preview', {imgUri: response});
             }
         });
@@ -105,16 +106,18 @@ console.log(response)
                         <View style={[styles.toolBar]}>
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-                                    <SvgUri
-                                        source={require('../../images/icons/close.svg')}
-                                        style={{width: wp('5%'), height: hp('3%')}}/>
+                                    <View>
+                                        <Close
+                                            style={{width: wp('5%'), height: hp('3%')}}/>
+                                    </View>
                                 </TouchableOpacity>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row-reverse'}}>
-                                <TouchableOpacity  onPress={() => this.toggleTorch() }>
-                                    <SvgUri
-                                        source={require('../../images/icons/flash.svg')}
-                                        style={{width:  wp('5%'), height: hp('3%')}}/>
+                                <TouchableOpacity onPress={() => this.toggleTorch()}>
+                                    <View>
+                                        <Flash
+                                            style={{width: wp('5%'), height: hp('3%')}}/>
+                                    </View>
                                 </TouchableOpacity>
                             </View>
 
@@ -128,9 +131,9 @@ console.log(response)
                             <Col style={styles.alignCenter}>
                                 <View>
                                     <TouchableOpacity style={{}} onPress={this.launchImageLibrary}>
-                                        <SvgUri
-                                            source={require('../../images/icons/upload.svg')}
-                                            style={{width: wp('8.2%'), height: hp('4%')}}/>
+                                        <View>
+                                            <Upload
+                                                style={{width: wp('8.2%'), height: hp('4%')}}/></View>
                                     </TouchableOpacity>
                                 </View>
                             </Col>
