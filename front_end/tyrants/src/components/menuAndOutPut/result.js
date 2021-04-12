@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView,
+    ScrollView, ActivityIndicator,
 
 } from "react-native";
 import {Col, Row, Grid} from 'react-native-easy-grid';
@@ -23,13 +23,8 @@ class Result extends Component {
             currentLan: 'en',
             findWord: this.props.route.params.findWords,
             wordWithMeaning: this.props.route.params.withMeaning,
-
+            ifLoading: false,
         };
-    }
-
-    componentDidMount() {
-
-        console.log(this.state.findWord)
     }
 
 
@@ -62,81 +57,129 @@ class Result extends Component {
         ];
         return (
             <View style={styles.container}>
-                <View style={[{flexDirection: "row", alignItems: "center"}]}>
-                    <View style={[{flex: 1, flexDirection: "row"}]}>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.titleText}>Word Translations </Text>
+                {this.state.ifLoading ? (
+                    <View style={[styles.centerItems]}>
+                        <ActivityIndicator size="large" color="#ffffff"/>
+                        <Text style={{color: "#ffffff"}}>LOADING ...</Text>
+                    </View>
+                ) : (
+                    <View style={styles.container}>
+
+                        <View style={[{flexDirection: "row", alignItems: "center"}]}>
+                            <View style={[{flex: 1, flexDirection: "row"}]}>
+                                <View style={styles.textContainer}>
+                                    <Text style={styles.titleText}>Word Translations </Text>
+                                </View>
+                            </View>
+                            <View
+                                style={[
+                                    {
+                                        justifyContent: "space-evenly",
+                                        marginVertical: 10,
+                                        color: "#FFC542",
+                                        width: 80,
+                                    },
+                                ]}
+                            >
+                                <Dropdown
+                                    label="Select language"
+                                    data={data}
+                                    style={{
+                                        marginTop: 4,
+                                        fontWeight: "bold",
+                                        fontFamily: "SF Pro Rounded",
+                                        fontSize: 16,
+                                        textAlign: "right",
+
+                                    }}
+
+                                    onChangeText={(value) => {
+                                        this.setState({currentLan: value})
+                                    }}
+                                />
+                            </View>
                         </View>
-                    </View>
-                    <View
-                        style={[
-                            {
-                                justifyContent: "space-evenly",
-                                marginVertical: 10,
-                                color: "#FFC542",
-                                width: 80,
-                            },
-                        ]}
-                    >
-                        <Dropdown
-                            label="Select language"
-                            data={data}
-                            style={{
-                                marginTop: 4,
-                                fontWeight: "bold",
-                                fontFamily: "SF Pro Rounded",
-                                fontSize: 16,
-                                textAlign: "right",
+                        {this.state.findWord.length > 0 ?
+                            (
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <Row>
+                                        <Col>
+                                            <View>
+                                                <Text
+                                                    style={{
+                                                        color: "#FFC542",
+                                                        marginLeft: 20,
+                                                        fontSize: hp('2.5%'),
+                                                    }}>WORD</Text>
+                                            </View>
+                                        </Col>
+                                        <Col>
+                                            <View>
+                                                <Text
+                                                    style={{
+                                                        color: "#FFC542",
+                                                        marginLeft: 20,
+                                                        fontSize: hp('2.5%'),
+                                                    }}>MEANING</Text>
+                                            </View>
+                                        </Col>
+                                    </Row>
+                                    <View style={{padding: 20}}>
+                                        <Grid>
+                                            {this.state.findWord.map((w, index) => (
+                                                <Row style={{
+                                                    borderWidth: 1,
+                                                    borderColor: '#ffffff',
+                                                    marginBottom: 10,
+                                                    padding: 10
+                                                }}>
+                                                    <Col>
+                                                        <View key={index}>
+                                                            <Text
+                                                                style={{
+                                                                    color: "#ffffff",
+                                                                    marginLeft: 20,
+                                                                    fontSize: hp('3%'),
+                                                                }}>{w}</Text>
+                                                        </View>
+                                                    </Col>
+                                                    <Col>
+                                                        <View>
+                                                            {this.state.wordWithMeaning[w].map((mean, index) => (
+                                                                <View>
+                                                                    <Text
+                                                                        style={{
+                                                                            color: "#ffffff",
+                                                                            marginLeft: 20,
+                                                                            fontSize: hp('3%'),
+                                                                        }} key={index}>{mean}</Text>
+                                                                </View>
+                                                            ))
 
-                            }}
-
-                            onChangeText={(value) => {
-                                this.setState({currentLan: value})
-                            }}
-                        />
-                    </View>
-                </View>
-
-                <ScrollView showsVerticalScrollIndicator={false}>
-
-                    <View>
-                        <Grid>
-                            {this.state.findWord.map((w, index) => (
-                                <Row>
-                                    <Col>
-                                        <View key={index}>
-                                            <Text
-                                                style={{
-                                                    color: "#ffffff",
-                                                    marginLeft: 20,
-                                                    fontSize: hp('3%'),
-                                                }}>{w}</Text>
-                                        </View>
-                                    </Col>
-                                    <Col>
-                                        <View>
-                                            {this.state.wordWithMeaning[w].map((mean,index)=>(
-                                                <View >
-                                                    <Text
-                                                        style={{
-                                                            color: "#ffffff",
-                                                            marginLeft: 20,
-                                                            fontSize: hp('3%'),
-                                                        }} key={index}>{mean}</Text>
-                                                </View>
+                                                            }
+                                                        </View>
+                                                    </Col>
+                                                </Row>
                                             ))
 
                                             }
-                                        </View>
-                                    </Col>
-                                </Row>
-                            ))
+                                        </Grid>
 
-                            }
-                        </Grid>
-
+                                    </View>
+                                </ScrollView>
+                            ) :
+                            (
+                                <View style={[styles.centerItems]}>
+                                    <Text
+                                        style={{
+                                            color: "#ffffff",
+                                            justifyContent: "center",
+                                            fontSize: hp('3%'),
+                                        }}> NO WORDS </Text>
+                                </View>
+                            )}
                     </View>
-                </ScrollView>
+                )}
                 <BottomNavigator navigation={this.props.navigation}/>
             </View>
         );
@@ -223,6 +266,11 @@ const styles = StyleSheet.create({
         borderColor: "#333",
         zIndex: 100,
     },
+    centerItems: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    }
 });
 
 export default Result;
