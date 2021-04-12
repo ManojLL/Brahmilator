@@ -74,27 +74,31 @@ def translateLetters():
 
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
-    data = request.get_json()['letters']
-    myclient = pymongo.MongoClient(
-        "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
-    mydb = myclient["brahmilator_database"]
-    column = mydb["words"]
+    try:
+        data = request.get_json()['letters']
+        myclient = pymongo.MongoClient(
+            "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+        mydb = myclient["brahmilator_database"]
+        column = mydb["words"]
 
-    words = searchForWords(column, data)
+        words = searchForWords(column, data)
 
-    if len(words) > 0:
-        possible_words = []
-        for key, value in words.items():
-            possible_words.append(key)
+        if len(words) > 0:
+            possible_words = []
+            for key, value in words.items():
+                possible_words.append(key)
 
-        result = {}
-        result["possible_words"] = possible_words
-        result["possible_words_with_meaning"] = words
+            result = {}
+            result["possible_words"] = possible_words
+            result["possible_words_with_meaning"] = words
 
-        response = make_response(result, True, 200)
-    else:
-        response = make_response("no word found", True, 404)
-    return Response(response=response, status=200, mimetype='application/json')
+            response = make_response(result, True, 200)
+        else:
+            response = make_response("no word found", True, 404)
+            return Response(response=response, status=200, mimetype='application/json')
+    except Exception as e:
+        response = make_response('Something went wrong', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
 
 
 @app.route("/api/translate", methods=["POST"])
