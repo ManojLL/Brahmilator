@@ -13,16 +13,11 @@ import {
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 //import SearchableDropdown from "react-native-searchable-dropdown";
-import {Dropdown} from "react-native-material-dropdown";
-import Textarea from "react-native-textarea";
-import {
-    Collapse,
-    CollapseHeader,
-    CollapseBody,
-    AccordionList,
-} from "accordion-collapse-react-native";
+
 import BottomNavigator from "../navigators/BottomNavigator";
+
 LogBox.ignoreAllLogs();
+
 class ResultLetter extends Component {
     constructor(props) {
         super(props);
@@ -37,27 +32,7 @@ class ResultLetter extends Component {
     }
 
     render() {
-        //native languages list
-        let data = [
-            {
-                value: "English",
-            },
-            {
-                value: "Spanish",
-            },
-            {
-                value: "French",
-            },
-            {
-                value: "Russian",
-            },
-            {
-                value: "Arabic",
-            },
-            {
-                value: "Tamil",
-            },
-        ];
+
         return (
             <View>
                 <View style={styles.container}>
@@ -67,37 +42,14 @@ class ResultLetter extends Component {
                                 <Text style={styles.titleText}> Translated letters</Text>
                             </View>
                         </View>
-                        <View
-                            style={[
-                                {
-                                    justifyContent: "space-evenly",
-                                    marginVertical: 10,
-                                    color: "#FFC542",
-                                    width:80,
-                                },
-                            ]}
-                        >
-                            <Dropdown
-                                label="Select"
-                                data={data}
-                                style={{
-                                    marginTop: 4,
-                                    fontWeight: "bold",
-                                    fontFamily: "SF Pro Rounded",
-                                    fontSize: 16,
-                                    textAlign: "right",
-
-                                }}
-                            />
-                        </View>
                     </View>
 
                     <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: hp('7%')}}>
-                        {this.state.letters.map((letter,index) => (
+                        {this.state.letters.map((letter, index) => (
                             <View style={{flex: 1, flexDirection: 'row',}} key={index}>
                                 <ImageBackground
-                                    source={{uri:`data:image/png;base64,${this.state.img[index]}`}}
-                                    style={{width: wp('35%'), height: hp('20%'), marginLeft: 20,marginBottom:20}}/>
+                                    source={{uri: `data:image/png;base64,${this.state.img[index]}`}}
+                                    style={{width: wp('35%'), height: hp('20%'), marginLeft: 20, marginBottom: 20}}/>
                                 <View style={{justifyContent: "center"}}>
                                     <Text
                                         style={{color: "#ffffff", marginLeft: 20, fontSize: hp('3%'),}}>{letter}</Text>

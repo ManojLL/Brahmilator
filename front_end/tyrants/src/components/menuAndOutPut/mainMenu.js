@@ -39,8 +39,9 @@ class MainMenu extends Component {
             img: [],
             connection: true,
             errorMessage: '',
-            words: {}
-        };
+            words: [],
+            wordsWithM:{}}
+        ;
     }
 
     componentDidMount() {
@@ -72,10 +73,12 @@ class MainMenu extends Component {
                 .then(response => response.json())
                 .then((json) => {
                     this.setState({isLoading: false});
-                    console.log(json.status_code)
                     if (json.status_code === '200') {
-                        this.setState({letters: json.outPut.letter, img: json.outPut.images, find: true})
-                        console.log(this.state.letters, this.state.find)
+                        if(json.outPut.letter.length > 0) {
+                            this.setState({letters: json.outPut.letter, img: json.outPut.images, find: true})
+                        }else{
+                            this.setState({letters: json.outPut.letter, img: json.outPut.images, find: false})
+                        }
                     } else {
                         this.setState({find: false, errorMessage: json.outPut})
                     }
@@ -109,9 +112,10 @@ class MainMenu extends Component {
                 .then((json) => {
                     this.setState({isLoading: false});
                     if (json.status_code === '200') {
-                        this.setState({words: json.outPut})
+                        this.setState({words: json.outPut.possible_words,wordsWithM:json.outPut.possible_words_with_meaning})
                         this.props.navigation.push('Result', {
                             findWords: this.state.words,
+                            withMeaning:this.state.wordsWithM
                         })
                     }
 
@@ -166,25 +170,23 @@ class MainMenu extends Component {
                                     </TouchableOpacity>
                                 </View>
 
-                                <View>
-                                    <TouchableOpacity
-                                        style={styles.button}
-                                        onPress={() => this.props.navigation.push('Result', {
-                                            letters: 'u',
-                                            suggetion: 'wwdwdwdw'
-                                        })}
-                                    >
-                                        <Text style={{color: "#000000", fontWeight: "bold"}}>
-                                            {"Translated Sentences"}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
+                                {/*<View>*/}
+                                {/*    <TouchableOpacity*/}
+                                {/*        style={styles.button}*/}
+                                {/*        onPress={() => this.props.navigation.push('Result', {*/}
+                                {/*            letters: 'u',*/}
+                                {/*            suggetion: 'wwdwdwdw'*/}
+                                {/*        })}*/}
+                                {/*    >*/}
+                                {/*        <Text style={{color: "#000000", fontWeight: "bold"}}>*/}
+                                {/*            {"Translated Sentences"}*/}
+                                {/*        </Text>*/}
+                                {/*    </TouchableOpacity>*/}
+                                {/*</View>*/}
                             </View>
                         ) : (
                             <View>
                                 <Text style={{color: "#ffffff"}}>CAN'T TRANSLATE THE IMAGE</Text>
-                                {}
-                                <Text style={{color: "#ffffff"}}>ERROR : {this.state.errorMessage}</Text>
                             </View>
                         )}
 
