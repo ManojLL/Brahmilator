@@ -99,7 +99,7 @@ def getPossibleWords():
 
 @app.route("/api/translate", methods=["POST"])
 def translate():
-    data = request.get_json()['words']
+    data = request.get_json()['possible_words_with_meaning']
     src_lan = request.get_json()['src_lan']
     dest_lan = request.get_json()['dest_lan']
     translator = Translator()
@@ -125,7 +125,7 @@ def translate():
     #     translated_words.append(translate.text)
     #
     result = {}
-    result['words'] = output
+    result['possible_words_with_meaning'] = output
     result['src_lan'] = dest_lan
 
     response = make_response(result, False, 200)
