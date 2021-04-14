@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
     TouchableOpacity,
     Platform,
 } from "react-native";
@@ -14,7 +13,6 @@ import {
 } from "react-native-responsive-screen";
 import BottomNavigator from "../navigators/BottomNavigator";
 import NetInfo from "@react-native-community/netinfo";
-import {cos} from "react-native-reanimated";
 
 const createFormData = (photo) => {
     let i = {
@@ -99,7 +97,7 @@ class MainMenu extends Component {
         try {
             this.setState({isLoading: true});
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('http://192.168.8.186:5000/api/getPossibleWords', {
+            await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getPossibleWords', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -170,19 +168,6 @@ class MainMenu extends Component {
                                     </TouchableOpacity>
                                 </View>
 
-                                {/*<View>*/}
-                                {/*    <TouchableOpacity*/}
-                                {/*        style={styles.button}*/}
-                                {/*        onPress={() => this.props.navigation.push('Result', {*/}
-                                {/*            letters: 'u',*/}
-                                {/*            suggetion: 'wwdwdwdw'*/}
-                                {/*        })}*/}
-                                {/*    >*/}
-                                {/*        <Text style={{color: "#000000", fontWeight: "bold"}}>*/}
-                                {/*            {"Translated Sentences"}*/}
-                                {/*        </Text>*/}
-                                {/*    </TouchableOpacity>*/}
-                                {/*</View>*/}
                             </View>
                         ) : (
                             <View>
