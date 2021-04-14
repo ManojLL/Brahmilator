@@ -1,7 +1,6 @@
 import os
 
-import flask
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response
 import filetype
 from tqdm import tqdm
 from googletrans import Translator
@@ -98,6 +97,7 @@ def getPossibleWords():
             response = make_response("no word found", True, 404)
             return Response(response=response, status=200, mimetype='application/json')
     except Exception as e:
+        print(e)
         response = make_response('Something went wrong', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
