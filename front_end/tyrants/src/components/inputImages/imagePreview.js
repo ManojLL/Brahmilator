@@ -35,7 +35,7 @@ class ImagePreview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ImageUri: '',
+            ImageUri: props.route.params.imgUri,
             width: 0,
             height: 0,
         };
@@ -79,7 +79,7 @@ class ImagePreview extends Component {
 
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
-                        source={{uri: this.props.route.params.imgUri.uri}}
+                        source={{uri: `data:image/jpeg;base64,${this.props.route.params.imgUri}`}}
                         // source={require(this.props.navigation.state.params.imgUri)}
                         style={{width: wp('90%'), height: hp('85%')}} resizeMode={'contain'}/>
                 </View>
