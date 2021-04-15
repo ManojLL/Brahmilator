@@ -1,5 +1,5 @@
 import os
-
+import cv2
 from flask import Flask, request, Response
 import filetype
 from tqdm import tqdm
@@ -8,6 +8,8 @@ import io
 from base64 import encodebytes
 from PIL import Image
 import pymongo
+import base64
+
 from util import make_response
 import brahmi_classifier
 from segmentation import image_segmentation
@@ -18,57 +20,108 @@ app = Flask(__name__)
 input_data = "input_data"
 segmented_letters = "segmented_letters"
 
-
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
-    global image_name
     try:
-        image = request.files["image"]
-        image_name = image.filename
-        image.save(os.path.join(input_data, image_name))
+        data = request.get_json()['image']
 
-        if filetype.is_image(os.path.join(input_data, image_name)):
-            flag = image_segmentation(image_name)
+        with open("input_data/plate.png", "wb") as fh:
+            fh.write(base64.b64decode(data))
 
-            if (flag == True):
-                result = {}
-                classify_letters = brahmi_classifier.classify_letters()
-                result['letter'] = classify_letters
+        plate = cv2.imread('input_data/plate.png')
+        cv2.imshow('image', plate)
+        cv2.waitKey(0)
 
-                test_path = os.path.join(segmented_letters)
-                segmented_images = []
+        flag = image_segmentation("plate.png")
 
-                for img in tqdm(os.listdir(test_path)):
-                    image_path = os.path.join(test_path, img)
-                    pil_img = Image.open(image_path, mode='r')
-                    byte_arr = io.BytesIO()
-                    pil_img.save(byte_arr, format='PNG')
-                    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')
-                    segmented_images.append(encoded_img)
-                    os.remove(os.path.join(test_path, img))
+        if (flag == True):
+            result = {}
+            classify_letters = brahmi_classifier.classify_letters()
+            result['letter'] = classify_letters
 
-                result['images'] = segmented_images
+            test_path = os.path.join(segmented_letters)
+            segmented_images = []
 
-                response = make_response(result, True, 200)
-                os.remove(os.path.join(input_data, image_name))
-                return Response(response=response, status=200, mimetype='application/json')
-            else:
-                test_path = os.path.join(segmented_letters)
+            for img in tqdm(os.listdir(test_path)):
+                image_path = os.path.join(test_path, img)
+                pil_img = Image.open(image_path, mode='r')
+                byte_arr = io.BytesIO()
+                pil_img.save(byte_arr, format='PNG')
+                encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')
+                segmented_images.append(encoded_img)
+                os.remove(os.path.join(test_path, img))
 
-                for img in tqdm(os.listdir(test_path)):
-                    os.remove(os.path.join(test_path, img))
+            result['images'] = segmented_images
 
-                os.remove(os.path.join(input_data, image_name))
-                response = make_response("Too much noise in image", True, 200)
-                return Response(response=response, status=200, mimetype='application/json')
+            response = make_response(result, True, 200)
+            os.remove("input_data/plate.png")
+            return Response(response=response, status=200, mimetype='application/json')
         else:
-            os.remove(os.path.join(input_data, image_name))
-            response = make_response('The file is NOT an Image', False, 403)
-            return Response(response=response, status=403, mimetype='application/json')
-    except Exception as e:
-        os.remove(os.path.join(input_data, image_name))
-        response = make_response('The file is NOT FOUND', False, 404)
+            test_path = os.path.join(segmented_letters)
+
+            for img in tqdm(os.listdir(test_path)):
+                os.remove(os.path.join(test_path, img))
+
+            os.remove("input_data/plate.png")
+            response = make_response("Too much noise in image", True, 200)
+            return Response(response=response, status=200, mimetype='application/json')
+
+        response = make_response('Done', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
+    except Exception as e:
+        print(e)
+        response = make_response('Error', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
+
+
+    # global image_name
+    # try:
+    #     image = request.files["image"]
+    #     image_name = image.filename
+    #     image.save(os.path.join(input_data, image_name))
+    #
+    #     if filetype.is_image(os.path.join(input_data, image_name)):
+    #         flag = image_segmentation(image_name)
+    #
+    #         if (flag == True):
+    #             result = {}
+    #             classify_letters = brahmi_classifier.classify_letters()
+    #             result['letter'] = classify_letters
+    #
+    #             test_path = os.path.join(segmented_letters)
+    #             segmented_images = []
+    #
+    #             for img in tqdm(os.listdir(test_path)):
+    #                 image_path = os.path.join(test_path, img)
+    #                 pil_img = Image.open(image_path, mode='r')
+    #                 byte_arr = io.BytesIO()
+    #                 pil_img.save(byte_arr, format='PNG')
+    #                 encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')
+    #                 segmented_images.append(encoded_img)
+    #                 os.remove(os.path.join(test_path, img))
+    #
+    #             result['images'] = segmented_images
+    #
+    #             response = make_response(result, True, 200)
+    #             os.remove(os.path.join(input_data, image_name))
+    #             return Response(response=response, status=200, mimetype='application/json')
+    #         else:
+    #             test_path = os.path.join(segmented_letters)
+    #
+    #             for img in tqdm(os.listdir(test_path)):
+    #                 os.remove(os.path.join(test_path, img))
+    #
+    #             os.remove(os.path.join(input_data, image_name))
+    #             response = make_response("Too much noise in image", True, 200)
+    #             return Response(response=response, status=200, mimetype='application/json')
+    #     else:
+    #         os.remove(os.path.join(input_data, image_name))
+    #         response = make_response('The file is NOT an Image', False, 403)
+    #         return Response(response=response, status=403, mimetype='application/json')
+    # except Exception as e:
+    #     os.remove(os.path.join(input_data, image_name))
+    #     response = make_response('The file is NOT FOUND', False, 404)
+    #     return Response(response=response, status=404, mimetype='application/json')
 
 
 @app.route('/api/getPossibleWords', methods=['POST'])
