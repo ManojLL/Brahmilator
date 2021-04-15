@@ -8,6 +8,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Button,
+  Platform,
   Alert,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
@@ -62,6 +63,7 @@ class InputImg extends Component {
         const data = await this.camera.takePictureAsync(options);
         console.log(data.uri);
 
+        // Converted into base64
         this.setState({
           ...this.state,
           photoAsBase64: {
@@ -70,7 +72,8 @@ class InputImg extends Component {
             imageUri: data.uri,
           },
         });
-        this.props.navigation.navigate('Preview', {imgUri: data});
+        this.proceedWithCheckingBlurryImage();
+        //this.props.navigation.navigate('Preview', {imgUri: data});
       } catch (err) {
         Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
       } finally {
@@ -100,19 +103,19 @@ class InputImg extends Component {
   }
 
   proceedWithCheckingBlurryImage() {
-    const {content, photoPath} = this.state.photoAsBase64;
+    const {content, imageUri} = this.state.photoAsBase64;
 
     this.checkForBlurryImage(content)
       .then((blurryPhoto) => {
         if (blurryPhoto) {
-          this.Toast.show('Photo is blurred!', DURATION.LENGTH_SHORT);
+          this.toast.show('Photo is blurred!', DURATION.LENGTH_SHORT);
         }
-        this.Toast.show('Photo is clear!', DURATION.LENGTH_SHORT);
+        this.toast.show('Photo is clear!', DURATION.LENGTH_SHORT);
         this.setState({
           photoAsBase64: {
             ...this.state.photoAsBase64,
             isPhotoPreview: true,
-            photoPath,
+            imageUri,
           },
         });
       })
