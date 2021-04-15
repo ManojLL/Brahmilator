@@ -39,6 +39,7 @@ class ImagePreProcess extends Component {
             morphValue: 0,
             dialationModal: false,
             dialationValue: 0,
+            imgUri:props.route.params.imgUri,
         };
     }
 
@@ -282,7 +283,7 @@ class ImagePreProcess extends Component {
                 </View>
                 <View style={[styles.imagePrev, styles.centerItems]}>
                     <ImageBackground
-                        source={{uri: this.props.route.params.imgUri.uri}}
+                        source={{uri: `data:image/jpeg;base64,${this.props.route.params.imgUri}`}}
                         style={{width: wp('90%'), height: hp("70%"), marginTop: 10}} resizeMode={'contain'}/>
                 </View>
 

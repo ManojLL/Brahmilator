@@ -8,6 +8,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import Flash from '../../images/icons/flash.svg'
 import Close from '../../images/icons/close.svg'
 import Upload from '../../images/icons/upload.svg'
+import RNFS from 'react-native-fs';
 
 class InputImg extends Component {
     constructor(props) {
@@ -42,9 +43,10 @@ class InputImg extends Component {
 
             try {
                 const data = await this.camera.takePictureAsync(options);
-                console.log(data.uri)
-                this.setState({imageUri: data.uri});
-                this.props.navigation.navigate('Preview', {imgUri: data});
+                // console.log(data.uri)
+                // this.setState({imageUri: data.uri});
+                // this.props.navigation.navigate('Preview', {imgUri: data});
+                this.convertImg(data.uri)
             } catch (err) {
                 Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
             } finally {
@@ -72,18 +74,25 @@ class InputImg extends Component {
                 console.log('User tapped custom button: ', response.customButton);
                 alert(response.customButton);
             } else {
-                const source = {uri: response.uri};
-                console.log('response', JSON.stringify(response));
-                this.setState({
-                    imageUri: response.uri,
-                });
-                console.log(response)
-                this.props.navigation.navigate('Preview', {imgUri: response});
+                // const source = {uri: response.uri};
+                // console.log('response', JSON.stringify(response));
+                // this.setState({
+                //     imageUri: response.uri,
+                // });
+                // console.log(response)
+                // this.props.navigation.navigate('Preview', {imgUri: response});
+                this.convertImg(response.uri)
             }
         });
 
     }
 
+    convertImg=(path)=>{
+        RNFS.readFile(path, 'base64')
+            .then(res =>{
+                this.props.navigation.navigate('Preview', {imgUri: res});
+            });
+    }
     render() {
         return (
             <View style={styles.container}>
