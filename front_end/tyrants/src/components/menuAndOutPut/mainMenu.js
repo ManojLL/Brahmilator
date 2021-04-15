@@ -38,7 +38,8 @@ class MainMenu extends Component {
             connection: true,
             errorMessage: '',
             words: [],
-            wordsWithM:{}}
+            wordsWithM: {}
+        }
         ;
     }
 
@@ -57,24 +58,25 @@ class MainMenu extends Component {
 
     loadAPI = async () => {
         this.setState({isLoading: true});
-
+        const data = {"image": this.props.route.params.imgUri}
         try {
             // Changed the default IP in previous testing (Nimendra)
             await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getLetters', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
-                    "content-type": "multipart/form-data",
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
                 },
-                body: createFormData(this.props.route.params.imgUri)
+                body: JSON.stringify(data)
             })
                 .then(response => response.json())
                 .then((json) => {
                     this.setState({isLoading: false});
                     if (json.status_code === '200') {
-                        if(json.outPut.letter.length > 0) {
+                        if (json.outPut.letter.length > 0) {
                             this.setState({letters: json.outPut.letter, img: json.outPut.images, find: true})
-                        }else{
+                        } else {
                             this.setState({letters: json.outPut.letter, img: json.outPut.images, find: false})
                         }
                     } else {
@@ -93,7 +95,7 @@ class MainMenu extends Component {
 
     getWord = async () => {
 
-        const data = {"letters":this.state.letters }
+        const data = {"letters": this.state.letters}
         try {
             this.setState({isLoading: true});
             // Changed the default IP in previous testing (Nimendra)
@@ -110,15 +112,18 @@ class MainMenu extends Component {
                 .then((json) => {
                     this.setState({isLoading: false});
                     if (json.status_code === '200') {
-                        this.setState({words: json.outPut.possible_words,wordsWithM:json.outPut.possible_words_with_meaning})
-                        this.props.navigation.push('Result', {
-                            findWords: this.state.words,
-                            withMeaning:this.state.wordsWithM
+                        this.setState({
+                            words: json.outPut.possible_words,
+                            wordsWithM: json.outPut.possible_words_with_meaning
                         })
-                    }else {
                         this.props.navigation.push('Result', {
                             findWords: this.state.words,
-                            withMeaning:this.state.wordsWithM
+                            withMeaning: this.state.wordsWithM
+                        })
+                    } else {
+                        this.props.navigation.push('Result', {
+                            findWords: this.state.words,
+                            withMeaning: this.state.wordsWithM
                         })
                     }
 
