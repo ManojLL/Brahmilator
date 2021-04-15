@@ -20,6 +20,8 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+project.xcworkspace
+ios/opencv2.framework/
 
 # Android/IntelliJ
 #
@@ -28,6 +30,9 @@ build/
 .gradle
 local.properties
 *.iml
+android/app/src/main/jniLibs/
+android/OpenCV452/
+android/OpenCV-android-sdk
 
 # node.js
 #
