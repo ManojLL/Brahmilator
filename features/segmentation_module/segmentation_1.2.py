@@ -1,9 +1,11 @@
+import sys
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-np.set_printoptions(threshold='nan')
+np.set_printoptions(threshold=1)
 
 
 # ------------------Functions------------------#
@@ -159,7 +161,7 @@ def letter_seg(lines_img, x_lines, i):
     letter_img = []
     letter_k = []
 
-    chalu_img, contours, hierarchy = cv2.findContours(copy_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(copy_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contours:
         if cv2.contourArea(cnt) > 50:
             x, y, w, h = cv2.boundingRect(cnt)
@@ -177,7 +179,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('./segmented_img/img1/' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('output/img1/' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         else:
             x_linescopy.pop(0)
@@ -186,7 +188,7 @@ def letter_seg(lines_img, x_lines, i):
             letter_img_tmp = lines_img[i][letter[e][1] - 5:letter[e][1] + letter[e][3] + 5,
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-            cv2.imwrite('./segmented_img/img1/' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
+            cv2.imwrite('output/img1/' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         255 - letter_img)
         # print(letter[e][0],x_linescopy[0], word)
 
@@ -284,7 +286,7 @@ for i in range(no_of_lines):
 
 # -------------Letter Width Calculation--------#
 
-contr_img, contours, hierarchy = cv2.findContours(contr_retrival, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+contours, hierarchy = cv2.findContours(contr_retrival, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 final_contr = np.zeros((final_thr.shape[0], final_thr.shape[1], 3), dtype=np.uint8)
 cv2.drawContours(src_img, contours, -1, (0, 255, 0), 1)
 
@@ -317,7 +319,7 @@ for i in range(len(lines)):
 
 chr_img = bin_img1.copy()
 
-contr_img, contours, hierarchy = cv2.findContours(chr_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+contours, hierarchy = cv2.findContours(chr_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 # print(len(contours))
 # final_contr = np.zeros((final_thr.shape[0],final_thr.shape[1],3), dtype = np.uint8)
 # cv2.drawContours(src_img, contours, -1, (0,255,0), 1)
@@ -338,5 +340,5 @@ showimages()
 
 
 # -------------Closing Windows-----------------#
-
+sys.setrecursionlimit(10000)
 closewindows()
