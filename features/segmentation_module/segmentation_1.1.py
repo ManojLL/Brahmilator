@@ -202,13 +202,7 @@ for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
         cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
         crop = resized_image[y:(y+h), x:(x+w)]
-
-        hsv = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
-        green_lo = np.array([60, 120, 180])
-        green_hi = np.array([0, 255, 0])
-        mask = cv2.inRange(hsv, green_lo, green_hi)
-        crop[mask > 0] = (0, 0, 255)
-
+        crop = cv2.resize(crop, (224, 224))
         cv2.imwrite("output/crop_{0}.png".format(i), crop)
         i = i+1
 
