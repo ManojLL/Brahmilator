@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Text,
     View,
-    ImageBackground,
     TouchableOpacity,
     Platform,
 } from "react-native";
@@ -37,14 +36,16 @@ class MainMenu extends Component {
             find: false,
             img: [],
             connection: true,
-            errorMessage: ''
-        };
+            errorMessage: '',
+            words: [],
+            wordsWithM:{}}
+        ;
     }
 
     componentDidMount() {
         NetInfo.fetch().then(state => {
             if (state.isConnected) {
-                this.loadAPI().then(r => console.log(r))
+                this.loadAPI()
             } else {
                 alert("connect to ineter net and try again")
                 this.setState({connection: false})
@@ -59,7 +60,11 @@ class MainMenu extends Component {
 
         try {
             // Changed the default IP in previous testing (Nimendra)
+<<<<<<< HEAD
             await fetch('http://192.168.8.192:5000/api/getLetters', {
+=======
+            await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getLetters', {
+>>>>>>> 3f8b8db53917b0dae3427a36f2cf006e1aa962d3
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -70,10 +75,12 @@ class MainMenu extends Component {
                 .then(response => response.json())
                 .then((json) => {
                     this.setState({isLoading: false});
-                    console.log(json.status_code)
                     if (json.status_code === '200') {
-                        this.setState({letters: json.outPut.letter, img: json.outPut.images, find: true})
-                        console.log(this.state.letters, this.state.find)
+                        if(json.outPut.letter.length > 0) {
+                            this.setState({letters: json.outPut.letter, img: json.outPut.images, find: true})
+                        }else{
+                            this.setState({letters: json.outPut.letter, img: json.outPut.images, find: false})
+                        }
                     } else {
                         this.setState({find: false, errorMessage: json.outPut})
                     }
@@ -87,6 +94,49 @@ class MainMenu extends Component {
             console.error(error);
         }
     };
+
+    getWord = async () => {
+
+        const data = {"letters":this.state.letters }
+        try {
+            this.setState({isLoading: true});
+            // Changed the default IP in previous testing (Nimendra)
+            await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getPossibleWords', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then((json) => {
+                    this.setState({isLoading: false});
+                    if (json.status_code === '200') {
+                        this.setState({words: json.outPut.possible_words,wordsWithM:json.outPut.possible_words_with_meaning})
+                        this.props.navigation.push('Result', {
+                            findWords: this.state.words,
+                            withMeaning:this.state.wordsWithM
+                        })
+                    }else {
+                        this.props.navigation.push('Result', {
+                            findWords: this.state.words,
+                            withMeaning:this.state.wordsWithM
+                        })
+                    }
+
+                })
+                .catch((error) => {
+                    this.setState({isLoading: false});
+                    console.log("upload error", error);
+                    alert("Upload failed!");
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     render() {
         return (
@@ -119,7 +169,7 @@ class MainMenu extends Component {
                                 <View>
                                     <TouchableOpacity
                                         style={styles.button}
-                                        onPress={() => this.props.navigation.push('Result')}
+                                        onPress={() => this.getWord()}
                                     >
                                         <Text style={{color: "#000000", fontWeight: "bold"}}>
                                             {"Translated Words"}
@@ -127,25 +177,10 @@ class MainMenu extends Component {
                                     </TouchableOpacity>
                                 </View>
 
-                                <View>
-                                    <TouchableOpacity
-                                        style={styles.button}
-                                        onPress={() => this.props.navigation.push('Result', {
-                                            letters: 'u',
-                                            suggetion: 'wwdwdwdw'
-                                        })}
-                                    >
-                                        <Text style={{color: "#000000", fontWeight: "bold"}}>
-                                            {"Translated Sentences"}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
                             </View>
                         ) : (
                             <View>
                                 <Text style={{color: "#ffffff"}}>CAN'T TRANSLATE THE IMAGE</Text>
-                                {}
-                                <Text style={{color: "#ffffff"}}>ERROR : {this.state.errorMessage}</Text>
                             </View>
                         )}
 

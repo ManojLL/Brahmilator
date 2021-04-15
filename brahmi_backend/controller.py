@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask, request, Response
 import filetype
 from tqdm import tqdm
@@ -16,6 +17,7 @@ app = Flask(__name__)
 
 input_data = "input_data"
 segmented_letters = "segmented_letters"
+
 
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
@@ -68,75 +70,64 @@ def translateLetters():
         response = make_response('The file is NOT FOUND', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
-@app.route('/api/getSegmentedImage', methods=['POST'])
-def segmentedImages():
-    try:
-        image = request.files["image"]
-        image_name = image.filename
-        image.save(os.path.join(input_data, image_name))
-
-        if filetype.is_image(os.path.join(input_data, image_name)):
-            flag = image_segmentation(image_name)
-
-            if (flag == True):
-                test_path = os.path.join(segmented_letters)
-
-                segmented_images = []
-
-                for img in tqdm(os.listdir(test_path)):
-                    image_path = os.path.join(test_path, img)
-                    pil_img = Image.open(image_path, mode='r')  # reads the PIL image
-                    byte_arr = io.BytesIO()
-                    pil_img.save(byte_arr, format='PNG')  # convert the PIL image to byte array
-                    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')  # encode as base64
-                    segmented_images.append(encoded_img)
-                    os.remove(os.path.join(test_path, img))
-
-                os.remove(os.path.join(input_data, image_name))
-                result = {'images': segmented_images}
-                response = make_response(result, True, 200)
-                return Response(response=response, status=200, mimetype='application/json')
-            else:
-                test_path = os.path.join(segmented_letters)
-
-                for img in tqdm(os.listdir(test_path)):
-                    os.remove(os.path.join(test_path, img))
-
-                os.remove(os.path.join(input_data, image_name))
-                response = make_response("Too much noise in image", True, 200)
-                return Response(response=response, status=200, mimetype='application/json')
-        else:
-            os.remove(os.path.join(input_data, image_name))
-            response = make_response('The file is NOT an Image', False, 200)
-            return Response(response=response, status=200, mimetype='application/json')
-    except Exception as e:
-        os.remove(os.path.join(input_data, image_name))
-        response = make_response('The file is NOT FOUND', False, 404)
-        return Response(response=response, status=404, mimetype='application/json')
 
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
-    data = request.args.getlist("letters")
+    try:
+        data = request.get_json()['letters']
+        myclient = pymongo.MongoClient(
+            "mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
+        mydb = myclient["brahmilator_database"]
+        column = mydb["words"]
 
-    myclient = pymongo.MongoClient("mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
-    mydb = myclient["brahmilator_database"]
-    column = mydb["words"]
+        words = searchForWords(column, data)
 
-    result = searchForWords(column, data)
+        if len(words) > 0:
+            possible_words = []
+            for key, value in words.items():
+                possible_words.append(key)
 
-    response = make_response(result, True, 200)
-    return Response(response=response, status=200, mimetype='application/json')
+            result = {}
+            result["possible_words"] = possible_words
+            result["possible_words_with_meaning"] = words
+
+            response = make_response(result, True, 200)
+            return Response(response=response, status=200, mimetype='application/json')
+        else:
+            response = make_response("no word found", True, 404)
+            return Response(response=response, status=200, mimetype='application/json')
+    except Exception as e:
+        print(e)
+        response = make_response('Something went wrong', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
+
 
 @app.route("/api/translate", methods=["POST"])
 def translate():
-    args = request.args
-    sentence = args['sentence']
-    src_lan = args['src_lan']
-    dest_lan = args['dest_lan']
-    translator = Translator()
-    translate = translator.translate(sentence, src=src_lan, dest=dest_lan)
-    response = make_response(translate.text, False, 200)
-    return Response(response=response, status=200, mimetype='application/json')
+    try:
+        data = request.get_json()['possible_words_with_meaning']
+        src_lan = request.get_json()['src_lan']
+        dest_lan = request.get_json()['dest_lan']
+        translator = Translator()
+
+        output = {}
+        for key, value in data.items():
+            temp = []
+            for word in value:
+                translate = translator.translate(word, src=src_lan, dest=dest_lan)
+                temp.append(translate.text)
+            output[key] = temp
+
+        result = {}
+        result['possible_words_with_meaning'] = output
+        result['src_lan'] = dest_lan
+
+        response = make_response(result, False, 200)
+        return Response(response=response, status=200, mimetype='application/json')
+    except Exception as e:
+        response = make_response('Something went wrong', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0')
