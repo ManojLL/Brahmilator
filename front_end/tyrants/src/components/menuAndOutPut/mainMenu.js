@@ -93,7 +93,7 @@ class MainMenu extends Component {
 
     getWord = async () => {
 
-        const data = {"letters": ['ba', 'ta', 'na', 'ga']}
+        const data = {"letters":this.state.letters }
         try {
             this.setState({isLoading: true});
             // Changed the default IP in previous testing (Nimendra)
@@ -111,6 +111,11 @@ class MainMenu extends Component {
                     this.setState({isLoading: false});
                     if (json.status_code === '200') {
                         this.setState({words: json.outPut.possible_words,wordsWithM:json.outPut.possible_words_with_meaning})
+                        this.props.navigation.push('Result', {
+                            findWords: this.state.words,
+                            withMeaning:this.state.wordsWithM
+                        })
+                    }else {
                         this.props.navigation.push('Result', {
                             findWords: this.state.words,
                             withMeaning:this.state.wordsWithM
