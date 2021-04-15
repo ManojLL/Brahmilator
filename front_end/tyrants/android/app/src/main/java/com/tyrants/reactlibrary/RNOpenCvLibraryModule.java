@@ -87,8 +87,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             // to return your processed image back to js use the following line
 //            Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2GRAY);
             System.out.println(imageAsBase64);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
         }
     }

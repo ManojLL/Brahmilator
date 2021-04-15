@@ -17,9 +17,11 @@ import {
 } from 'react-native-responsive-screen';
 import {dirPicutures} from './dirStorage';
 import SvgUri from 'react-native-svg-uri';
+
 import Process from '../../images/icons/process.svg';
 import Retake from '../../images/icons/retake.svg';
 import Save from '../../images/icons/save.svg';
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 import OpenCV from '../NativeModules/OpenCV';
 
@@ -42,6 +44,10 @@ const moveAttachment = async (filePath, newFilepath) => {
 class ImagePreview extends Component {
   constructor(props) {
     super(props);
+    this.checkForBlurryImage = this.checkForBlurryImage.bind(this);
+    this.proceedWithCheckingBlurryImage = this.proceedWithCheckingBlurryImage.bind(
+      this,
+    );
     this.state = {
       ImageUri: '',
       width: 0,
@@ -49,14 +55,46 @@ class ImagePreview extends Component {
     };
   }
 
-  componentDidMount() {
-    OpenCV.toGrayScale(
-      this.props.route.params.imgUri.uri,
-      (e) => console.log(e),
-      (img) => {
-        // do whatever you want with the processed img
-      },
-    );
+  checkForBlurryImage(imageAsBase64) {
+    return new Promise((resolve, reject) => {
+      if (Platform.OS === 'android') {
+        OpenCV.checkForBlurryImage(
+          imageAsBase64,
+          (error) => {
+            // error handling
+          },
+          (msg) => {
+            resolve(msg);
+          },
+        );
+      } else {
+        OpenCV.checkForBlurryImage(imageAsBase64, (error, dataArray) => {
+          resolve(dataArray[0]);
+        });
+      }
+    });
+  }
+
+  proceedWithCheckingBlurryImage() {
+    const {content, photoPath} = this.state.photoAsBase64;
+
+    this.checkForBlurryImage(content)
+      .then((blurryPhoto) => {
+        if (blurryPhoto) {
+          this.Toast.show('Photo is blurred!', DURATION.LENGTH_SHORT);
+        }
+        this.Toast.show('Photo is clear!', DURATION.LENGTH_SHORT);
+        this.setState({
+          photoAsBase64: {
+            ...this.state.photoAsBase64,
+            isPhotoPreview: true,
+            photoPath,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
   }
 
   saveImage = async (filePath) => {
