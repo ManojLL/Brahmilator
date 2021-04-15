@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-np.set_printoptions(threshold=1)
+#np.set_printoptions(threshold=5)
 
 
 # ------------------Functions------------------#
