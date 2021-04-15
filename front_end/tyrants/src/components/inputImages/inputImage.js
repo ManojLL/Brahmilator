@@ -8,6 +8,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import Flash from '../../images/icons/flash.svg'
 import Close from '../../images/icons/close.svg'
 import Upload from '../../images/icons/upload.svg'
+import RNFS from 'react-native-fs';
 
 class InputImg extends Component {
     constructor(props) {
@@ -72,18 +73,24 @@ class InputImg extends Component {
                 console.log('User tapped custom button: ', response.customButton);
                 alert(response.customButton);
             } else {
-                const source = {uri: response.uri};
-                console.log('response', JSON.stringify(response));
-                this.setState({
-                    imageUri: response.uri,
-                });
-                console.log(response)
-                this.props.navigation.navigate('Preview', {imgUri: response});
+                // const source = {uri: response.uri};
+                // console.log('response', JSON.stringify(response));
+                // this.setState({
+                //     imageUri: response.uri,
+                // });
+                // console.log(response)
+                // this.props.navigation.navigate('Preview', {imgUri: response});
             }
         });
 
     }
 
+    convertImg=(path)=>{
+        RNFS.readFile(path, 'base64')
+            .then(res =>{
+                this.props.navigation.navigate('Preview', {imgUri: res});
+            });
+    }
     render() {
         return (
             <View style={styles.container}>
