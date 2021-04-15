@@ -8,10 +8,13 @@ import com.facebook.react.bridge.Callback;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import org.opencv.android.Utils;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import android.util.Base64;
@@ -73,7 +76,6 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             if (maxLap <= soglia) {
                 System.out.println("is blur image");
             }
-
             successCallback.invoke(maxLap <= soglia);
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
@@ -90,5 +92,40 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
         }
+    }
+
+    @ReactMethod
+    public void preProcess(String imageAsBase64, Callback errorCallback, Callback successCallback) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
+        System.out.println("mat = " + mat.dump());
+
+        Mat blurredImage = new Mat();
+        Mat hsvImage = new Mat();
+        Mat mask = new Mat();
+        Mat morphOutput = new Mat();
+
+        // remove some noise
+        Imgproc.blur(mat, blurredImage, new Size(7, 7));
+
+        // convert the frame to HSV
+        Imgproc.cvtColor(blurredImage, hsvImage, Imgproc.COLOR_BGR2HSV);
+
+        // get thresholds values from the UI
+        // remember: H ranges 0-180, S and V range 0-255
+        Scalar minValues = new Scalar(this.hueStart.getValue(), this.saturationStart.getValue(), this.valueStart.getValue());
+        Scalar maxValues = new Scalar(this.hueStop.getValue(), this.saturationStop.getValue(), this.valueStop.getValue());
+
+        // show the current selected HSV range
+        String valuesToPrint = "Hue range: " + minValues.val[0] + "-" + maxValues.val[0]
+                + "\tSaturation range: " + minValues.val[1] + "-" + maxValues.val[1] + "\tValue range: "
+                + minValues.val[2] + "-" + maxValues.val[2];
+
+        this.onFXThread(this.hsvValuesProp, valuesToPrint);
+
+        // threshold HSV image to select tennis balls
+        Core.inRange(hsvImage, minValues, maxValues, mask);
+        // show the partial output
+        this.onFXThread(maskProp, this.mat2Image(mask));
     }
 }
