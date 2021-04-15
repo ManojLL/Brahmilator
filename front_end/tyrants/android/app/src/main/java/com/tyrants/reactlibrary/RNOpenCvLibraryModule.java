@@ -1,23 +1,20 @@
 package com.tyrants.reactlibrary;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-
-import org.opencv.android.Utils;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-
-import android.util.Base64;
 
 public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
@@ -95,37 +92,68 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void preProcess(String imageAsBase64, Callback errorCallback, Callback successCallback) {
+    public void preProcess(String imageAsBase64, Callback errorCallback, Callback successCallback, int thresh) {
+
+        // Loading the OpenCV core library
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
         System.out.println("mat = " + mat.dump());
 
-        Mat blurredImage = new Mat();
-        Mat hsvImage = new Mat();
-        Mat mask = new Mat();
-        Mat morphOutput = new Mat();
+        // Config BitmapFactory to cvt imageAsBase64
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inDither = true;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        // Decode imageAsBase64
+        byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
+        Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        // Convert src to dest using encoded bitmap
+        Mat sourceImage = new Mat();
+        Utils.bitmapToMat(image, sourceImage);
+
+        // Convert image to grey
+        Mat imgGray = new Mat();
+        Imgproc.cvtColor(sourceImage, imgGray, Imgproc.COLOR_BGR2GRAY);
 
         // remove some noise
-        Imgproc.blur(mat, blurredImage, new Size(7, 7));
+        Mat imgGaussianBlur = new Mat();
+        Imgproc.GaussianBlur(sourceImage, imgGaussianBlur, new Size(3, 3), 0);
 
-        // convert the frame to HSV
-        Imgproc.cvtColor(blurredImage, hsvImage, Imgproc.COLOR_BGR2HSV);
+        // get threshold values from the UI
+        // H ranges 0-180, S and V range 0-255
+        Mat imgAdaptiveThreshold = new Mat();
+        Imgproc.adaptiveThreshold(imgGaussianBlur, imgAdaptiveThreshold, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 99, 4);
 
-        // get thresholds values from the UI
-        // remember: H ranges 0-180, S and V range 0-255
-        Scalar minValues = new Scalar(this.hueStart.getValue(), this.saturationStart.getValue(), this.valueStart.getValue());
-        Scalar maxValues = new Scalar(this.hueStop.getValue(), this.saturationStop.getValue(), this.valueStop.getValue());
-
-        // show the current selected HSV range
-        String valuesToPrint = "Hue range: " + minValues.val[0] + "-" + maxValues.val[0]
-                + "\tSaturation range: " + minValues.val[1] + "-" + maxValues.val[1] + "\tValue range: "
-                + minValues.val[2] + "-" + maxValues.val[2];
-
-        this.onFXThread(this.hsvValuesProp, valuesToPrint);
-
-        // threshold HSV image to select tennis balls
-        Core.inRange(hsvImage, minValues, maxValues, mask);
-        // show the partial output
-        this.onFXThread(maskProp, this.mat2Image(mask));
+        while (true) {
+//            if (thresh == 0) {
+//
+//            } else {
+//                ret, imgThresh = cv2.threshold(imgGray, minThresh, 255, 0);
+//            }
+//
+//
+//            // Add Threshold to image
+//            Mat thresholdImg = new Mat();
+//            Imgproc.adaptiveThreshold(matImageGrey, thresholdImg, 125, Imgproc.ADAPTIVE_THRESH_MEAN_C,
+//                    Imgproc.THRESH_BINARY, 11, 12);
+//
+//
+//            // get threshold values from the UI
+//            // remember: H ranges 0-180, S and V range 0-255
+//            Scalar minValues = new Scalar(this.hueStart.getValue(), this.saturationStart.getValue(), this.valueStart.getValue());
+//            Scalar maxValues = new Scalar(this.hueStop.getValue(), this.saturationStop.getValue(), this.valueStop.getValue());
+//
+//            // show the current selected HSV range
+//            String valuesToPrint = "Hue range: " + minValues.val[0] + "-" + maxValues.val[0]
+//                    + "\tSaturation range: " + minValues.val[1] + "-" + maxValues.val[1] + "\tValue range: "
+//                    + minValues.val[2] + "-" + maxValues.val[2];
+//            this.onFXThread(this.hsvValuesProp, valuesToPrint);
+//
+//            // threshold HSV image to select tennis balls
+//            Core.inRange(hsvImage, minValues, maxValues, mask);
+//            // show the partial output
+//            this.onFXThread(maskProp, this.mat2Image(mask));
+        }
     }
 }
