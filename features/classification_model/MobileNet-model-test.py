@@ -52,7 +52,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-test_path = os.path.join("output")
+test_path = os.path.join("plate5")
 
 testing_results = {}
 
