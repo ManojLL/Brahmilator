@@ -181,13 +181,6 @@ def letter_seg(lines_img, x_lines, i):
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(256, 256), interpolation=cv2.INTER_LINEAR)
 
-            # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
-            # im_floodfill = im_th.copy()
-            # h, w = im_th.shape[:2]
-            # mask = np.zeros((h + 2, w + 2), np.uint8)
-            # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
-            # im_floodfill_inv = cv2.bitwise_not(im_floodfill)
-            # im_out = im_th | im_floodfill_inv
 
             cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         letter_img)
@@ -199,14 +192,6 @@ def letter_seg(lines_img, x_lines, i):
                              letter[e][0] - 5:letter[e][0] + letter[e][2] + 5]
             letter_img = cv2.resize(letter_img_tmp, dsize=(256, 256), interpolation=cv2.INTER_LINEAR)
 
-
-            # th, im_th = cv2.threshold(letter_img, 220, 255, cv2.THRESH_BINARY_INV)
-            # im_floodfill = im_th.copy()
-            # h, w = im_th.shape[:2]
-            # mask = np.zeros((h + 2, w + 2), np.uint8)
-            # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
-            # im_floodfill_inv = cv2.bitwise_not(im_floodfill)
-            # im_out = im_th | im_floodfill_inv
 
             cv2.imwrite('output/segmented_img' + str(i + 1) + '_' + str(word) + '_' + str(letter_index) + '.jpg',
                         letter_img)
@@ -225,8 +210,14 @@ copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
 
+src_img_copy = src_img.copy()
+# cv2.imshow("final", final_img)
+# cv2.waitKey(0)
+
+
 print("\n Resizing Image........")
 src_img = cv2.resize(copy, dsize=(1320, int(1320 * height / width)), interpolation=cv2.INTER_AREA)
+
 
 height = src_img.shape[0]
 width = src_img.shape[1]
@@ -238,10 +229,11 @@ print("#----------------------------#")
 grey_img = cv2.cvtColor(src_img, cv2.COLOR_BGR2GRAY)
 
 print("Applying Adaptive Threshold with kernel :- 21 X 21")
-# bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
-bin_img = grey_img
+bin_img = cv2.adaptiveThreshold(grey_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 21, 20)
+# bin_img = grey_img
 bin_img1 = bin_img.copy()
 bin_img2 = bin_img.copy()
+
 
 kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
 kernel1 = np.array([[1, 0, 1], [0, 1, 0], [1, 0, 1]], dtype=np.uint8)
@@ -252,7 +244,6 @@ final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_CLOSE, kernel)
 contr_retrival = final_thr.copy()
 
 # -------------/Thresholding Image-------------#
-
 
 # -------------Line Detection------------------#
 print("Beginning Character Semenation..............")
@@ -325,6 +316,7 @@ for i in range(len(lines_img)):
 for i in range(len(x_lines)):
     x_lines[i].append(width)
 
+
 # print(x_lines)
 # -------------/Word Detection-----------------#
 
@@ -345,20 +337,42 @@ contours, hierarchy = cv2.findContours(chr_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APP
 # final_contr = np.zeros((final_thr.shape[0],final_thr.shape[1],3), dtype = np.uint8)
 # cv2.drawContours(src_img, contours, -1, (0,255,0), 1)
 
+# cv2.imshow("Image1", src_img)
+# cv2.waitKey(0)
+
+new_height = src_img.shape[0]
+new_width = src_img.shape[1]
+
+resized_image = cv2.resize(src_img_copy, (new_width, new_height))
+
+i = 0
 for cnt in contours:
     if cv2.contourArea(cnt) > 20:
         x, y, w, h = cv2.boundingRect(cnt)
         cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        crop = resized_image[y:(y+h), x:(x+w)]
 
+        # cv2.imshow("crop", crop)
+        # cv2.waitKey(0)
+
+        hsv = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
+        green_lo = np.array([60, 120, 180])
+        green_hi = np.array([0, 255, 0])
+        mask = cv2.inRange(hsv, green_lo, green_hi)
+        crop[mask > 0] = (0, 0, 255)
+
+        cv2.imwrite("output/crop_{0}.png".format(i), crop)
+        i = i+1
+
+# cv2.imshow("Image2", src_img)
+# cv2.waitKey(0)
 # -------------/Character segmenting-----------#
-
 
 # -------------Displaying Image----------------#
 
 showimages()
 
 # -------------/Displaying Image---------------#
-
 
 # -------------Closing Windows-----------------#
 
