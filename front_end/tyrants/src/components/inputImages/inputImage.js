@@ -43,9 +43,10 @@ class InputImg extends Component {
 
             try {
                 const data = await this.camera.takePictureAsync(options);
-                console.log(data.uri)
-                this.setState({imageUri: data.uri});
-                this.props.navigation.navigate('Preview', {imgUri: data});
+                // console.log(data.uri)
+                // this.setState({imageUri: data.uri});
+                // this.props.navigation.navigate('Preview', {imgUri: data});
+                this.convertImg(data.uri)
             } catch (err) {
                 Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
             } finally {
@@ -80,6 +81,7 @@ class InputImg extends Component {
                 // });
                 // console.log(response)
                 // this.props.navigation.navigate('Preview', {imgUri: response});
+                this.convertImg(response.uri)
             }
         });
 
