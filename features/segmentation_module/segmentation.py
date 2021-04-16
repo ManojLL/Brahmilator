@@ -221,6 +221,6 @@ for i in range(n-1):
 i = 0
 for edge in edges:
     crop = resized_image[edge[1]:(edge[1] + edge[3]), edge[0]:(edge[0] + edge[2])]
-    # crop = cv2.resize(crop, (224, 224))
-    cv2.imwrite("output/crop_{0}.png".format(i), crop)
+    crop = cv2.resize(crop, (224, 224))
+    cv2.imwrite("output/crop_{0}.jpg".format(i), crop)
     i = i + 1
