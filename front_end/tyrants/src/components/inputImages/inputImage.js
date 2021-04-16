@@ -119,7 +119,7 @@ class InputImg extends Component {
           (msg) => {
             // successCallback gives the correct return String
             resolve(msg);
-            console.log('returned base64 string : returned');
+            console.log('returned base64 string :', msg);
             // Pass processed image to the next View -> 'Preview'
             this.props.navigation.navigate('Preview', {imgUri: msg});
           },
@@ -156,7 +156,8 @@ class InputImg extends Component {
           imageUri: response.uri,
         });
         console.log(response);
-        this.props.navigation.navigate('Preview', {imgUri: response});
+        this.convertImg(response.uri);
+        // this.props.navigation.navigate('Preview', {imgUri: response});
       }
     });
   };

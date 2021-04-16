@@ -125,6 +125,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Utils.matToBitmap(laplacianImage8bit, bmp);
 
             String encoded = ImageUtil.convert(bmp);
+
             successCallback.invoke(encoded);
 
         } catch (Exception e) {
