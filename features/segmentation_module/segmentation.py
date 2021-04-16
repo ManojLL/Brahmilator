@@ -112,7 +112,7 @@ def end_wrd_dtct(lines, i, bin_img, mean_lttr_width):
     return endlines
 
 
-src_img = cv2.imread('input/plate5.jpeg')
+src_img = cv2.imread('input/plate1.png')
 copy = src_img.copy()
 height = src_img.shape[0]
 width = src_img.shape[1]
