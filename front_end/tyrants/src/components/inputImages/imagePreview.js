@@ -17,13 +17,9 @@ import {
 } from 'react-native-responsive-screen';
 import {dirPicutures} from './dirStorage';
 import SvgUri from 'react-native-svg-uri';
-
 import Process from '../../images/icons/process.svg';
 import Retake from '../../images/icons/retake.svg';
 import Save from '../../images/icons/save.svg';
-import Toast, {DURATION} from 'react-native-easy-toast';
-
-import OpenCV from '../NativeModules/OpenCV';
 
 const moment = require('moment');
 
@@ -44,57 +40,17 @@ const moveAttachment = async (filePath, newFilepath) => {
 class ImagePreview extends Component {
   constructor(props) {
     super(props);
-    this.checkForBlurryImage = this.checkForBlurryImage.bind(this);
-    this.proceedWithCheckingBlurryImage = this.proceedWithCheckingBlurryImage.bind(
-      this,
-    );
     this.state = {
-      ImageUri: '',
+      ImageUri: props.route.params.imgUri,
       width: 0,
       height: 0,
     };
   }
 
-  checkForBlurryImage(imageAsBase64) {
-    return new Promise((resolve, reject) => {
-      if (Platform.OS === 'android') {
-        OpenCV.checkForBlurryImage(
-          imageAsBase64,
-          (error) => {
-            // error handling
-          },
-          (msg) => {
-            resolve(msg);
-          },
-        );
-      } else {
-        OpenCV.checkForBlurryImage(imageAsBase64, (error, dataArray) => {
-          resolve(dataArray[0]);
-        });
-      }
-    });
-  }
-
-  proceedWithCheckingBlurryImage() {
-    const {content, photoPath} = this.state.photoAsBase64;
-
-    this.checkForBlurryImage(content)
-      .then((blurryPhoto) => {
-        if (blurryPhoto) {
-          this.Toast.show('Photo is blurred!', DURATION.LENGTH_SHORT);
-        }
-        this.Toast.show('Photo is clear!', DURATION.LENGTH_SHORT);
-        this.setState({
-          photoAsBase64: {
-            ...this.state.photoAsBase64,
-            isPhotoPreview: true,
-            photoPath,
-          },
-        });
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
+  componentDidMount() {
+    // Image.getSize(this.props.route.params.imgUri.uri,(width, height) =>{
+    //     console.log(width*90/(100*wp),height)
+    // })
   }
 
   saveImage = async (filePath) => {
@@ -124,7 +80,9 @@ class ImagePreview extends Component {
       <View style={styles.container}>
         <View style={[styles.imagePrev, styles.centerItems]}>
           <ImageBackground
-            source={{uri: this.props.route.params.imgUri.uri}}
+            source={{
+              uri: `data:image/jpeg;base64,${this.props.route.params.imgUri}`,
+            }}
             // source={require(this.props.navigation.state.params.imgUri)}
             style={{width: wp('90%'), height: hp('85%')}}
             resizeMode={'contain'}

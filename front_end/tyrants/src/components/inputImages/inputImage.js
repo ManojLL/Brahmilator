@@ -21,17 +21,14 @@ import Flash from '../../images/icons/flash.svg';
 import Close from '../../images/icons/close.svg';
 import Upload from '../../images/icons/upload.svg';
 
-import Toast, {DURATION} from 'react-native-easy-toast';
+import RNFS from 'react-native-fs';
 
 import OpenCV from '../NativeModules/OpenCV';
 
 class InputImg extends Component {
   constructor(props) {
     super(props);
-    this.checkForBlurryImage = this.checkForBlurryImage.bind(this);
-    this.proceedWithCheckingBlurryImage = this.proceedWithCheckingBlurryImage.bind(
-      this,
-    );
+
     this.state = {
       takingPic: false,
       ImageUri: '',
@@ -61,19 +58,10 @@ class InputImg extends Component {
 
       try {
         const data = await this.camera.takePictureAsync(options);
-        console.log(data.uri);
-
-        // Converted into base64
-        this.setState({
-          ...this.state,
-          photoAsBase64: {
-            content: data.base64,
-            isPhotoPreview: false,
-            imageUri: data.uri,
-          },
-        });
-        this.proceedWithCheckingBlurryImage();
-        //this.props.navigation.navigate('Preview', {imgUri: data});
+        // console.log(data.uri)
+        // this.setState({imageUri: data.uri});
+        // this.props.navigation.navigate('Preview', {imgUri: data});
+        this.convertImg(data.uri);
       } catch (err) {
         Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
       } finally {
@@ -82,46 +70,64 @@ class InputImg extends Component {
     }
   };
 
-  checkForBlurryImage(imageAsBase64) {
+  launchImageLibrary = () => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        // const source = {uri: response.uri};
+        // console.log('response', JSON.stringify(response));
+        // this.setState({
+        //     imageUri: response.uri,
+        // });
+        // console.log(response)
+        // this.props.navigation.navigate('Preview', {imgUri: response});
+        this.convertImg(response.uri);
+      }
+    });
+  };
+
+  convertImg = (path) => {
+    RNFS.readFile(path, 'base64').then((res) => {
+      this.toGrayscale(res);
+      // console.log('returned base64 string: ', img);
+      // this.props.navigation.navigate('Preview', {imgUri: res});
+    });
+  };
+
+  toGrayscale(imageAsBase64) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
-        OpenCV.checkForBlurryImage(
+        OpenCV.toGrayscale(
           imageAsBase64,
           (error) => {
             // error handling
           },
           (msg) => {
             resolve(msg);
+            console.log('returned base64 string: ', msg);
+            this.props.navigation.navigate('Preview', {imgUri: msg});
           },
         );
       } else {
-        OpenCV.checkForBlurryImage(imageAsBase64, (error, dataArray) => {
+        OpenCV.toGrayscale(imageAsBase64, (error, dataArray) => {
           resolve(dataArray[0]);
         });
       }
     });
-  }
-
-  proceedWithCheckingBlurryImage() {
-    const {content, imageUri} = this.state.photoAsBase64;
-
-    this.checkForBlurryImage(content)
-      .then((blurryPhoto) => {
-        if (blurryPhoto) {
-          this.toast.show('Photo is blurred!', DURATION.LENGTH_SHORT);
-        }
-        this.toast.show('Photo is clear!', DURATION.LENGTH_SHORT);
-        this.setState({
-          photoAsBase64: {
-            ...this.state.photoAsBase64,
-            isPhotoPreview: true,
-            imageUri,
-          },
-        });
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
   }
 
   launchImageLibrary = () => {

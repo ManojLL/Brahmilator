@@ -2,6 +2,7 @@ package com.tyrants.reactlibrary;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.FileUtils;
 import android.util.Base64;
 
 import com.facebook.react.bridge.Callback;
@@ -15,6 +16,13 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
@@ -50,18 +58,24 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
             Bitmap destImage;
             destImage = Bitmap.createBitmap(image);
+
             Mat dst2 = new Mat();
             Utils.bitmapToMat(destImage, dst2);
+
             Mat laplacianImage = new Mat();
             dst2.convertTo(laplacianImage, l);
+
             Imgproc.Laplacian(matImageGrey, laplacianImage, CvType.CV_8U);
+
             Mat laplacianImage8bit = new Mat();
             laplacianImage.convertTo(laplacianImage8bit, l);
 
             Bitmap bmp = Bitmap.createBitmap(laplacianImage8bit.cols(), laplacianImage8bit.rows(), Bitmap.Config.ARGB_8888);
             Utils.matToBitmap(laplacianImage8bit, bmp);
+
             int[] pixels = new int[bmp.getHeight() * bmp.getWidth()];
             bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
+
             int maxLap = -16777216; // 16m
             for (int pixel : pixels) {
                 if (pixel > maxLap)
@@ -73,6 +87,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             if (maxLap <= soglia) {
                 System.out.println("is blur image");
             }
+
             successCallback.invoke(maxLap <= soglia);
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
@@ -82,50 +97,68 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void toGrayscale(String imageAsBase64, Callback errorCallback, Callback successCallback) {
         try {
-            // do your stuff here like Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2GRAY)
-            // to return your processed image back to js use the following line
-//            Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2GRAY);
-            System.out.println(imageAsBase64);
+            // Convert src to dest using encoded bitmap
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inDither = true;
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+            byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
+            Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+            Mat sourceImg = new Mat();
+            Utils.bitmapToMat(image, sourceImg);
+
+            Mat imgGrey = new Mat();
+            Imgproc.cvtColor(sourceImg, imgGrey, Imgproc.COLOR_BGR2GRAY);
+
+            String encodedImg = imgGrey.toString();
+
+//            String encodedImg = java.util.Base64.getEncoder().encodeToString(imgGrey);
+
+            successCallback.invoke(encodedImg);
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
         }
     }
 
     @ReactMethod
-    public void preProcess(String imageAsBase64, Callback errorCallback, Callback successCallback, int thresh) {
+    public void preProcess(String imageAsBase64, Callback errorCallback, Callback successCallback) {
+//        int thresh;
+        try {
+            // Loading the OpenCV core library
+            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+            Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
+            System.out.println("mat = " + mat.dump());
 
-        // Loading the OpenCV core library
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
-        System.out.println("mat = " + mat.dump());
+            // Config BitmapFactory to cvt imageAsBase64
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inDither = true;
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 
-        // Config BitmapFactory to cvt imageAsBase64
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inDither = true;
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            // Decode imageAsBase64
+            byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
+            Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-        // Decode imageAsBase64
-        byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
-        Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            // Convert src to dest using encoded bitmap
+            Mat sourceImage = new Mat();
+            Utils.bitmapToMat(image, sourceImage);
 
-        // Convert src to dest using encoded bitmap
-        Mat sourceImage = new Mat();
-        Utils.bitmapToMat(image, sourceImage);
+            // Convert image to grey
+            Mat imgGray = new Mat();
+            Imgproc.cvtColor(sourceImage, imgGray, Imgproc.COLOR_BGR2GRAY);
 
-        // Convert image to grey
-        Mat imgGray = new Mat();
-        Imgproc.cvtColor(sourceImage, imgGray, Imgproc.COLOR_BGR2GRAY);
+            // remove some noise
+            Mat imgGaussianBlur = new Mat();
+            Imgproc.GaussianBlur(sourceImage, imgGaussianBlur, new Size(3, 3), 0);
 
-        // remove some noise
-        Mat imgGaussianBlur = new Mat();
-        Imgproc.GaussianBlur(sourceImage, imgGaussianBlur, new Size(3, 3), 0);
+            // get threshold values from the UI
+            // H ranges 0-180, S and V range 0-255
+            Mat imgAdaptiveThreshold = new Mat();
+            Imgproc.adaptiveThreshold(imgGaussianBlur, imgAdaptiveThreshold, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 99, 4);
 
-        // get threshold values from the UI
-        // H ranges 0-180, S and V range 0-255
-        Mat imgAdaptiveThreshold = new Mat();
-        Imgproc.adaptiveThreshold(imgGaussianBlur, imgAdaptiveThreshold, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 99, 4);
+//            Imgproc.Canny(detectedEdges, detectedEdges, this.threshold.getValue(), this.threshold.getValue() * 3, 3, false);
 
-        while (true) {
+//            while (true) {
 //            if (thresh == 0) {
 //
 //            } else {
@@ -154,6 +187,11 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 //            Core.inRange(hsvImage, minValues, maxValues, mask);
 //            // show the partial output
 //            this.onFXThread(maskProp, this.mat2Image(mask));
+//            }
+
+            successCallback.invoke("returned threshold img");
+        } catch (Exception e) {
+            errorCallback.invoke(e.getMessage());
         }
     }
 }

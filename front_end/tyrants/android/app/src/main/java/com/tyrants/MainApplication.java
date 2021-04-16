@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
@@ -26,6 +27,9 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.swmansion.reanimated.ReanimatedPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.tyrants.reactlibrary.RNOpenCvLibraryPackage;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.reactnative.camera.RNCameraPackage;
+import org.reactnative.maskedview.RNCMaskedViewPackage;
 
 public class MainApplication extends androidx.multidex.MultiDexApplication implements ReactApplication {
 
@@ -43,20 +48,26 @@ public class MainApplication extends androidx.multidex.MultiDexApplication imple
                     return BuildConfig.DEBUG;
                 }
 
-//                @Override
-//                protected List<ReactPackage> getPackages() {
-//                    return Arrays.<ReactPackage>asList(
-//                            new MainReactPackage(),
-//                            new SvgPackage(),
-//                            new RNCameraPackage(),
-//                            new RNOpenCvLibraryPackage()
-//                    );
-//                }
-
                 @Override
                 protected List<ReactPackage> getPackages() {
-                    List<ReactPackage> packages = new PackageList(this).getPackages();
-                    return packages;
+                    return Arrays.<ReactPackage>asList(
+                            new MainReactPackage(),
+                            new RNCMaskedViewPackage(),
+                            new NetInfoPackage(),
+                            new ReactSliderPackage(),
+                            new RNCameraPackage(),
+                            new ColorMatrixImageFiltersPackage(),
+                            new RNFSPackage(),
+                            new RNGestureHandlerPackage(),
+                            new ReanimatedPackage(),
+                            new SafeAreaContextPackage(),
+                            new RNScreensPackage(),
+                            new SvgPackage(),
+                            new ImagePickerPackage(),
+
+                            // OpenCV pkg
+                            new RNOpenCvLibraryPackage()
+                    );
                 }
 
                 @Override
