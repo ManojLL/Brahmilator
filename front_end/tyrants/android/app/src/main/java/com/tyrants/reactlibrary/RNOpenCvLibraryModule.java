@@ -115,7 +115,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
 //            String encodedImg = java.util.Base64.getEncoder().encodeToString(imgGrey);
 
-            successCallback.invoke(encodedImg);
+            successCallback.invoke("sarigamapadanisa");
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
         }

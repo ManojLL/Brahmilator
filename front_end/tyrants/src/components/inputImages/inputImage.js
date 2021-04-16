@@ -108,6 +108,7 @@ class InputImg extends Component {
     });
   };
 
+  // testing toGrayscale method from OpenCV
   toGrayscale(imageAsBase64) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
@@ -117,6 +118,7 @@ class InputImg extends Component {
             // error handling
           },
           (msg) => {
+            // successCallback
             resolve(msg);
             console.log('returned base64 string: ', msg);
             this.props.navigation.navigate('Preview', {imgUri: msg});
