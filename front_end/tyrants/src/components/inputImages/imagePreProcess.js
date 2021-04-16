@@ -69,10 +69,15 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={0}
+              minimumValue={-1}
+              step={1}
+              value={0}
               maximumValue={1}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
+              onValueChange={(value) => {
+                this.setState({exposureValue: value});
+              }}
             />
 
             <View style={styles.modalItems}>
@@ -109,10 +114,15 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={0}
+              minimumValue={-1}
+              step={1}
+              value={0}
               maximumValue={1}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
+              onValueChange={(value) => {
+                this.setState({thresholdValue: value});
+              }}
             />
 
             <View style={styles.modalItems}>
@@ -149,10 +159,15 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={0}
+              minimumValue={-1}
+              step={1}
+              value={0}
               maximumValue={1}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
+              onValueChange={(value) => {
+                this.setState({erosionValue: value});
+              }}
             />
 
             <View style={styles.modalItems}>
@@ -189,10 +204,15 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={0}
+              minimumValue={-1}
+              step={1}
+              value={0}
               maximumValue={1}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
+              onValueChange={(value) => {
+                this.setState({morphValue: value});
+              }}
             />
 
             <View style={styles.modalItems}>
@@ -229,10 +249,15 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={0}
+              minimumValue={-1}
+              step={1}
+              value={0}
               maximumValue={1}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
+              onValueChange={(value) => {
+                this.setState({dialationValue: value});
+              }}
             />
 
             <View style={styles.modalItems}>
@@ -304,9 +329,7 @@ class ImagePreProcess extends Component {
         </View>
         <View style={[styles.imagePrev, styles.centerItems]}>
           <ImageBackground
-            source={{
-              uri: `data:image/jpeg;base64,${this.props.route.params.imgUri}`,
-            }}
+            source={{uri: `data:image/jpeg;base64,${this.state.imgUri}`}}
             style={{width: wp('90%'), height: hp('70%'), marginTop: 10}}
             resizeMode={'contain'}
           />

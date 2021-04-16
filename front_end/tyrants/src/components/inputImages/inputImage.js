@@ -100,17 +100,17 @@ class InputImg extends Component {
 
   convertImg = (path) => {
     RNFS.readFile(path, 'base64').then((res) => {
-      this.toGrayscale(res);
+      this.preProcess(res);
       // console.log('returned base64 string: ', img);
       // this.props.navigation.navigate('Preview', {imgUri: res});
     });
   };
 
-  // testing toGrayscale method from OpenCV
-  toGrayscale(imageAsBase64) {
+  // testing preProcess method from OpenCV
+  preProcess(imageAsBase64) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
-        OpenCV.toGrayscale(
+        OpenCV.preProcess(
           imageAsBase64,
           (error) => {
             // error handling
@@ -119,13 +119,13 @@ class InputImg extends Component {
           (msg) => {
             // successCallback gives the correct return String
             resolve(msg);
-            console.log('returned base64 string :', msg);
+            console.log('returned base64 string : Returned');
             // Pass processed image to the next View -> 'Preview'
             this.props.navigation.navigate('Preview', {imgUri: msg});
           },
         );
       } else {
-        OpenCV.toGrayscale(imageAsBase64, (error, dataArray) => {
+        OpenCV.preProcess(imageAsBase64, (error, dataArray) => {
           resolve(dataArray[0]);
         });
       }
