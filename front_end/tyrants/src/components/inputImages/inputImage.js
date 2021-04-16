@@ -118,9 +118,10 @@ class InputImg extends Component {
             // error handling
           },
           (msg) => {
-            // successCallback
+            // successCallback gives the correct return String
             resolve(msg);
             console.log('returned base64 string: ', msg);
+            // Pass processed image to the next View -> 'Preview'
             this.props.navigation.navigate('Preview', {imgUri: msg});
           },
         );
