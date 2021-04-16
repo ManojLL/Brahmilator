@@ -61,11 +61,8 @@ class MainMenu extends Component {
         const data = {"image": this.props.route.params.imgUri}
         try {
             // Changed the default IP in previous testing (Nimendra)
-<<<<<<< HEAD
-            await fetch('http://192.168.8.192:5000/api/getLetters', {
-=======
+
             await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getLetters', {
->>>>>>> 3f8b8db53917b0dae3427a36f2cf006e1aa962d3
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
