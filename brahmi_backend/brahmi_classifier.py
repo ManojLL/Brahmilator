@@ -11,9 +11,7 @@ segmented_letters = "segmented_letters"
 
 loaded_model = tf.keras.models.load_model(classification_model)
 
-CATEGORIES = ["a", "ba", "bha", "ca", "cha", "da1", "da2", "dha1", "dha2", "e", "ga", "gha", "ha", "i", "ja", "jha",
-              "ka", "kha", "la", "la2", "ma", "na1", "na2", "o", "pa", "pha", "ra", "sa1", "sa2", "sa3", "ta1", "tha1",
-              "tha2", "u", "u2", "va", "ya"]
+CATEGORIES = ["ba", "ga", "gu", "ha", "le", "na", "na", "ne", "ra", "sa", "so", "ta", "ti", "u", "ya"]
 
 def prepare(filepath):
     IMG_SIZE = 224
