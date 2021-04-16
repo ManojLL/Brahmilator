@@ -58,9 +58,7 @@ class InputImg extends Component {
 
       try {
         const data = await this.camera.takePictureAsync(options);
-        // console.log(data.uri)
-        // this.setState({imageUri: data.uri});
-        // this.props.navigation.navigate('Preview', {imgUri: data});
+        // Convert image uri to Base64
         this.convertImg(data.uri);
       } catch (err) {
         Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
@@ -116,11 +114,12 @@ class InputImg extends Component {
           imageAsBase64,
           (error) => {
             // error handling
+            console.log('returned base64 ERROR : ', error);
           },
           (msg) => {
             // successCallback gives the correct return String
             resolve(msg);
-            console.log('returned base64 string: ', msg);
+            console.log('returned base64 string : returned');
             // Pass processed image to the next View -> 'Preview'
             this.props.navigation.navigate('Preview', {imgUri: msg});
           },
