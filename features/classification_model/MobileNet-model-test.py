@@ -19,7 +19,7 @@ def prepare(filepath):
     return new_array.reshape(-1, img_size, img_size, 3)
 
 
-test_path = os.path.join("plate5")
+test_path = os.path.join("plate1")
 
 testing_results = {}
 
