@@ -4,22 +4,19 @@ from tensorflow.python.keras.layers import Dense
 from tensorflow.python.keras.models import Model
 from tensorflow.python.keras.optimizer_v2.adam import Adam
 
-train_path = "data_1/train"     # 66 classes
-train_path1 = "Early_Brahmi/train 1"  # all classes (with and without data) - 71
-train_path2 = "Early_Brahmi/train 2"  # classes with more than 30 images - 8
-train_path3 = "Early_Brahmi/train 3"  # classes with data - 54
-test_path = "brahmi_data_updated/test"
-valid_path = "brahmi_data_updated/val"
+train_path = "data_1/train"
+test_path = "data_1/test"
+valid_path = "data_1/val"
 
 train_batches = ImageDataGenerator(
     preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
     directory=train_path, target_size=(224, 224), batch_size=10, shuffle=True)
-# valid_batches = ImageDataGenerator(
-#     preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
-#     directory=valid_path, target_size=(224, 224), batch_size=10)
-# test_batches = ImageDataGenerator(
-#     preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
-#     directory=test_path, target_size=(224, 224), batch_size=10, shuffle=False)
+valid_batches = ImageDataGenerator(
+    preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
+    directory=valid_path, target_size=(224, 224), batch_size=10)
+test_batches = ImageDataGenerator(
+    preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
+    directory=test_path, target_size=(224, 224), batch_size=10, shuffle=False)
 
 mobile = tf.keras.applications.mobilenet.MobileNet()
 mobile.summary()
@@ -37,12 +34,12 @@ model.compile(optimizer=Adam(lr=0.0001), loss='categorical_crossentropy', metric
 
 model.fit(x=train_batches,
           steps_per_epoch=len(train_batches),
-          # validation_data=valid_batches,
-          # validation_steps=len(valid_batches),
+          validation_data=valid_batches,
+          validation_steps=len(valid_batches),
           epochs=50,
           verbose=2
           )
 
-model_save_path = "./saved-models/model"
+model_save_path = "./saved-models/saved-models-mobilenet"
 
 tf.saved_model.save(model, model_save_path)
