@@ -223,12 +223,11 @@ def image_segmentation():
         i = 0
         for edge in edges:
             crop = resized_image[edge[1]:(edge[1] + edge[3]), edge[0]:(edge[0] + edge[2])]
-            # crop = cv2.resize(crop, (224, 224))
-            cv2.imwrite("segmented_letters/crop_{0}.png".format(i), crop)
+            crop = cv2.resize(crop, (224, 224))
+            cv2.imwrite("segmented_letters/crop_{0}.jpg".format(i), crop)
             i = i + 1
 
         return True
 
     except:
-        print('error in segmentation')
         return False
