@@ -28,11 +28,7 @@ def translateLetters():
         with open("input_data/plate.png", "wb") as fh:
             fh.write(base64.b64decode(data))
 
-        plate = cv2.imread('input_data/plate.png')
-        cv2.imshow('image', plate)
-        cv2.waitKey(0)
-
-        flag = image_segmentation("plate.png")
+        flag = image_segmentation()
 
         if (flag == True):
             result = {}
@@ -43,13 +39,14 @@ def translateLetters():
             segmented_images = []
 
             for img in tqdm(os.listdir(test_path)):
-                image_path = os.path.join(test_path, img)
-                pil_img = Image.open(image_path, mode='r')
-                byte_arr = io.BytesIO()
-                pil_img.save(byte_arr, format='PNG')
-                encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')
-                segmented_images.append(encoded_img)
-                os.remove(os.path.join(test_path, img))
+                if filetype.is_image(os.path.join(test_path, img)):
+                    image_path = os.path.join(test_path, img)
+                    pil_img = Image.open(image_path, mode='r')
+                    byte_arr = io.BytesIO()
+                    pil_img.save(byte_arr, format='PNG')
+                    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii')
+                    segmented_images.append(encoded_img)
+                    os.remove(os.path.join(test_path, img))
 
             result['images'] = segmented_images
 
@@ -60,7 +57,8 @@ def translateLetters():
             test_path = os.path.join(segmented_letters)
 
             for img in tqdm(os.listdir(test_path)):
-                os.remove(os.path.join(test_path, img))
+                if filetype.is_image(os.path.join(test_path, img)):
+                    os.remove(os.path.join(test_path, img))
 
             os.remove("input_data/plate.png")
             response = make_response("Too much noise in image", True, 200)
@@ -69,7 +67,6 @@ def translateLetters():
         response = make_response('Done', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
     except Exception as e:
-        print(e)
         response = make_response('Error', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
