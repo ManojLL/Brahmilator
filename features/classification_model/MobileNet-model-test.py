@@ -5,6 +5,7 @@ import tensorflow as tf
 from tqdm import tqdm
 
 model_save_path = "./saved-models/saved-models-mobilenet"
+model_save_path_new = "./saved-models/model"
 model_save_path1 = "./saved-models/saved-models-mobilenet1"
 model_save_path2 = "./saved-models/saved-models-mobilenet2"
 model_save_path3 = "./saved-models/saved-models-mobilenet3"
@@ -41,15 +42,15 @@ CATEGORIES3 = ["a", "ba", "bha", "ca", "ca+e", "cha", "da", "da+e", "da+i", "da1
                "pha", "ra", "sa1", "sa1+e", "sa1+u", "sa2", "sa3", "ta", "ta+e", "ta+i", "ta1", "tha1",
                "tha2", "u", "u2", "va", "va+e", "va+i", "ya"]  # 54
 
-Categories = ["ba","ga", "gu", "ha", "le", "na", "na2", "ne", "ra",
+Categories = ["ba", "ga", "gu", "ha", "le", "na", "na2", "ne", "ra",
               "sa1", "so", "ta", "ti", "u", "ya"]
 
 
 def prepare(filepath):
-    IMG_SIZE = 224
+    img_size = 224
     img_array = cv2.imread(filepath)
-    new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
-    return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
+    new_array = cv2.resize(img_array, (img_size, img_size))
+    return new_array.reshape(-1, img_size, img_size, 3)
 
 
 test_path = os.path.join("plate5")
@@ -58,6 +59,7 @@ testing_results = {}
 
 for img in tqdm(os.listdir(test_path)):
     prediction = loaded_model.predict([prepare(os.path.join(test_path, img))])
+
     testing_results[img] = Categories[int(np.argmax(prediction))]
 
 print()
