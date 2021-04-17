@@ -16,6 +16,7 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
@@ -24,6 +25,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+
+import static org.opencv.imgproc.Imgproc.ADAPTIVE_THRESH_MEAN_C;
+import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
 
 public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
@@ -124,8 +128,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void preProcess(String imageAsBase64, Callback errorCallback, Callback successCallback) {
-//        int thresh;
+    public void preProcess(String imageAsBase64, int thresh, Callback errorCallback, Callback successCallback) {
         try {
             // Loading the OpenCV core library
 //            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -136,8 +139,6 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inDither = true;
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-
-            int scaledImg = CvType.CV_8UC1; //8-bit grey scale image
 
             // Decode imageAsBase64
             byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
@@ -151,47 +152,14 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat matImageGrey = new Mat();
             Imgproc.cvtColor(sourceImage, matImageGrey, Imgproc.COLOR_BGR2GRAY);
 
-            // remove some noise
-            Mat imgGaussianBlur = new Mat();
-            Imgproc.GaussianBlur(sourceImage, imgGaussianBlur, new Size(3, 3), 0);
+//            // remove some noise
+//            Mat imgGaussianBlur = new Mat();
+//            Imgproc.GaussianBlur(sourceImage, imgGaussianBlur, new Size(3, 3), 0);
 
             // get threshold values from the UI
             // H ranges 0-180, S and V range 0-255
             Mat imgAdaptiveThreshold = new Mat();
-            Imgproc.adaptiveThreshold(imgGaussianBlur, imgAdaptiveThreshold, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 99, 4);
-
-//            Imgproc.Canny(detectedEdges, detectedEdges, this.threshold.getValue(), this.threshold.getValue() * 3, 3, false);
-
-//            while (true) {
-//            if (thresh == 0) {
-//
-//            } else {
-//                ret, imgThresh = cv2.threshold(imgGray, minThresh, 255, 0);
-//            }
-//
-//
-//            // Add Threshold to image
-//            Mat thresholdImg = new Mat();
-//            Imgproc.adaptiveThreshold(matImageGrey, thresholdImg, 125, Imgproc.ADAPTIVE_THRESH_MEAN_C,
-//                    Imgproc.THRESH_BINARY, 11, 12);
-//
-//
-//            // get threshold values from the UI
-//            // remember: H ranges 0-180, S and V range 0-255
-//            Scalar minValues = new Scalar(this.hueStart.getValue(), this.saturationStart.getValue(), this.valueStart.getValue());
-//            Scalar maxValues = new Scalar(this.hueStop.getValue(), this.saturationStop.getValue(), this.valueStop.getValue());
-//
-//            // show the current selected HSV range
-//            String valuesToPrint = "Hue range: " + minValues.val[0] + "-" + maxValues.val[0]
-//                    + "\tSaturation range: " + minValues.val[1] + "-" + maxValues.val[1] + "\tValue range: "
-//                    + minValues.val[2] + "-" + maxValues.val[2];
-//            this.onFXThread(this.hsvValuesProp, valuesToPrint);
-//
-//            // threshold HSV image to select tennis balls
-//            Core.inRange(hsvImage, minValues, maxValues, mask);
-//            // show the partial output
-//            this.onFXThread(maskProp, this.mat2Image(mask));
-//            }
+            Imgproc.adaptiveThreshold(matImageGrey, imgAdaptiveThreshold, thresh, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 99, 4);
 
             // creating bitmap from last open cv img proc
             Bitmap bmp = Bitmap.createBitmap(imgAdaptiveThreshold.cols(), imgAdaptiveThreshold.rows(), Bitmap.Config.ARGB_8888);

@@ -110,7 +110,7 @@ class InputImg extends Component {
   preProcess(imageAsBase64) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
-        OpenCV.preProcess(
+        OpenCV.toGrayscale(
           imageAsBase64,
           (error) => {
             // error handling
@@ -119,13 +119,13 @@ class InputImg extends Component {
           (msg) => {
             // successCallback gives the correct return String
             resolve(msg);
-            console.log('returned base64 string : Returned');
+            console.log('returned base64 string input : Returned');
             // Pass processed image to the next View -> 'Preview'
             this.props.navigation.navigate('Preview', {imgUri: msg});
           },
         );
       } else {
-        OpenCV.preProcess(imageAsBase64, (error, dataArray) => {
+        OpenCV.toGrayscale(imageAsBase64, (error, dataArray) => {
           resolve(dataArray[0]);
         });
       }

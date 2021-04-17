@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Button,
   LogBox,
+  Platform,
   Modal,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
@@ -26,6 +27,8 @@ import {
 } from 'react-native-responsive-screen';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import SvgUri from 'react-native-svg-uri';
+
+import OpenCV from '../NativeModules/OpenCV';
 
 LogBox.ignoreAllLogs();
 
@@ -53,6 +56,32 @@ class ImagePreProcess extends Component {
       {text: 'YES', onPress: () => this.props.navigation.navigate('Home')},
     ]);
   };
+
+  preProcess(imageAsBase64, thresholdValue) {
+    return new Promise((resolve, reject) => {
+      if (Platform.OS === 'android') {
+        OpenCV.preProcess(
+          imageAsBase64,
+          thresholdValue,
+          (error) => {
+            // error handling
+            console.log('returned base64 ERROR process : ', error);
+          },
+          (msg) => {
+            resolve(msg);
+            // successCallback gives the correct return String
+            this.setState({imgUri: msg});
+            console.log('returned base64 string process : Returned');
+            // console.log('returned base64 ERROR : ', error);
+          },
+        );
+      } else {
+        OpenCV.preProcess(imageAsBase64, thresholdValue, (error, dataArray) => {
+          resolve(dataArray[0]);
+        });
+      }
+    });
+  }
 
   render() {
     return (
@@ -114,14 +143,16 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={-1}
+              minimumValue={0}
               step={1}
               value={0}
-              maximumValue={1}
+              maximumValue={255}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({thresholdValue: value});
+                console.log('threshold value : ', value);
+                this.preProcess(this.state.imgUri, value);
               }}
             />
 
@@ -327,6 +358,7 @@ class ImagePreProcess extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        {/* Image Preview */}
         <View style={[styles.imagePrev, styles.centerItems]}>
           <ImageBackground
             source={{uri: `data:image/jpeg;base64,${this.state.imgUri}`}}
