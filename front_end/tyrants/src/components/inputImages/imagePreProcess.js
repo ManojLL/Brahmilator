@@ -59,6 +59,7 @@ class ImagePreProcess extends Component {
   };
 
   preProcess(imageAsBase64, thresholdValue, morphValue) {
+    console.log('pre-processing..');
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         OpenCV.preProcess(
@@ -173,7 +174,12 @@ class ImagePreProcess extends Component {
               onValueChange={(value) => {
                 this.setState({thresholdValue: value});
                 console.log('threshold value : ', value);
-                this.preProcess(this.state.imgUri, value, this.morphValue);
+                console.log('morph(op) value : ', this.state.morphValue);
+                this.preProcess(
+                  this.state.imgUri,
+                  value,
+                  this.state.morphValue,
+                );
               }}
             />
 
@@ -264,7 +270,13 @@ class ImagePreProcess extends Component {
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({morphValue: value});
-                this.preProcess(this.state.imgUri, this.thresholdValue, value);
+                console.log('threshold value : ', this.state.thresholdValue);
+                console.log('morph value(op) : ', value);
+                this.preProcess(
+                  this.state.imgUri,
+                  this.state.thresholdValue,
+                  value,
+                );
               }}
             />
 

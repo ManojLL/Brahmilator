@@ -139,7 +139,6 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     public void preProcess(String imageAsBase64, int thresh, int opening, Callback errorCallback, Callback successCallback) {
         try {
             // OpenCV library will load once the onCreate() executes
-
             // Config BitmapFactory to cvt imageAsBase64
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inDither = true;
@@ -152,7 +151,6 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             // Convert src to dest using encoded bitmap
             Mat sourceImage = new Mat();
             Utils.bitmapToMat(image, sourceImage);
-
 
             // Convert image to grey
             Mat greyImage = new Mat();
@@ -184,7 +182,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             );
 
             Mat openingImage = new Mat();
-            Imgproc.morphologyEx(greyImage, openingImage, Imgproc.MORPH_OPEN, element);
+            Imgproc.morphologyEx(imgGaussianBlur, openingImage, Imgproc.MORPH_OPEN, element);
 
             // Creating bitmap from last open cv img proc
             Bitmap bmp = Bitmap.createBitmap(openingImage.cols(), openingImage.rows(), Bitmap.Config.ARGB_8888);
