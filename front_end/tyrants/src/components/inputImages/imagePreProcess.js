@@ -58,7 +58,17 @@ class ImagePreProcess extends Component {
     ]);
   };
 
-  preProcess(imageAsBase64, thresholdValue, openingValue, erosionValue) {
+  preProcess(
+    imageAsBase64,
+    thresholdValue,
+    openingValue,
+    erosionValue,
+    dialationValue,
+  ) {
+    console.log('threshold value : ', thresholdValue);
+    console.log('morph(op) value : ', openingValue);
+    console.log('erosion value   : ', erosionValue);
+    console.log('dialation value : ', dialationValue);
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         OpenCV.preProcess(
@@ -66,6 +76,7 @@ class ImagePreProcess extends Component {
           thresholdValue,
           openingValue,
           erosionValue,
+          dialationValue,
           (error) => {
             // error handling
             console.log('returned base64 ERROR process : ', error);
@@ -74,7 +85,6 @@ class ImagePreProcess extends Component {
             // successCallback gives the correct return String
             resolve(msg);
             this.setState({imgUri: msg});
-            console.log('returned base64 string process : Returned');
           },
         );
       } else {
@@ -83,6 +93,7 @@ class ImagePreProcess extends Component {
           thresholdValue,
           openingValue,
           erosionValue,
+          dialationValue,
           (error, dataArray) => {
             resolve(dataArray[0]);
           },
@@ -168,16 +179,12 @@ class ImagePreProcess extends Component {
               style={{width: wp('70%'), height: hp('9%')}}
               minimumValue={0}
               step={1}
-              value={0}
+              value={this.state.thresholdValue}
               maximumValue={255}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({thresholdValue: value});
-                console.log('threshold value : ', value);
-                console.log('morph(op) value : ', this.state.openingValue);
-                console.log('erosion value   : ', this.state.erosionValue);
-                console.log('dialation value : ', this.state.dialationValue);
 
                 this.preProcess(
                   this.state.imgUri,
@@ -225,16 +232,12 @@ class ImagePreProcess extends Component {
               style={{width: wp('70%'), height: hp('9%')}}
               minimumValue={0}
               step={1}
-              value={0}
+              value={this.state.erosionValue}
               maximumValue={21}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({erosionValue: value});
-                console.log('threshold value : ', this.state.thresholdValue);
-                console.log('morph value(op) : ', this.state.openingValue);
-                console.log('erosion value   : ', value);
-                console.log('dialation value : ', this.state.dialationValue);
 
                 this.preProcess(
                   this.state.imgUri,
@@ -282,16 +285,13 @@ class ImagePreProcess extends Component {
               style={{width: wp('70%'), height: hp('9%')}}
               minimumValue={0}
               step={1}
-              value={0}
+              value={this.state.openingValue}
               maximumValue={21}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({morphValue: value});
-                console.log('threshold value : ', this.state.thresholdValue);
-                console.log('morph value(op) : ', value);
-                console.log('erosion value   : ', this.state.erosionValue);
-                console.log('dialation value : ', this.state.dialationValue);
+
                 this.preProcess(
                   this.state.imgUri,
                   this.state.thresholdValue,
@@ -336,18 +336,15 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={-1}
+              minimumValue={0}
               step={1}
-              value={0}
-              maximumValue={1}
+              value={this.state.dialationValue}
+              maximumValue={21}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({dialationValue: value});
-                console.log('threshold value : ', this.state.thresholdValue);
-                console.log('morph value(op) : ', this.openingValue);
-                console.log('erosion value   : ', this.state.erosionValue);
-                console.log('dialation value : ', this.state.dialationValue);
+
                 this.preProcess(
                   this.state.imgUri,
                   this.state.thresholdValue,

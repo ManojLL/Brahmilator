@@ -136,7 +136,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void preProcess(String imageAsBase64, int thresh, int opening, int erode, Callback errorCallback, Callback successCallback) {
+    public void preProcess(String imageAsBase64, int thresh, int opening, int erode, int dilation, Callback errorCallback, Callback successCallback) {
         try {
             // OpenCV library will load once the onCreate() executes
             // Config BitmapFactory to cvt imageAsBase64
@@ -188,11 +188,21 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
                     new Point(erode, erode)
             );
 
+            // Kernel for opening
+            Mat dilationStructuringElement = Imgproc.getStructuringElement(
+                    Imgproc.CV_SHAPE_ELLIPSE,
+                    new Size(2 * erode + 1, 2 * erode + 1),
+                    new Point(erode, erode)
+            );
+
             // Opening morph
             Imgproc.morphologyEx(imgGaussianBlur, imgGaussianBlur, Imgproc.MORPH_OPEN, openingStructuringElement);
 
             // Erosion
             Imgproc.erode(imgGaussianBlur, imgGaussianBlur, erodeStructuringElement);
+
+            // Dilation
+            Imgproc.dilate(imgGaussianBlur, imgGaussianBlur, dilationStructuringElement);
 
             // Creating bitmap from last open cv img proc
             Bitmap bmp = Bitmap.createBitmap(imgGaussianBlur.cols(), imgGaussianBlur.rows(), Bitmap.Config.ARGB_8888);
