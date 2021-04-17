@@ -12,7 +12,12 @@ import {
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import {Dropdown} from "react-native-material-dropdown";
-
+import {
+    Collapse,
+    CollapseHeader,
+    CollapseBody,
+    AccordionList,
+} from 'accordion-collapse-react-native';
 import BottomNavigator from "../navigators/BottomNavigator";
 
 
@@ -34,7 +39,11 @@ class Result extends Component {
     translateWords = async (language) => {
         this.setState({isLoading: true});
         try {
-            const data = {"possible_words_with_meaning": this.state.wordWithMeaning,'src_lan':this.state.currentLan,'dest_lan':language}
+            const data = {
+                "possible_words_with_meaning": this.state.wordWithMeaning,
+                'src_lan': this.state.currentLan,
+                'dest_lan': language
+            }
             // Changed the default IP in previous testing (Nimendra)
             await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/translate', {
                 method: 'POST',
@@ -49,7 +58,7 @@ class Result extends Component {
                 .then((json) => {
                     this.setState({isLoading: false});
                     if (json.status_code === '200') {
-                         this.setState({wordWithMeaning:json.outPut.possible_words_with_meaning,currentLan:language})
+                        this.setState({wordWithMeaning: json.outPut.possible_words_with_meaning, currentLan: language})
 
                     }
                 })
@@ -140,70 +149,39 @@ class Result extends Component {
                         </View>
                         {this.state.findWord.length > 0 ?
                             (
-                                <ScrollView showsVerticalScrollIndicator={false}>
-                                    <Row>
-                                        <Col>
-                                            <View>
-                                                <Text
-                                                    style={{
-                                                        color: "#FFC542",
-                                                        marginLeft: 20,
-                                                        fontSize: hp('2.5%'),
-                                                    }}>WORD</Text>
-                                            </View>
-                                        </Col>
-                                        <Col>
-                                            <View>
-                                                <Text
-                                                    style={{
-                                                        color: "#FFC542",
-                                                        marginLeft: 20,
-                                                        fontSize: hp('2.5%'),
-                                                    }}>MEANING</Text>
-                                            </View>
-                                        </Col>
-                                    </Row>
-                                    <View style={{padding: 20}}>
-                                        <Grid>
-                                            {this.state.findWord.map((w, index) => (
-                                                <Row style={{
-                                                    borderWidth: 1,
-                                                    borderColor: '#ffffff',
-                                                    marginBottom: 10,
-                                                    padding: 10
-                                                }}>
-                                                    <Col>
-                                                        <View key={index}>
-                                                            <Text
-                                                                style={{
-                                                                    color: "#ffffff",
-                                                                    marginLeft: 20,
-                                                                    fontSize: hp('3%'),
-                                                                }}>{w}</Text>
-                                                        </View>
-                                                    </Col>
-                                                    <Col>
+                                <ScrollView showsVerticalScrollIndicator={false} style={{padding:30}}>
+
+                                    <View>
+                                        {this.state.findWord.map((w, index) => (
+                                            <View key={index}>
+                                                <Collapse style={{backgroundColor: 'rgba(186, 186, 186, 0.25)',margin: 10,padding:5}}>
+                                                    <CollapseHeader>
                                                         <View>
-                                                            {this.state.wordWithMeaning[w].map((mean, index) => (
-                                                                <View>
-                                                                    <Text
-                                                                        style={{
-                                                                            color: "#ffffff",
-                                                                            marginLeft: 20,
-                                                                            fontSize: hp('3%'),
-                                                                        }} key={index}>{mean}</Text>
-                                                                </View>
-                                                            ))
-
-                                                            }
+                                                            <Text style={styles.subtitle}>{w}</Text>
                                                         </View>
-                                                    </Col>
-                                                </Row>
-                                            ))
+                                                    </CollapseHeader>
+                                                    <CollapseBody>
+                                                        <View style={{padding:30}}>
+                                                            {this.state.wordWithMeaning[w].map((mean, index) => (
+                                                                <Text style={styles.description} key={index}>
+                                                                    {mean}
+                                                                </Text>
+                                                            ))}
 
-                                            }
-                                        </Grid>
+                                                        </View>
+                                                    </CollapseBody>
+                                                </Collapse>
 
+                                            </View>
+                                        ))}
+                                        {/* Collapsible accordian to view suggested translations */}
+
+
+                                        <AccordionList
+                                            list={this.state.list}
+                                            header={this._head}
+                                            body={this._body}
+                                        />
                                     </View>
                                 </ScrollView>
                             ) :
@@ -285,14 +263,14 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        fontSize: hp("2%"),
-        color: "#FFC542",
+        fontSize: hp("6%"),
+        color: "#ffffff",
         fontWeight: "bold",
         fontFamily: "SF Pro Rounded",
     },
     description: {
-        fontSize: hp("2%"),
-        color: "#FFFFFF",
+        fontSize: hp("4%"),
+        color: "#FFC542",
 
         fontFamily: "SF Pro Rounded",
     },

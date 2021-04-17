@@ -96,7 +96,7 @@ class MainMenu extends Component {
 
     getWord = async () => {
 
-        const data = {"letters": this.state.letters}
+        const data = {"letters": ['ba','ta','na','ga']}
         try {
             this.setState({isLoading: true});
             // Changed the default IP in previous testing (Nimendra)
