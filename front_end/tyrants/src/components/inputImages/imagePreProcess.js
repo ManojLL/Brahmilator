@@ -43,8 +43,8 @@ class ImagePreProcess extends Component {
       thresholdValue: 0,
       erosionModal: false,
       erosionValue: 0,
-      morphModal: false,
-      morphValue: 0,
+      openingModel: false,
+      openingValue: 0,
       dialationModal: false,
       dialationValue: 0,
       imgUri: props.route.params.imgUri,
@@ -58,14 +58,14 @@ class ImagePreProcess extends Component {
     ]);
   };
 
-  preProcess(imageAsBase64, thresholdValue, morphValue) {
-    console.log('pre-processing..');
+  preProcess(imageAsBase64, thresholdValue, openingValue, erosionValue) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         OpenCV.preProcess(
           imageAsBase64,
           thresholdValue,
-          morphValue,
+          openingValue,
+          erosionValue,
           (error) => {
             // error handling
             console.log('returned base64 ERROR process : ', error);
@@ -81,7 +81,8 @@ class ImagePreProcess extends Component {
         OpenCV.preProcess(
           imageAsBase64,
           thresholdValue,
-          morphValue,
+          openingValue,
+          erosionValue,
           (error, dataArray) => {
             resolve(dataArray[0]);
           },
@@ -98,7 +99,7 @@ class ImagePreProcess extends Component {
       thresholdValue: 0,
       erosionModal: false,
       erosionValue: 0,
-      morphModal: false,
+      openingModel: false,
       morphValue: 0,
       dialationModal: false,
       dialationValue: 0,
@@ -174,11 +175,16 @@ class ImagePreProcess extends Component {
               onValueChange={(value) => {
                 this.setState({thresholdValue: value});
                 console.log('threshold value : ', value);
-                console.log('morph(op) value : ', this.state.morphValue);
+                console.log('morph(op) value : ', this.state.openingValue);
+                console.log('erosion value   : ', this.state.erosionValue);
+                console.log('dialation value : ', this.state.dialationValue);
+
                 this.preProcess(
                   this.state.imgUri,
                   value,
-                  this.state.morphValue,
+                  this.state.openingValue,
+                  this.state.erosionValue,
+                  this.state.dialationValue,
                 );
               }}
             />
@@ -217,14 +223,26 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={-1}
+              minimumValue={0}
               step={1}
               value={0}
-              maximumValue={1}
+              maximumValue={21}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({erosionValue: value});
+                console.log('threshold value : ', this.state.thresholdValue);
+                console.log('morph value(op) : ', this.state.openingValue);
+                console.log('erosion value   : ', value);
+                console.log('dialation value : ', this.state.dialationValue);
+
+                this.preProcess(
+                  this.state.imgUri,
+                  this.state.thresholdValue,
+                  this.state.openingValue,
+                  value,
+                  this.state.dialationValue,
+                );
               }}
             />
 
@@ -250,12 +268,12 @@ class ImagePreProcess extends Component {
           </View>
         </Modal>
 
-        {/* morphModal*/}
+        {/* openingModel*/}
 
         <Modal
           transparent={true}
           animationType={'none'}
-          visible={this.state.morphModal}
+          visible={this.state.openingModel}
           onRequestClose={() => {
             console.log('close modal');
           }}>
@@ -272,10 +290,14 @@ class ImagePreProcess extends Component {
                 this.setState({morphValue: value});
                 console.log('threshold value : ', this.state.thresholdValue);
                 console.log('morph value(op) : ', value);
+                console.log('erosion value   : ', this.state.erosionValue);
+                console.log('dialation value : ', this.state.dialationValue);
                 this.preProcess(
                   this.state.imgUri,
                   this.state.thresholdValue,
                   value,
+                  this.state.erosionValue,
+                  this.state.dialationValue,
                 );
               }}
             />
@@ -283,7 +305,7 @@ class ImagePreProcess extends Component {
             <View style={styles.modalItems}>
               <Text style={{color: '#ffffff'}}> morph </Text>
               <TouchableOpacity
-                onPress={() => this.setState({morphModal: false})}>
+                onPress={() => this.setState({openingModel: false})}>
                 <View>
                   <Save
                     style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
@@ -291,7 +313,7 @@ class ImagePreProcess extends Component {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.setState({morphModal: false})}>
+                onPress={() => this.setState({openingModel: false})}>
                 <View>
                   <Close
                     style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
@@ -322,6 +344,17 @@ class ImagePreProcess extends Component {
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({dialationValue: value});
+                console.log('threshold value : ', this.state.thresholdValue);
+                console.log('morph value(op) : ', this.openingValue);
+                console.log('erosion value   : ', this.state.erosionValue);
+                console.log('dialation value : ', this.state.dialationValue);
+                this.preProcess(
+                  this.state.imgUri,
+                  this.state.thresholdValue,
+                  this.state.openingValue,
+                  this.state.erosionValue,
+                  value,
+                );
               }}
             />
 
@@ -439,7 +472,7 @@ class ImagePreProcess extends Component {
               </Col>
               <Col style={styles.alignCenter}>
                 <TouchableOpacity
-                  onPress={() => this.setState({morphModal: true})}>
+                  onPress={() => this.setState({openingModel: true})}>
                   <View>
                     <Morph style={{width: wp('11%'), height: hp('5%')}} />
                   </View>

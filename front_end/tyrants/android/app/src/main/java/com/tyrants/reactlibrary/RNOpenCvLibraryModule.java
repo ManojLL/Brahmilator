@@ -136,7 +136,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void preProcess(String imageAsBase64, int thresh, int opening, Callback errorCallback, Callback successCallback) {
+    public void preProcess(String imageAsBase64, int thresh, int opening, int erode, Callback errorCallback, Callback successCallback) {
         try {
             // OpenCV library will load once the onCreate() executes
             // Config BitmapFactory to cvt imageAsBase64
@@ -174,19 +174,29 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat imgGaussianBlur = new Mat();
             Imgproc.GaussianBlur(imgAdaptiveThreshold, imgGaussianBlur, new Size(3, 3), 0);
 
-            // opening
-            Mat element = Imgproc.getStructuringElement(
-                    Imgproc.CV_SHAPE_RECT,
+            // Kernel for erode
+            Mat openingStructuringElement = Imgproc.getStructuringElement(
+                    Imgproc.CV_SHAPE_ELLIPSE,
                     new Size(2 * opening + 1, 2 * opening + 1),
                     new Point(opening, opening)
             );
 
-            Mat openingImage = new Mat();
-            Imgproc.morphologyEx(imgGaussianBlur, openingImage, Imgproc.MORPH_OPEN, element);
+            // Kernel for opening
+            Mat erodeStructuringElement = Imgproc.getStructuringElement(
+                    Imgproc.CV_SHAPE_ELLIPSE,
+                    new Size(2 * erode + 1, 2 * erode + 1),
+                    new Point(erode, erode)
+            );
+
+            // Opening morph
+            Imgproc.morphologyEx(imgGaussianBlur, imgGaussianBlur, Imgproc.MORPH_OPEN, openingStructuringElement);
+
+            // Erosion
+            Imgproc.erode(imgGaussianBlur, imgGaussianBlur, erodeStructuringElement);
 
             // Creating bitmap from last open cv img proc
-            Bitmap bmp = Bitmap.createBitmap(openingImage.cols(), openingImage.rows(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(openingImage, bmp);
+            Bitmap bmp = Bitmap.createBitmap(imgGaussianBlur.cols(), imgGaussianBlur.rows(), Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(imgGaussianBlur, bmp);
 
             String encoded = ImageUtil.convert(bmp);
 
