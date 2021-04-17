@@ -58,28 +58,33 @@ class ImagePreProcess extends Component {
     ]);
   };
 
-  preProcess(imageAsBase64, thresholdValue) {
+  preProcess(imageAsBase64, thresholdValue, morphValue) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         OpenCV.preProcess(
           imageAsBase64,
           thresholdValue,
+          morphValue,
           (error) => {
             // error handling
             console.log('returned base64 ERROR process : ', error);
           },
           (msg) => {
-            resolve(msg);
             // successCallback gives the correct return String
+            resolve(msg);
             this.setState({imgUri: msg});
             console.log('returned base64 string process : Returned');
-            // console.log('returned base64 ERROR : ', error);
           },
         );
       } else {
-        OpenCV.preProcess(imageAsBase64, thresholdValue, (error, dataArray) => {
-          resolve(dataArray[0]);
-        });
+        OpenCV.preProcess(
+          imageAsBase64,
+          thresholdValue,
+          morphValue,
+          (error, dataArray) => {
+            resolve(dataArray[0]);
+          },
+        );
       }
     });
   }
@@ -168,7 +173,7 @@ class ImagePreProcess extends Component {
               onValueChange={(value) => {
                 this.setState({thresholdValue: value});
                 console.log('threshold value : ', value);
-                this.preProcess(this.state.imgUri, value);
+                this.preProcess(this.state.imgUri, value, this.morphValue);
               }}
             />
 
@@ -251,14 +256,15 @@ class ImagePreProcess extends Component {
           <View style={styles.modal}>
             <Slider
               style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={-1}
+              minimumValue={0}
               step={1}
               value={0}
-              maximumValue={1}
+              maximumValue={21}
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
                 this.setState({morphValue: value});
+                this.preProcess(this.state.imgUri, this.thresholdValue, value);
               }}
             />
 
@@ -363,10 +369,11 @@ class ImagePreProcess extends Component {
               </View>
             </TouchableOpacity>
 
+            {/* Resets procssed image */}
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate('Camera');
-                this.resetStatus();
+                this.setState({imgUri: this.imgUri});
+                // this.resetStatus();
               }}>
               <View>
                 <Process

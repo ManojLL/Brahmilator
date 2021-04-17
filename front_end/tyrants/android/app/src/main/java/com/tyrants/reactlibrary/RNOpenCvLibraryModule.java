@@ -14,6 +14,7 @@ import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -135,7 +136,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void preProcess(String imageAsBase64, int thresh, Callback errorCallback, Callback successCallback) {
+    public void preProcess(String imageAsBase64, int thresh, int opening, Callback errorCallback, Callback successCallback) {
         try {
             // OpenCV library will load once the onCreate() executes
 
@@ -151,6 +152,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             // Convert src to dest using encoded bitmap
             Mat sourceImage = new Mat();
             Utils.bitmapToMat(image, sourceImage);
+
 
             // Convert image to grey
             Mat greyImage = new Mat();
@@ -172,11 +174,21 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
             // Remove some noise using Gaussian Blur
             Mat imgGaussianBlur = new Mat();
-            Imgproc.GaussianBlur(imgAdaptiveThreshold, imgGaussianBlur, new Size(5, 5), 0);
+            Imgproc.GaussianBlur(imgAdaptiveThreshold, imgGaussianBlur, new Size(3, 3), 0);
+
+            // opening
+            Mat element = Imgproc.getStructuringElement(
+                    Imgproc.CV_SHAPE_RECT,
+                    new Size(2 * opening + 1, 2 * opening + 1),
+                    new Point(opening, opening)
+            );
+
+            Mat openingImage = new Mat();
+            Imgproc.morphologyEx(greyImage, openingImage, Imgproc.MORPH_OPEN, element);
 
             // Creating bitmap from last open cv img proc
-            Bitmap bmp = Bitmap.createBitmap(imgGaussianBlur.cols(), imgGaussianBlur.rows(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(imgGaussianBlur, bmp);
+            Bitmap bmp = Bitmap.createBitmap(openingImage.cols(), openingImage.rows(), Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(openingImage, bmp);
 
             String encoded = ImageUtil.convert(bmp);
 
