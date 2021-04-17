@@ -97,6 +97,12 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
         }
     }
 
+    /**
+     * Convert captured image or selected image from gallery to grayscale
+     * @param imageAsBase64 - image as Base64 Format
+     * @param errorCallback - if interrupted, return the errorCallback with err
+     * @param successCallback - if successful, return processed image as Base64 Format
+     */
     @ReactMethod
     public void toGrayscale(String imageAsBase64, Callback errorCallback, Callback successCallback) {
         try {
@@ -160,6 +166,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             // H ranges 0-180, S and V range 0-255
             Mat imgAdaptiveThreshold = new Mat();
             Imgproc.adaptiveThreshold(matImageGrey, imgAdaptiveThreshold, thresh, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 99, 4);
+//            Imgproc.threshold(matImageGrey, imgAdaptiveThreshold, thresh, 179.0, Imgproc.THRESH_BINARY);
 
             // creating bitmap from last open cv img proc
             Bitmap bmp = Bitmap.createBitmap(imgAdaptiveThreshold.cols(), imgAdaptiveThreshold.rows(), Bitmap.Config.ARGB_8888);
