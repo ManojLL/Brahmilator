@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component, useState} from 'react';
 import {
   View,
@@ -51,9 +52,9 @@ class ImagePreProcess extends Component {
   }
 
   closeClick = () => {
-    Alert.alert('GO BACK', '', [
-      {text: 'NO', style: 'cancel'},
-      {text: 'YES', onPress: () => this.props.navigation.navigate('Home')},
+    Alert.alert('Go Back to Previous', '', [
+      {text: 'No', style: 'cancel'},
+      {text: 'Yes', onPress: () => this.props.navigation.navigate('Home')},
     ]);
   };
 
@@ -81,6 +82,21 @@ class ImagePreProcess extends Component {
         });
       }
     });
+  }
+
+  resetStatus() {
+    this.state = {
+      exposureModal: false,
+      exposureValue: 0,
+      thresholdModal: false,
+      thresholdValue: 0,
+      erosionModal: false,
+      erosionValue: 0,
+      morphModal: false,
+      morphValue: 0,
+      dialationModal: false,
+      dialationValue: 0,
+    };
   }
 
   render() {
@@ -318,7 +334,11 @@ class ImagePreProcess extends Component {
             <TouchableOpacity onPress={() => this.closeClick()}>
               <View>
                 <Close
-                  style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                  style={{
+                    width: wp('7%'),
+                    height: hp('3%'),
+                    marginLeft: 20,
+                  }}
                 />
               </View>
             </TouchableOpacity>
@@ -342,8 +362,12 @@ class ImagePreProcess extends Component {
                 />
               </View>
             </TouchableOpacity>
+
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Camera')}>
+              onPress={() => {
+                this.props.navigation.navigate('Camera');
+                this.resetStatus();
+              }}>
               <View>
                 <Process
                   // source={require('../../images/icons/retake.svg')}

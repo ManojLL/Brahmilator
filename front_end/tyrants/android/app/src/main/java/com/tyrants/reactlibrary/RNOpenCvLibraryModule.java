@@ -28,6 +28,7 @@ import java.nio.file.Files;
 
 import static org.opencv.imgproc.Imgproc.ADAPTIVE_THRESH_MEAN_C;
 import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
+import static org.opencv.imgproc.Imgproc.THRESH_BINARY_INV;
 
 public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
@@ -99,8 +100,9 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
     /**
      * Convert captured image or selected image from gallery to grayscale
-     * @param imageAsBase64 - image as Base64 Format
-     * @param errorCallback - if interrupted, return the errorCallback with err
+     *
+     * @param imageAsBase64   - image as Base64 Format
+     * @param errorCallback   - if interrupted, return the errorCallback with err
      * @param successCallback - if successful, return processed image as Base64 Format
      */
     @ReactMethod
@@ -113,7 +115,6 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
             Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-            int l = CvType.CV_8UC1; //8-bit grey scale image
             Mat matImage = new Mat();
             Utils.bitmapToMat(image, matImage);
 
@@ -136,10 +137,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void preProcess(String imageAsBase64, int thresh, Callback errorCallback, Callback successCallback) {
         try {
-            // Loading the OpenCV core library
-//            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//            Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
-//            System.out.println("mat = " + mat.dump());
+            // OpenCV library will load once the onCreate() executes
 
             // Config BitmapFactory to cvt imageAsBase64
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -155,22 +153,30 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Utils.bitmapToMat(image, sourceImage);
 
             // Convert image to grey
-            Mat matImageGrey = new Mat();
-            Imgproc.cvtColor(sourceImage, matImageGrey, Imgproc.COLOR_BGR2GRAY);
+            Mat greyImage = new Mat();
+            Imgproc.cvtColor(sourceImage, greyImage, Imgproc.COLOR_BGR2GRAY);
 
-//            // remove some noise
-//            Mat imgGaussianBlur = new Mat();
-//            Imgproc.GaussianBlur(sourceImage, imgGaussianBlur, new Size(3, 3), 0);
-
-            // get threshold values from the UI
-            // H ranges 0-180, S and V range 0-255
+            /**
+             * There are four different type of threshold operations
+             * in this case, we have use binary inverted
+             * which is -> type 3 (To Zero)
+             *
+             * 0: Binary
+             * 1: Binary Inverted
+             * 2: Truncate
+             * 3: To Zero
+             * 4: To Zero Inverted
+             */
             Mat imgAdaptiveThreshold = new Mat();
-            Imgproc.adaptiveThreshold(matImageGrey, imgAdaptiveThreshold, thresh, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 99, 4);
-//            Imgproc.threshold(matImageGrey, imgAdaptiveThreshold, thresh, 179.0, Imgproc.THRESH_BINARY);
+            Imgproc.threshold(greyImage, imgAdaptiveThreshold, thresh, 255, 3);
 
-            // creating bitmap from last open cv img proc
-            Bitmap bmp = Bitmap.createBitmap(imgAdaptiveThreshold.cols(), imgAdaptiveThreshold.rows(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(imgAdaptiveThreshold, bmp);
+            // Remove some noise using Gaussian Blur
+            Mat imgGaussianBlur = new Mat();
+            Imgproc.GaussianBlur(imgAdaptiveThreshold, imgGaussianBlur, new Size(5, 5), 0);
+
+            // Creating bitmap from last open cv img proc
+            Bitmap bmp = Bitmap.createBitmap(imgGaussianBlur.cols(), imgGaussianBlur.rows(), Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(imgGaussianBlur, bmp);
 
             String encoded = ImageUtil.convert(bmp);
 
