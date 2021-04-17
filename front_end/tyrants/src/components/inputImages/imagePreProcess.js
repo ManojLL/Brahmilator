@@ -303,7 +303,7 @@ class ImagePreProcess extends Component {
             />
 
             <View style={styles.modalItems}>
-              <Text style={{color: '#ffffff'}}> morph </Text>
+              <Text style={{color: '#ffffff'}}> opening </Text>
               <TouchableOpacity
                 onPress={() => this.setState({openingModel: false})}>
                 <View>

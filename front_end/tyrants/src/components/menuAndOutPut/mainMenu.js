@@ -63,7 +63,7 @@ class MainMenu extends Component {
     try {
       // Changed the default IP in previous testing (Nimendra)
       await fetch(
-        'https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getLetters',
+        'https://brahmilator-ssqj6ij3rq-as.a.run.app:5000/api/getLetters',
         {
           method: 'POST',
           mode: 'no-cors',
@@ -109,15 +109,18 @@ class MainMenu extends Component {
     try {
       this.setState({isLoading: true});
       // Changed the default IP in previous testing (Nimendra)
-      await fetch('http://192.168.8.186:5000/api/getPossibleWords', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+      await fetch(
+        'https://brahmilator-ssqj6ij3rq-as.a.run.app:5000/api/getPossibleWords',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      })
+      )
         .then((response) => response.json())
         .then((json) => {
           this.setState({isLoading: false});

@@ -191,8 +191,8 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             // Kernel for opening
             Mat dilationStructuringElement = Imgproc.getStructuringElement(
                     Imgproc.CV_SHAPE_ELLIPSE,
-                    new Size(2 * erode + 1, 2 * erode + 1),
-                    new Point(erode, erode)
+                    new Size(2 * dilation + 1, 2 * dilation + 1),
+                    new Point(dilation, dilation)
             );
 
             // Opening morph
@@ -202,7 +202,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Imgproc.erode(imgGaussianBlur, imgGaussianBlur, erodeStructuringElement);
 
             // Dilation
-            Imgproc.dilate(imgGaussianBlur, imgGaussianBlur, dilationStructuringElement);
+            Imgproc.morphologyEx(imgGaussianBlur, imgGaussianBlur, Imgproc.MORPH_CLOSE, dilationStructuringElement);
 
             // Creating bitmap from last open cv img proc
             Bitmap bmp = Bitmap.createBitmap(imgGaussianBlur.cols(), imgGaussianBlur.rows(), Bitmap.Config.ARGB_8888);
