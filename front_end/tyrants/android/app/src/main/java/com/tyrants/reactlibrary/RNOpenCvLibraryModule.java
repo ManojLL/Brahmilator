@@ -156,17 +156,17 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat greyImage = new Mat();
             Imgproc.cvtColor(sourceImage, greyImage, Imgproc.COLOR_BGR2GRAY);
 
-            /**
-             * There are four different type of threshold operations
-             * in this case, we have use binary inverted
-             * which is -> type 3 (To Zero)
-             *
-             * 0: Binary
-             * 1: Binary Inverted
-             * 2: Truncate
-             * 3: To Zero
-             * 4: To Zero Inverted
-             */
+            /*
+            * There are four different type of threshold operations
+            * in this case, we have use To Zero
+            * which is -> type 3
+            *
+            * 0: Binary
+            * 1: Binary Inverted
+            * 2: Truncate
+            * 3: To Zero
+            * 4: To Zero Inverted
+            * */
             Mat imgAdaptiveThreshold = new Mat();
             Imgproc.threshold(greyImage, imgAdaptiveThreshold, thresh, 255, 3);
 
@@ -174,21 +174,29 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat imgGaussianBlur = new Mat();
             Imgproc.GaussianBlur(imgAdaptiveThreshold, imgGaussianBlur, new Size(3, 3), 0);
 
-            // Kernel for erode
+            /*
+            * We can choose any of three shapes for our kernel -> 1st para of the Structuring Element:
+            * Ellipse: CV_SHAPE_ELLIPSE
+            * Rectangular box: CV_SHAPE_RECT
+            * Cross: CV_SHAPE_CROSS
+            *
+            * */
+
+            // element for erode
             Mat openingStructuringElement = Imgproc.getStructuringElement(
                     Imgproc.CV_SHAPE_ELLIPSE,
                     new Size(2 * opening + 1, 2 * opening + 1),
                     new Point(opening, opening)
             );
 
-            // Kernel for opening
+            // element for opening
             Mat erodeStructuringElement = Imgproc.getStructuringElement(
                     Imgproc.CV_SHAPE_ELLIPSE,
                     new Size(2 * erode + 1, 2 * erode + 1),
                     new Point(erode, erode)
             );
 
-            // Kernel for opening
+            // element for opening
             Mat dilationStructuringElement = Imgproc.getStructuringElement(
                     Imgproc.CV_SHAPE_ELLIPSE,
                     new Size(2 * dilation + 1, 2 * dilation + 1),
