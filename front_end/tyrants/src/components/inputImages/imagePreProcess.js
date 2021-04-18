@@ -73,12 +73,13 @@ class ImagePreProcess extends Component {
                         <Slider
                             style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={-1}
-                            step={1}
-                            value={0}
+                            // step={1}
+                            value={this.state.exposureValue}
                             maximumValue={1}
                             minimumTrackTintColor="#FFC542"
                             maximumTrackTintColor="#FFFFFF"
                             onValueChange={(value)=>{
+                                console.log(value)
                                 this.setState({exposureValue:value})
                             }}
                         />
@@ -116,12 +117,13 @@ class ImagePreProcess extends Component {
                         <Slider
                             style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={-1}
-                            step={1}
-                            value={0}
+                            // step={1}
+                            value={this.state.thresholdValue}
                             maximumValue={1}
                             minimumTrackTintColor="#FFC542"
                             maximumTrackTintColor="#FFFFFF"
                             onValueChange={(value)=>{
+                                console.log(value)
                                 this.setState({thresholdValue:value})
                             }}
                         />
@@ -161,12 +163,13 @@ class ImagePreProcess extends Component {
                         <Slider
                             style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={-1}
-                            step={1}
-                            value={0}
+                            // step={1}
+                            value={this.state.erosionValue}
                             maximumValue={1}
                             minimumTrackTintColor="#FFC542"
                             maximumTrackTintColor="#FFFFFF"
                             onValueChange={(value)=>{
+                                console.log(value)
                                 this.setState({erosionValue:value})
                             }}
                         />
@@ -205,12 +208,13 @@ class ImagePreProcess extends Component {
                         <Slider
                             style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={-1}
-                            step={1}
-                            value={0}
+                            // step={1}
+                            value={this.state.morphValue}
                             maximumValue={1}
                             minimumTrackTintColor="#FFC542"
                             maximumTrackTintColor="#FFFFFF"
                             onValueChange={(value)=>{
+                                console.log(value)
                                 this.setState({morphValue:value})
                             }}
                         />
@@ -249,12 +253,13 @@ class ImagePreProcess extends Component {
                         <Slider
                             style={{width: wp('70%'), height: hp('9%')}}
                             minimumValue={-1}
-                            step={1}
-                            value={0}
+                            // step={1}
+                            value={this.state.dialationValue}
                             maximumValue={1}
                             minimumTrackTintColor="#FFC542"
                             maximumTrackTintColor="#FFFFFF"
                             onValueChange={(value)=>{
+                                console.log(value)
                                 this.setState({dialationValue:value})
                             }}
                         />
