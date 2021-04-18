@@ -37,8 +37,8 @@ class ImagePreProcess extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      exposureModal: false,
-      exposureValue: 0,
+      smoothingModal: false,
+      smoothingValue: 0,
       thresholdModal: false,
       thresholdValue: 0,
       erosionModal: false,
@@ -47,7 +47,8 @@ class ImagePreProcess extends Component {
       openingValue: 0,
       dialationModal: false,
       dialationValue: 0,
-      imgUri: props.route.params.imgUri,
+      imgUri: this.props.route.params.imgUri,
+      originalImg: this.props.route.params.imgUri,
     };
   }
 
@@ -64,11 +65,14 @@ class ImagePreProcess extends Component {
     openingValue,
     erosionValue,
     dialationValue,
+    smoothingValue,
   ) {
     console.log('threshold value : ', thresholdValue);
     console.log('morph(op) value : ', openingValue);
     console.log('erosion value   : ', erosionValue);
     console.log('dialation value : ', dialationValue);
+    console.log('smoothing value : ', smoothingValue);
+    console.log();
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         OpenCV.preProcess(
@@ -77,6 +81,7 @@ class ImagePreProcess extends Component {
           openingValue,
           erosionValue,
           dialationValue,
+          smoothingValue,
           (error) => {
             // error handling
             console.log('returned base64 ERROR process : ', error);
@@ -94,6 +99,7 @@ class ImagePreProcess extends Component {
           openingValue,
           erosionValue,
           dialationValue,
+          smoothingValue,
           (error, dataArray) => {
             resolve(dataArray[0]);
           },
@@ -104,8 +110,8 @@ class ImagePreProcess extends Component {
 
   resetStatus() {
     this.state = {
-      exposureModal: false,
-      exposureValue: 0,
+      smoothingModal: false,
+      smoothingValue: 0,
       thresholdModal: false,
       thresholdValue: 0,
       erosionModal: false,
@@ -120,51 +126,6 @@ class ImagePreProcess extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* exposureModal*/}
-
-        <Modal
-          transparent={true}
-          animationType={'none'}
-          visible={this.state.exposureModal}
-          onRequestClose={() => {
-            console.log('close modal');
-          }}>
-          <View style={styles.modal}>
-            <Slider
-              style={{width: wp('70%'), height: hp('9%')}}
-              minimumValue={-1}
-              step={1}
-              value={0}
-              maximumValue={1}
-              minimumTrackTintColor="#FFC542"
-              maximumTrackTintColor="#FFFFFF"
-              onValueChange={(value) => {
-                this.setState({exposureValue: value});
-              }}
-            />
-
-            <View style={styles.modalItems}>
-              <Text style={{color: '#ffffff'}}> exposure </Text>
-              <TouchableOpacity
-                onPress={() => this.setState({exposureModal: false})}>
-                <View>
-                  <Save
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.setState({exposureModal: false})}>
-                <View>
-                  <Close
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-
         {/* thresholdModal*/}
 
         <Modal
@@ -192,6 +153,7 @@ class ImagePreProcess extends Component {
                   this.state.openingValue,
                   this.state.erosionValue,
                   this.state.dialationValue,
+                  this.state.smoothingValue,
                 );
               }}
             />
@@ -206,6 +168,7 @@ class ImagePreProcess extends Component {
                   />
                 </View>
               </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={() => this.setState({thresholdModal: false})}>
                 <View>
@@ -214,6 +177,11 @@ class ImagePreProcess extends Component {
                   />
                 </View>
               </TouchableOpacity>
+              <View>
+                <Text style={{color: '#ffffff'}}>
+                  {this.state.thresholdValue}
+                </Text>
+              </View>
             </View>
           </View>
         </Modal>
@@ -245,6 +213,7 @@ class ImagePreProcess extends Component {
                   this.state.openingValue,
                   value,
                   this.state.dialationValue,
+                  this.state.smoothingValue,
                 );
               }}
             />
@@ -298,6 +267,7 @@ class ImagePreProcess extends Component {
                   value,
                   this.state.erosionValue,
                   this.state.dialationValue,
+                  this.state.smoothingValue,
                 );
               }}
             />
@@ -351,6 +321,7 @@ class ImagePreProcess extends Component {
                   this.state.openingValue,
                   this.state.erosionValue,
                   value,
+                  this.state.smoothingValue,
                 );
               }}
             />
@@ -367,6 +338,60 @@ class ImagePreProcess extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.setState({dialationModal: false})}>
+                <View>
+                  <Close
+                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        {/* Smoothing Modal */}
+
+        <Modal
+          transparent={true}
+          animationType={'none'}
+          visible={this.state.smoothingModal}
+          onRequestClose={() => {
+            console.log('close modal');
+          }}>
+          <View style={styles.modal}>
+            <Slider
+              style={{width: wp('70%'), height: hp('9%')}}
+              minimumValue={0}
+              step={1}
+              value={this.state.smoothingValue}
+              maximumValue={31}
+              minimumTrackTintColor="#FFC542"
+              maximumTrackTintColor="#FFFFFF"
+              onValueChange={(value) => {
+                this.setState({smoothingValue: value});
+
+                this.preProcess(
+                  this.state.imgUri,
+                  this.state.thresholdValue,
+                  this.state.openingValue,
+                  this.state.erosionValue,
+                  this.state.dialationValue,
+                  value,
+                );
+              }}
+            />
+
+            <View style={styles.modalItems}>
+              <Text style={{color: '#ffffff'}}> Smoothing </Text>
+              <TouchableOpacity
+                onPress={() => this.setState({smoothingModal: false})}>
+                <View>
+                  <Save
+                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.setState({smoothingModal: false})}>
                 <View>
                   <Close
                     style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
@@ -395,7 +420,7 @@ class ImagePreProcess extends Component {
             <TouchableOpacity
               onPress={() =>
                 this.props.navigation.navigate('Main-Menu', {
-                  imgUri: this.props.route.params.imgUri,
+                  imgUri: this.state.imgUri,
                 })
               }>
               <View>
@@ -414,8 +439,8 @@ class ImagePreProcess extends Component {
             {/* Resets procssed image */}
             <TouchableOpacity
               onPress={() => {
-                this.setState({imgUri: this.imgUri});
-                // this.resetStatus();
+                this.setState({imgUri: this.state.originalImg});
+                this.resetStatus();
               }}>
               <View>
                 <Process
@@ -445,7 +470,7 @@ class ImagePreProcess extends Component {
             <Row>
               <Col style={styles.alignCenter}>
                 <TouchableOpacity
-                  onPress={() => this.setState({exposureModal: true})}>
+                  onPress={() => this.setState({smoothingModal: true})}>
                   <View>
                     <Exposer style={{width: wp('11%'), height: hp('5%')}} />
                   </View>

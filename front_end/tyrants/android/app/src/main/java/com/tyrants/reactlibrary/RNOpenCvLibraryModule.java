@@ -136,7 +136,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void preProcess(String imageAsBase64, int thresh, int opening, int erode, int dilation, Callback errorCallback, Callback successCallback) {
+    public void preProcess(String imageAsBase64, int thresh, int opening, int erode, int dilation, int smoothing, Callback errorCallback, Callback successCallback) {
         try {
             // OpenCV library will load once the onCreate() executes
             // Config BitmapFactory to cvt imageAsBase64
@@ -152,21 +152,21 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat sourceImage = new Mat();
             Utils.bitmapToMat(image, sourceImage);
 
-            // Convert image to grey
+            // Convert image to grey scale
             Mat greyImage = new Mat();
             Imgproc.cvtColor(sourceImage, greyImage, Imgproc.COLOR_BGR2GRAY);
 
             /*
-            * There are four different type of threshold operations
-            * in this case, we have use To Zero
-            * which is -> type 3
-            *
-            * 0: Binary
-            * 1: Binary Inverted
-            * 2: Truncate
-            * 3: To Zero
-            * 4: To Zero Inverted
-            * */
+             * There are four different type of threshold operations
+             * in this case, we have use To Zero
+             * which is -> type 3
+             *
+             * 0: Binary
+             * 1: Binary Inverted
+             * 2: Truncate
+             * 3: To Zero
+             * 4: To Zero Inverted
+             * */
             Mat imgAdaptiveThreshold = new Mat();
             Imgproc.threshold(greyImage, imgAdaptiveThreshold, thresh, 255, 3);
 
@@ -175,12 +175,11 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Imgproc.GaussianBlur(imgAdaptiveThreshold, imgGaussianBlur, new Size(3, 3), 0);
 
             /*
-            * We can choose any of three shapes for our kernel -> 1st para of the Structuring Element:
-            * Ellipse: CV_SHAPE_ELLIPSE
-            * Rectangular box: CV_SHAPE_RECT
-            * Cross: CV_SHAPE_CROSS
-            *
-            * */
+             * We can choose any of three shapes for our kernel -> 1st para of the Structuring Element:
+             * Ellipse: CV_SHAPE_ELLIPSE
+             * Rectangular box: CV_SHAPE_RECT
+             * Cross: CV_SHAPE_CROSS
+             * */
 
             // element for erode
             Mat openingStructuringElement = Imgproc.getStructuringElement(
@@ -196,7 +195,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
                     new Point(erode, erode)
             );
 
-            // element for opening
+            // element for dilate
             Mat dilationStructuringElement = Imgproc.getStructuringElement(
                     Imgproc.CV_SHAPE_ELLIPSE,
                     new Size(2 * dilation + 1, 2 * dilation + 1),
@@ -209,10 +208,18 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             // Erosion
             Imgproc.erode(imgGaussianBlur, imgGaussianBlur, erodeStructuringElement);
 
-            // Dilation
-            Imgproc.morphologyEx(imgGaussianBlur, imgGaussianBlur, Imgproc.MORPH_CLOSE, dilationStructuringElement);
+            // Dilate
+            Imgproc.dilate(imgGaussianBlur, imgGaussianBlur, dilationStructuringElement);
 
-            // Creating bitmap from last open cv img proc
+            // Smoothing
+            if (smoothing!=0) {
+                for (int i = 1; i < smoothing; i = i + 2) {
+                    Imgproc.medianBlur(imgGaussianBlur, imgGaussianBlur, i);
+                }
+                Imgproc.pyrDown(imgGaussianBlur, imgGaussianBlur);
+            }
+
+            // Creating bitmap from last open cv img
             Bitmap bmp = Bitmap.createBitmap(imgGaussianBlur.cols(), imgGaussianBlur.rows(), Bitmap.Config.ARGB_8888);
             Utils.matToBitmap(imgGaussianBlur, bmp);
 

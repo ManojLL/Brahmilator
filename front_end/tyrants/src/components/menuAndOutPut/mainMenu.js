@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   TouchableOpacity,
   Platform,
 } from 'react-native';
@@ -14,7 +13,6 @@ import {
 } from 'react-native-responsive-screen';
 import BottomNavigator from '../navigators/BottomNavigator';
 import NetInfo from '@react-native-community/netinfo';
-import {cos} from 'react-native-reanimated';
 
 const createFormData = (photo) => {
   let i = {
@@ -59,18 +57,18 @@ class MainMenu extends Component {
 
   loadAPI = async () => {
     this.setState({isLoading: true});
-
+    const data = {image: this.props.route.params.imgUri};
     try {
-      // Changed the default IP in previous testing (Nimendra)
       await fetch(
-        'https://brahmilator-ssqj6ij3rq-as.a.run.app:5000/api/getLetters',
+        'https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getLetters',
         {
           method: 'POST',
           mode: 'no-cors',
           headers: {
-            'content-type': 'multipart/form-data',
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
-          body: createFormData(this.props.route.params.imgUri),
+          body: JSON.stringify(data),
         },
       )
         .then((response) => response.json())
@@ -105,12 +103,12 @@ class MainMenu extends Component {
   };
 
   getWord = async () => {
-    const data = {letters: ['ba', 'ta', 'na', 'ga']};
+    const data = {letters: this.state.letters};
     try {
       this.setState({isLoading: true});
       // Changed the default IP in previous testing (Nimendra)
       await fetch(
-        'https://brahmilator-ssqj6ij3rq-as.a.run.app:5000/api/getPossibleWords',
+        'https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getPossibleWords',
         {
           method: 'POST',
           mode: 'no-cors',
@@ -129,6 +127,11 @@ class MainMenu extends Component {
               words: json.outPut.possible_words,
               wordsWithM: json.outPut.possible_words_with_meaning,
             });
+            this.props.navigation.push('Result', {
+              findWords: this.state.words,
+              withMeaning: this.state.wordsWithM,
+            });
+          } else {
             this.props.navigation.push('Result', {
               findWords: this.state.words,
               withMeaning: this.state.wordsWithM,
@@ -181,20 +184,6 @@ class MainMenu extends Component {
                     </Text>
                   </TouchableOpacity>
                 </View>
-
-                {/*<View>*/}
-                {/*    <TouchableOpacity*/}
-                {/*        style={styles.button}*/}
-                {/*        onPress={() => this.props.navigation.push('Result', {*/}
-                {/*            letters: 'u',*/}
-                {/*            suggetion: 'wwdwdwdw'*/}
-                {/*        })}*/}
-                {/*    >*/}
-                {/*        <Text style={{color: "#000000", fontWeight: "bold"}}>*/}
-                {/*            {"Translated Sentences"}*/}
-                {/*        </Text>*/}
-                {/*    </TouchableOpacity>*/}
-                {/*</View>*/}
               </View>
             ) : (
               <View>
