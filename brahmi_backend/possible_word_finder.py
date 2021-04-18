@@ -1,5 +1,9 @@
 from math import pow
 
+
+# function to find all subsequence for given letters
+# example given letters is abc
+# subsequence for above example is abc , a , bc , ab , c , a , b , c
 def subsequences(str):
     allWordList = []
     posibilities = []
@@ -15,7 +19,6 @@ def subsequences(str):
             if (counter & (1<<j)):
                 current_word = current_word + " "
 
-
         allWordList.append(current_word)
 
     for x in allWordList:
@@ -25,6 +28,9 @@ def subsequences(str):
 
     return posibilities
 
+
+# function to search subsequence results exists in DB
+# if exists its consider as possible word
 def searchInDB(column, word):
     query = {"word": word}
     mydoc = column.find(query)
@@ -36,8 +42,11 @@ def searchInDB(column, word):
     return possible_meanings
 
 
+# function to get started with possible word finder
 def searchForWords(column, str):
     posibile_words = subsequences(str)
+
+    # remove duplicates from subsequence results
     posibile_words = dict.fromkeys(posibile_words)
 
     given_letters = ''.join(str)
@@ -57,6 +66,7 @@ def searchForWords(column, str):
     for key, value in result.items():
         index.append(given_letters.find(key))
 
+    # reordering results according to word order in given plate
     n = len(index)
     for i in range(n - 1):
         for j in range(0, n - i - 1):
