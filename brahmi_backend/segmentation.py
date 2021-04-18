@@ -201,6 +201,7 @@ def image_segmentation():
 
         edges = []
 
+        # getting x1, x2, y1, y2 edges of a letter for crop
         for cnt in contours:
             if cv2.contourArea(cnt) > 20:
                 x, y, w, h = cv2.boundingRect(cnt)
@@ -212,7 +213,7 @@ def image_segmentation():
                 edges.append(temp)
                 cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-
+        # reordering according to x index of edge for saving cropped image in oder
         n = len(edges)
 
         for i in range(n-1):
@@ -220,6 +221,7 @@ def image_segmentation():
                 if edges[j][0] > edges[j + 1][0]:
                     edges[j], edges[j + 1] = edges[j + 1], edges[j]
 
+        # cropping original image form letter edges
         i = 0
         for edge in edges:
             crop = resized_image[edge[1]:(edge[1] + edge[3]), edge[0]:(edge[0] + edge[2])]
