@@ -63,11 +63,8 @@ def translateLetters():
             os.remove("input_data/plate.png")
             response = make_response("Too much noise in image", True, 200)
             return Response(response=response, status=200, mimetype='application/json')
-
-        response = make_response('Done', False, 404)
-        return Response(response=response, status=404, mimetype='application/json')
     except Exception as e:
-        response = make_response('Error', False, 404)
+        response = make_response('Something went wrong', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
 
@@ -144,7 +141,7 @@ def getPossibleWords():
             response = make_response(result, True, 200)
             return Response(response=response, status=200, mimetype='application/json')
         else:
-            response = make_response("no word found", True, 404)
+            response = make_response("Possible match not found", True, 404)
             return Response(response=response, status=200, mimetype='application/json')
     except Exception as e:
         print(e)
