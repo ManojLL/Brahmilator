@@ -41,7 +41,6 @@ def searchForWords(column, str):
     posibile_words = dict.fromkeys(posibile_words)
 
     given_letters = ''.join(str)
-    print(given_letters)
 
     result = {}
     word_list = []
@@ -54,14 +53,9 @@ def searchForWords(column, str):
             word_list.append(x)
             meaning_list.append(possible_meanings)
 
-    print(*word_list, sep=" , ")
-    print(*meaning_list, sep=" , ")
-
     index = []
     for key, value in result.items():
         index.append(given_letters.find(key))
-
-    print(*index, sep=" , ")
 
     n = len(index)
     for i in range(n - 1):
@@ -69,9 +63,6 @@ def searchForWords(column, str):
             if index[j] > index[j + 1]:
                 word_list[j], word_list[j + 1] = word_list[j + 1], word_list[j]
                 meaning_list[j], meaning_list[j + 1] = meaning_list[j + 1], meaning_list[j]
-
-    print(*word_list, sep=" , ")
-    print(*meaning_list, sep=" , ")
 
     final_result = {}
     for i in range(n):
