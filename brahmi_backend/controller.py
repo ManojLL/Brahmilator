@@ -19,6 +19,9 @@ app = Flask(__name__)
 input_data = "input_data"
 segmented_letters = "segmented_letters"
 
+
+# function to get segmented letters with their meaning of given plate
+# argument image type - base64
 @app.route("/api/getLetters", methods=["POST"])
 def translateLetters():
     try:
@@ -29,6 +32,7 @@ def translateLetters():
 
         flag = image_segmentation()
 
+        # true if given image segmented correctly
         if (flag == True):
             result = {}
             classify_letters = brahmi_classifier.classify_letters()
@@ -67,16 +71,21 @@ def translateLetters():
         return Response(response=response, status=404, mimetype='application/json')
 
 
+# function to get possible words of plate
+# argument letters of plate
 @app.route('/api/getPossibleWords', methods=['POST'])
 def getPossibleWords():
     try:
         data = request.get_json()['letters']
+
+        # url to mongoDB
         myclient = pymongo.MongoClient("mongodb+srv://brahmilator_db:brahmilator123@cluster0.zf5dm.mongodb.net/brahmilator_db?retryWrites=true&w=majority")
         mydb = myclient["brahmilator_database"]
         column = mydb["words"]
 
         words = searchForWords(column, data)
 
+        # true if possible word or words are found
         if len(words) > 0:
             possible_words = []
             for key, value in words.items():
@@ -96,6 +105,8 @@ def getPossibleWords():
         return Response(response=response, status=404, mimetype='application/json')
 
 
+# function to translate into native language
+# arguments words, current src language, destination language
 @app.route("/api/translate", methods=["POST"])
 def translate():
     try:
