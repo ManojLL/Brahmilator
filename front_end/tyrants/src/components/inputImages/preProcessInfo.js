@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card } from "react-native-shadow-cards";
 import {
-  Image,
+ 
   ScrollView,
   StyleSheet,
   Text,
@@ -18,7 +18,7 @@ import Threshold from "../../images/icons/threshold.svg";
 import Erosion from "../../images/icons/erosion.svg";
 import Morph from "../../images/icons/morph.svg";
 import Dialation from "../../images/icons/dialation.svg";
-
+import Retake from "../../images/icons/retake.svg";
 LogBox.ignoreAllLogs();
 
 class Info extends Component {
@@ -34,8 +34,17 @@ class Info extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.titleText}>Hello, Huaman!</Text>
+        <View style={[{ flexDirection: "row", alignItems: "center" }]}>
+          <View style={[{ flex: 1, flexDirection: "row" }]}>
+            <View style={styles.textContainer}>
+              <Text style={styles.titleText}>Hello, Huaman!</Text>
+            </View>
+          </View>
+          <View>
+            <Retake
+              style={{ width: wp("7%"), height: hp("2%"), marginLeft: 10 }}
+            />
+          </View>
         </View>
         <ScrollView>
           <Card style={styles.card}>
