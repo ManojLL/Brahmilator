@@ -1,1 +1,1 @@
-# Brahmilator - CNN based OCR approach to translate Early Brahmi Inscriptions
+# Brahmilator - Systematic approach to translate Early Brahmi Inscriptions
