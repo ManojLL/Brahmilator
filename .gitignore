@@ -6,7 +6,8 @@ front_end/tyrants/package.json
 brahmi_backend/.idea/
 features/.idea/
 front_end/tyrants/android/java_pid36510.hprof
-brahmi_backend/models/classification_model/__pycache__/*
-brahmi_backend/models/segmentation_model/__pycache__/*
-brahmi_backend/models/word_finder_model/__pycache__/*
+brahmi_backend/classification_model/__pycache__/*
+brahmi_backend/segmentation_module/__pycache__/*
+brahmi_backend/word_finder_module/__pycache__/*
+brahmi_backend/utils/__pycache__/*
 .gitignore
