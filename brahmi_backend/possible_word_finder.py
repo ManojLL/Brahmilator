@@ -73,6 +73,7 @@ def searchForWords(column, str):
             if index[j] > index[j + 1]:
                 word_list[j], word_list[j + 1] = word_list[j + 1], word_list[j]
                 meaning_list[j], meaning_list[j + 1] = meaning_list[j + 1], meaning_list[j]
+                index[j], index[j + 1] = index[j + 1], index[j]
 
     final_result = {}
     for i in range(n):
