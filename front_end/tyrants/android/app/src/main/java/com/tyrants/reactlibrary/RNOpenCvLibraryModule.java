@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.tyrants.util.ImageUtil;
 
+import org.jetbrains.annotations.NotNull;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -19,6 +20,7 @@ import org.opencv.imgproc.Imgproc;
 
 public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
+    // Uses to programmatically remove noise
     private boolean isRan = true;
 
     private final ReactApplicationContext reactContext;
@@ -28,6 +30,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
         this.reactContext = reactContext;
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "RNOpenCvLibrary";

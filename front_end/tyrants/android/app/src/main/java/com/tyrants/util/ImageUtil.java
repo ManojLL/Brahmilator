@@ -6,6 +6,10 @@ import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * Convert Base64 to Bitmap
+ * Convert Bitmap to Base64
+ */
 public class ImageUtil {
     public static Bitmap convert(String base64Str) throws IllegalArgumentException {
         byte[] decodedBytes = Base64.decode(
@@ -20,6 +24,7 @@ public class ImageUtil {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
 
+        // NO_WRAP -> no new lines in Base64 String
         return Base64.encodeToString(outputStream.toByteArray(), Base64.NO_WRAP);
     }
 
