@@ -22,6 +22,7 @@ import Threshold from '../../images/icons/threshold.svg';
 import Erosion from '../../images/icons/erosion.svg';
 import Morph from '../../images/icons/morph.svg';
 import Dialation from '../../images/icons/dialation.svg';
+import Instructions from '../../images/icons/instructions.svg';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -414,6 +415,7 @@ class ImagePreProcess extends Component {
           </View>
 
           <View style={{flex: 1, flexDirection: 'row-reverse'}}>
+            {/* Segement and classify Images */}
             <TouchableOpacity
               onPress={() =>
                 this.props.navigation.navigate('Main-Menu', {
@@ -452,15 +454,14 @@ class ImagePreProcess extends Component {
               </View>
             </TouchableOpacity>
 
-            {/* Resets procssed image */}
+            {/* Instructions to Pre-process */}
             <TouchableOpacity
               onPress={() => {
-                this.setState({imgUri: this.state.originalImg});
-                this.resetStatus();
+                // this.props.navigation.navigate('Main-Menu');
               }}>
               <View>
-                <Process
-                  // source={require('../../images/icons/retake.svg')}
+                <Instructions
+                  // source={require('../../images/icons/Instructions.svg')}
                   style={{
                     width: wp('7%'),
                     height: hp('3%'),
