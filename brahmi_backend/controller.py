@@ -10,15 +10,15 @@ import pymongo
 import base64
 
 
-from models.classification_model import brahmi_classifier
-from models.segmentation_model.segmentation import image_segmentation
-from models.word_finder_model.possible_word_finder import searchForWords
+from classification_model import brahmi_classifier
+from segmentation_module.segmentation import image_segmentation
+from word_finder_module.possible_word_finder import searchForWords
 from utils.util import make_response
 
 app = Flask(__name__)
 
 input_data = "input_data"
-segmented_letters = "models/segmentation_model/segmented_letters"
+segmented_letters = "segmentation_module/segmented_letters"
 
 
 # function to get segmented letters with their meaning of given plate
