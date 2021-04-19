@@ -20,7 +20,6 @@ This project aims to provide a systematic solution to recognize the characters i
 │   │   ├── DatabaseHelper.py
 │   │   └── db.csv
 │   ├── input_data
-│   │   └── README.md
 │   ├── requirements.txt
 │   ├── segmentation_module
 │   │   ├── segmentation.py
@@ -29,14 +28,12 @@ This project aims to provide a systematic solution to recognize the characters i
 │   ├── utils
 │   │   └── util.py
 │   └── word_finder_module
-│       ├── README.md
 │       └── possible_word_finder.py
 ├── cloudbuild.yaml
 └── front_end
     └── tyrants
         ├── App.js
         ├── README.md
-        ├── __tests__
         ├── android
         ├── app.json
         ├── babel.config.js
