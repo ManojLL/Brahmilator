@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   View,
@@ -96,7 +97,7 @@ class ImagePreview extends Component {
               <View>
                 <Process
                   // source={require('../../images/icons/process.svg')}
-                  style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                  style={{width: wp('7%'), height: hp('3%'), marginLeft: 10}}
                 />
               </View>
             </TouchableOpacity>
@@ -111,16 +112,7 @@ class ImagePreview extends Component {
               <View>
                 <Retake
                   // source={require('../../images/icons/process.svg')}
-                  style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.saveImage(this.props.route.params.imgUri)}>
-              <View>
-                <Save
-                  // source={require('../../images/icons/process.svg')}
-                  style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                  style={{width: wp('7%'), height: hp('3%'), marginRight: 10}}
                 />
               </View>
             </TouchableOpacity>

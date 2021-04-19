@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   View,
@@ -6,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
+import {color} from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -37,20 +39,23 @@ class Home extends Component {
           <Text style={styles.text}>Welcome to </Text>
           <View>
             <Text>
-              <Text style={styles.specText}>Brahimilator ,</Text>
-              <Text style={styles.text}> mobile </Text>
+              <Text style={styles.specText}>Brahimilator,</Text>
+              <Text style={styles.text}> Mobile </Text>
             </Text>
           </View>
         </View>
         <View style={styles.subTitle}>
-          <Text>Real time brahmi translator</Text>
-          <Text>at your service</Text>
+          <Text style={{color: '#fff', fontSize: 15}}>
+            Real Time Brahmi Inscriptions
+          </Text>
+          <Text style={{color: '#fff', fontSize: 15}}>
+            Translator at Your Service
+          </Text>
         </View>
         <View style={styles.centerItems}>
           <HomePic
             // source={require('../../images/backgroundImages/homeImg.svg')}
-
-            style={{width: wp('80%'), height: hp('40%'), marginTop: 40}}
+            style={{width: wp('100%'), height: hp('50%'), marginTop: 50}}
           />
         </View>
 
@@ -58,7 +63,9 @@ class Home extends Component {
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.push('Camera')}>
-            <Text style={{color: '#000000'}}>{'Get started'}</Text>
+            <Text style={{color: '#2E2E2E', fontWeight: 'bold', fontSize: 14}}>
+              {'Get Started'}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -76,11 +83,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   img: {
+    marginTop: 25,
     width: wp('8%'),
     height: hp('5%'),
   },
   textContainer: {
-    marginTop: 20,
+    marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -95,7 +103,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subTitle: {
-    marginTop: hp('5%'),
+    color: '#fff',
+    marginTop: hp('2%'),
     justifyContent: 'center',
     alignItems: 'center',
   },

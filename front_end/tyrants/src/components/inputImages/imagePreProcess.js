@@ -493,7 +493,7 @@ class ImagePreProcess extends Component {
                       style={{
                         width: wp('11%'),
                         height: hp('5%'),
-                        marginLeft: 6,
+                        marginLeft: 10,
                       }}
                     />
                   </View>
@@ -507,6 +507,7 @@ class ImagePreProcess extends Component {
                       style={{
                         width: wp('11%'),
                         height: hp('5%'),
+                        marginTop: 2,
                         marginLeft: 15,
                       }}
                     />
