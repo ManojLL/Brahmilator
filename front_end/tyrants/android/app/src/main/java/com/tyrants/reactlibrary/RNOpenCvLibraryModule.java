@@ -11,27 +11,15 @@ import com.facebook.react.bridge.ReactMethod;
 import com.tyrants.util.ImageUtil;
 
 import org.opencv.android.Utils;
-import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-
-import static org.opencv.imgproc.Imgproc.ADAPTIVE_THRESH_MEAN_C;
-import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
-import static org.opencv.imgproc.Imgproc.THRESH_BINARY_INV;
-
 public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
+
+    private boolean isRan = true;
 
     private final ReactApplicationContext reactContext;
 
@@ -212,11 +200,12 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Imgproc.dilate(imgGaussianBlur, imgGaussianBlur, dilationStructuringElement);
 
             // Smoothing
-            if (smoothing!=0) {
+            if (isRan) {
                 for (int i = 1; i < smoothing; i = i + 2) {
                     Imgproc.medianBlur(imgGaussianBlur, imgGaussianBlur, i);
                 }
                 Imgproc.pyrDown(imgGaussianBlur, imgGaussianBlur);
+                isRan = false;
             }
 
             // Creating bitmap from last open cv img

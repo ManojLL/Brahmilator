@@ -158,51 +158,24 @@ class ImagePreProcess extends Component {
               }}
             />
 
-            <View style={[styles.modalItems]}>
-              <Grid style={{marginBottom: hp('4%')}}>
-                <Row>
-                  <Col>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() => this.setState({thresholdModal: false})}>
-                        <View>
-                          <Close
-                            style={{
-                              width: wp('7%'),
-                              height: hp('3%'),
-                              marginLeft: 20,
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </Col>
-                  <Col>
-                    <View>
-                      <Text style={{color: '#ffffff', marginLeft: -10}}>
-                        {' '}
-                        Threshold - {this.state.thresholdValue}
-                      </Text>
-                    </View>
-                  </Col>
-                  <Col>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() => this.setState({thresholdModal: false})}>
-                        <View>
-                          <Save
-                            style={{
-                              width: wp('7%'),
-                              height: hp('3%'),
-                              marginLeft: 20,
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </Col>
-                </Row>
-              </Grid>
+            <View style={styles.modalItems}>
+              <Text style={{color: '#ffffff', marginRight: 60}}>
+                {' '}
+                Threshold Value - {this.state.thresholdValue}
+              </Text>
+              <TouchableOpacity
+                onPress={() => this.setState({thresholdModal: false})}>
+                <View>
+                  <Save
+                    style={{
+                      width: wp('7%'),
+                      height: hp('3%'),
+                      marginLeft: 50,
+                      marginTop: 2,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -240,20 +213,20 @@ class ImagePreProcess extends Component {
             />
 
             <View style={styles.modalItems}>
-              <Text style={{color: '#ffffff'}}> erosion </Text>
+              <Text style={{color: '#ffffff', marginRight: 75}}>
+                {' '}
+                Erosion Value - {this.state.erosionValue}
+              </Text>
               <TouchableOpacity
                 onPress={() => this.setState({erosionModal: false})}>
                 <View>
                   <Save
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.setState({erosionModal: false})}>
-                <View>
-                  <Close
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                    style={{
+                      width: wp('7%'),
+                      height: hp('3%'),
+                      marginLeft: 50,
+                      marginTop: 2,
+                    }}
                   />
                 </View>
               </TouchableOpacity>
@@ -294,20 +267,20 @@ class ImagePreProcess extends Component {
             />
 
             <View style={styles.modalItems}>
-              <Text style={{color: '#ffffff'}}> opening </Text>
+              <Text style={{color: '#ffffff', marginRight: 20}}>
+                {' '}
+                Morph(Opening) Value - {this.state.openingValue}
+              </Text>
               <TouchableOpacity
                 onPress={() => this.setState({openingModel: false})}>
                 <View>
                   <Save
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.setState({openingModel: false})}>
-                <View>
-                  <Close
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                    style={{
+                      width: wp('7%'),
+                      height: hp('3%'),
+                      marginLeft: 50,
+                      marginTop: 2,
+                    }}
                   />
                 </View>
               </TouchableOpacity>
@@ -348,20 +321,20 @@ class ImagePreProcess extends Component {
             />
 
             <View style={styles.modalItems}>
-              <Text style={{color: '#ffffff'}}> dialation </Text>
+              <Text style={{color: '#ffffff', marginRight: 75}}>
+                {' '}
+                Dilation Value - {this.state.dialationValue}
+              </Text>
               <TouchableOpacity
                 onPress={() => this.setState({dialationModal: false})}>
                 <View>
                   <Save
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.setState({dialationModal: false})}>
-                <View>
-                  <Close
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
+                    style={{
+                      width: wp('7%'),
+                      height: hp('3%'),
+                      marginLeft: 50,
+                      marginTop: 2,
+                    }}
                   />
                 </View>
               </TouchableOpacity>
@@ -401,48 +374,24 @@ class ImagePreProcess extends Component {
               }}
             />
 
-            <View style={[styles.modalItems]}>
-              <Grid style={{marginBottom: hp('4%')}}>
-                <Row>
-                  <Col>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() => this.setState({smoothingModal: false})}>
-                        <View>
-                          <Save
-                            style={{
-                              width: wp('7%'),
-                              height: hp('3%'),
-                              marginLeft: 20,
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </Col>
-                  <Col>
-                    <View>
-                      <Text style={{color: '#ffffff'}}> Smoothing </Text>
-                    </View>
-                  </Col>
-                  <Col>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() => this.setState({smoothingModal: false})}>
-                        <View>
-                          <Close
-                            style={{
-                              width: wp('7%'),
-                              height: hp('3%'),
-                              marginLeft: 20,
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </Col>
-                </Row>
-              </Grid>
+            <View style={styles.modalItems}>
+              <Text style={{color: '#ffffff', marginRight: 55}}>
+                {' '}
+                Smoothing Value - {this.state.smoothingValue}
+              </Text>
+              <TouchableOpacity
+                onPress={() => this.setState({smoothingModal: false})}>
+                <View>
+                  <Save
+                    style={{
+                      width: wp('7%'),
+                      height: hp('3%'),
+                      marginLeft: 50,
+                      marginTop: 2,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -457,12 +406,13 @@ class ImagePreProcess extends Component {
                   style={{
                     width: wp('7%'),
                     height: hp('3%'),
-                    marginLeft: 20,
+                    marginLeft: 10,
                   }}
                 />
               </View>
             </TouchableOpacity>
           </View>
+
           <View style={{flex: 1, flexDirection: 'row-reverse'}}>
             <TouchableOpacity
               onPress={() =>
@@ -476,8 +426,8 @@ class ImagePreProcess extends Component {
                   style={{
                     width: wp('7%'),
                     height: hp('3%'),
-                    marginRight: 20,
-                    marginTop: 8,
+                    marginRight: 10,
+                    marginTop: 3,
                   }}
                 />
               </View>
@@ -495,8 +445,27 @@ class ImagePreProcess extends Component {
                   style={{
                     width: wp('7%'),
                     height: hp('3%'),
-                    marginRight: 20,
-                    marginTop: 8,
+                    marginRight: 15,
+                    marginTop: 3,
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
+
+            {/* Resets procssed image */}
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({imgUri: this.state.originalImg});
+                this.resetStatus();
+              }}>
+              <View>
+                <Process
+                  // source={require('../../images/icons/retake.svg')}
+                  style={{
+                    width: wp('7%'),
+                    height: hp('3%'),
+                    marginRight: 15,
+                    marginTop: 3,
                   }}
                 />
               </View>
@@ -517,17 +486,15 @@ class ImagePreProcess extends Component {
             <Row>
               <Col style={styles.alignCenter}>
                 <TouchableOpacity
-                  onPress={() => this.setState({smoothingModal: true})}>
-                  <View>
-                    <Exposer style={{width: wp('11%'), height: hp('5%')}} />
-                  </View>
-                </TouchableOpacity>
-              </Col>
-              <Col style={styles.alignCenter}>
-                <TouchableOpacity
                   onPress={() => this.setState({thresholdModal: true})}>
                   <View>
-                    <Threshold style={{width: wp('11%'), height: hp('5%')}} />
+                    <Threshold
+                      style={{
+                        width: wp('11%'),
+                        height: hp('5%'),
+                        marginLeft: 6,
+                      }}
+                    />
                   </View>
                 </TouchableOpacity>
               </Col>
@@ -535,7 +502,13 @@ class ImagePreProcess extends Component {
                 <TouchableOpacity
                   onPress={() => this.setState({erosionModal: true})}>
                   <View>
-                    <Erosion style={{width: wp('11%'), height: hp('5%')}} />
+                    <Erosion
+                      style={{
+                        width: wp('11%'),
+                        height: hp('5%'),
+                        marginLeft: 15,
+                      }}
+                    />
                   </View>
                 </TouchableOpacity>
               </Col>
@@ -543,7 +516,13 @@ class ImagePreProcess extends Component {
                 <TouchableOpacity
                   onPress={() => this.setState({openingModel: true})}>
                   <View>
-                    <Morph style={{width: wp('11%'), height: hp('5%')}} />
+                    <Morph
+                      style={{
+                        width: wp('11%'),
+                        height: hp('5%'),
+                        marginLeft: 10,
+                      }}
+                    />
                   </View>
                 </TouchableOpacity>
               </Col>
@@ -552,6 +531,14 @@ class ImagePreProcess extends Component {
                   onPress={() => this.setState({dialationModal: true})}>
                   <View>
                     <Dialation style={{width: wp('11%'), height: hp('5%')}} />
+                  </View>
+                </TouchableOpacity>
+              </Col>
+              <Col style={styles.alignCenter}>
+                <TouchableOpacity
+                  onPress={() => this.setState({smoothingModal: true})}>
+                  <View>
+                    <Exposer style={{width: wp('11%'), height: hp('5%')}} />
                   </View>
                 </TouchableOpacity>
               </Col>
@@ -580,18 +567,18 @@ const styles = StyleSheet.create({
     height: '15%',
     flex: 1,
     flexDirection: 'row',
-    padding: 6,
+    padding: 10,
   },
   modal: {
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: hp('8%'),
+    marginBottom: hp('10%'),
     height: hp('10%'),
     alignItems: 'center',
   },
   modalItems: {
     flexDirection: 'row',
-    marginLeft: wp('14%'),
+    marginTop: -15,
   },
 });
 export default ImagePreProcess;
