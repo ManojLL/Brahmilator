@@ -19,6 +19,7 @@ import {
     AccordionList,
 } from 'accordion-collapse-react-native';
 import BottomNavigator from "../navigators/BottomNavigator";
+import ArrowDown from "../../images/icons/arrow_down.svg";
 
 
 class Result extends Component {
@@ -158,6 +159,15 @@ class Result extends Component {
                                                     <CollapseHeader>
                                                         <View>
                                                             <Text style={styles.subtitle}>{w}</Text>
+                                                            <View>
+                                                                <ArrowDown
+                                                                style={{
+                                                                    width: wp('7%'),
+                                                                    height: hp('3%'),
+                                                                    marginLeft: wp("65%"),
+                                                                    marginTop: -20,
+                                                                  }}/>
+                                                            </View>
                                                         </View>
                                                     </CollapseHeader>
                                                     <CollapseBody>
