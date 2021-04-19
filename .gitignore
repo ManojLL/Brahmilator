@@ -6,7 +6,7 @@ front_end/tyrants/package.json
 brahmi_backend/.idea/
 features/.idea/
 front_end/tyrants/android/java_pid36510.hprof
-brahmi_backend/segmentation_module/.idea/
-brahmi_backend/segmentation_module/output/
+brahmi_backend/models/segmentation_model/.idea/
+brahmi_backend/models/segmentation_model/output/
 brahmi_backend/__pycache__/*
 .gitignore

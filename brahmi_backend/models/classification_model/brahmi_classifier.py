@@ -5,9 +5,9 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-classification_model = "classification-model"
+classification_model = "models/classification_model/mobilenet_engine"
 
-segmented_letters = "segmented_letters"
+segmented_letters = "models/segmentation_model/segmented_letters"
 
 loaded_model = tf.keras.models.load_model(classification_model)
 

@@ -113,7 +113,7 @@ def end_wrd_dtct(lines, i, bin_img, mean_lttr_width, width, final_thr):
 
 def image_segmentation():
     try:
-        src_img = cv2.imread('input_data/plate.png')
+        src_img = cv2.imread('././input_data/plate.png')
 
         copy = src_img.copy()
         height = src_img.shape[0]
@@ -226,7 +226,7 @@ def image_segmentation():
         for edge in edges:
             crop = resized_image[edge[1]:(edge[1] + edge[3]), edge[0]:(edge[0] + edge[2])]
             crop = cv2.resize(crop, (224, 224))
-            cv2.imwrite("segmented_letters/crop_{0}.jpg".format(i), crop)
+            cv2.imwrite("models/segmentation_model/segmented_letters/crop_{0}.jpg".format(i), crop)
             i = i + 1
 
         return True

@@ -9,15 +9,16 @@ from PIL import Image
 import pymongo
 import base64
 
-from util import make_response
-import brahmi_classifier
-from segmentation import image_segmentation
-from possible_word_finder import searchForWords
+
+from models.classification_model import brahmi_classifier
+from models.segmentation_model.segmentation import image_segmentation
+from models.word_finder_model.possible_word_finder import searchForWords
+from utils.util import make_response
 
 app = Flask(__name__)
 
 input_data = "input_data"
-segmented_letters = "segmented_letters"
+segmented_letters = "models/segmentation_model/segmented_letters"
 
 
 # function to get segmented letters with their meaning of given plate
@@ -67,6 +68,7 @@ def translateLetters():
             response = make_response("Too much noise in image", True, 200)
             return Response(response=response, status=200, mimetype='application/json')
     except Exception as e:
+        # print(e)
         response = make_response('Something went wrong', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
@@ -101,6 +103,7 @@ def getPossibleWords():
             response = make_response("Possible match not found", True, 404)
             return Response(response=response, status=200, mimetype='application/json')
     except Exception as e:
+        # print(e)
         response = make_response('Something went wrong', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
@@ -130,6 +133,7 @@ def translate():
         response = make_response(result, False, 200)
         return Response(response=response, status=200, mimetype='application/json')
     except Exception as e:
+        # print(e)
         response = make_response('Something went wrong', False, 404)
         return Response(response=response, status=404, mimetype='application/json')
 
