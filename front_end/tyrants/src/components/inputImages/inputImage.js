@@ -63,8 +63,8 @@ class InputImg extends Component {
       try {
         const data = await this.camera.takePictureAsync(options);
         // Convert image uri to Base64
-        // this.convertImg(data.uri);
-        this.checkForBlurryImage(data.uri);
+        this.convertImg(data.uri);
+        // this.checkForBlurryImage(data.uri);
       } catch (err) {
         Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
       } finally {
