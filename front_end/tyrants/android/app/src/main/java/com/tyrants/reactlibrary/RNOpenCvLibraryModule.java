@@ -97,32 +97,49 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void toGrayscale(String imageAsBase64, Callback errorCallback, Callback successCallback) {
         try {
+            // OpenCV library will load once the onCreate() executes
+            // Config BitmapFactory to cvt imageAsBase64
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inDither = true;
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 
+            // Decode imageAsBase64
             byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
             Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
+            // Convert src to dest using encoded bitmap
             Mat matImage = new Mat();
             Utils.bitmapToMat(image, matImage);
 
+            // Convert image to grey scale
             Mat matImageGrey = new Mat();
             Imgproc.cvtColor(matImage, matImageGrey, Imgproc.COLOR_BGR2GRAY);
 
-            // creating bitmap from last open cv img proc
+            // creating bitmap from last open cv img
             Bitmap bmp = Bitmap.createBitmap(matImageGrey.cols(), matImageGrey.rows(), Bitmap.Config.ARGB_8888);
             Utils.matToBitmap(matImageGrey, bmp);
 
+            // Convert processed image to Base64
             String encoded = ImageUtil.convert(bmp);
 
             successCallback.invoke(encoded);
-
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
         }
     }
 
+    /**
+     * Pre-process image as user prefer way
+     *
+     * @param imageAsBase64 - image as Base64 Format
+     * @param thresh - threshold value
+     * @param opening - kernel size for the opening element structure
+     * @param erode - kernel size for the erode element structure
+     * @param dilation - kernel size for the dilation element structure
+     * @param smoothing - kernel size for the smoothing element structure
+     * @param errorCallback   - if interrupted, return the errorCallback with err
+     * @param successCallback - if successful, return processed image as Base64 Format
+     */
     @ReactMethod
     public void preProcess(String imageAsBase64, int thresh, int opening, int erode, int dilation, int smoothing, Callback errorCallback, Callback successCallback) {
         try {
@@ -158,9 +175,12 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat imgAdaptiveThreshold = new Mat();
             Imgproc.threshold(greyImage, imgAdaptiveThreshold, thresh, 255, 3);
 
-            // Remove some noise using Gaussian Blur
-            Mat imgGaussianBlur = new Mat();
-            Imgproc.GaussianBlur(imgAdaptiveThreshold, imgGaussianBlur, new Size(3, 3), 0);
+            // Remove some noise using Gaussian Blur for once
+            Mat processingImage = new Mat();
+            if (isRan) {
+                Imgproc.GaussianBlur(imgAdaptiveThreshold, processingImage, new Size(3, 3), 0);
+                isRan = false;
+            }
 
             /*
              * We can choose any of three shapes for our kernel -> 1st para of the Structuring Element:
@@ -191,27 +211,28 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             );
 
             // Opening morph
-            Imgproc.morphologyEx(imgGaussianBlur, imgGaussianBlur, Imgproc.MORPH_OPEN, openingStructuringElement);
+            Imgproc.morphologyEx(processingImage, processingImage, Imgproc.MORPH_OPEN, openingStructuringElement);
 
             // Erosion
-            Imgproc.erode(imgGaussianBlur, imgGaussianBlur, erodeStructuringElement);
+            Imgproc.erode(processingImage, processingImage, erodeStructuringElement);
 
             // Dilate
-            Imgproc.dilate(imgGaussianBlur, imgGaussianBlur, dilationStructuringElement);
+            Imgproc.dilate(processingImage, processingImage, dilationStructuringElement);
 
             // Smoothing
-            if (isRan) {
+            if (smoothing != 0) {
                 for (int i = 1; i < smoothing; i = i + 2) {
-                    Imgproc.medianBlur(imgGaussianBlur, imgGaussianBlur, i);
+                    Imgproc.medianBlur(processingImage, processingImage, i);
                 }
-                Imgproc.pyrDown(imgGaussianBlur, imgGaussianBlur);
-                isRan = false;
+                // Pyramid down to down scale
+                Imgproc.pyrDown(processingImage, processingImage);
             }
 
             // Creating bitmap from last open cv img
-            Bitmap bmp = Bitmap.createBitmap(imgGaussianBlur.cols(), imgGaussianBlur.rows(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(imgGaussianBlur, bmp);
+            Bitmap bmp = Bitmap.createBitmap(processingImage.cols(), processingImage.rows(), Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(processingImage, bmp);
 
+            // Convert processed image to Base64
             String encoded = ImageUtil.convert(bmp);
 
             successCallback.invoke(encoded);

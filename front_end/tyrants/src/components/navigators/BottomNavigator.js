@@ -49,18 +49,18 @@ class BottomNavigator extends Component {
         <View
           style={{
             position: 'absolute',
-            backgroundColor: '#2e2e2e',
+            backgroundColor: '#272727',
             border: 2,
             radius: 3,
-            shadowColor: '#000000',
+            shadowColor: '#fff',
             shadowOpacity: 1,
-            shadowRadius: 10,
+            shadowRadius: 50,
             shadowOffset: {
               height: 25,
               width: 25,
             },
             x: 0,
-            y: -10,
+            y: 0,
             style: {marginVertical: 5},
             bottom: 0,
             width: '100%',
