@@ -22,3 +22,4 @@ project(':react-native-camera').projectDir = new File(rootProject.projectDir, 	'
 
 include ':app'
 include ':OpenCV452'
+include ':OpenCV452'
