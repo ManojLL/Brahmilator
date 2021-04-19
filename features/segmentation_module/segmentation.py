@@ -202,6 +202,7 @@ edges = []
 for cnt in contours:
     if cv2.contourArea(cnt) > 20:
         x, y, w, h = cv2.boundingRect(cnt)
+        cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
         temp = []
         temp.append(x)
         temp.append(y)
@@ -210,6 +211,7 @@ for cnt in contours:
         edges.append(temp)
         cv2.rectangle(src_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
+cv2.imwrite("output/plate.png", src_img)
 
 n = len(edges)
 
