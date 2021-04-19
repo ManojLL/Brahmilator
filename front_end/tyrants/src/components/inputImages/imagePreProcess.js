@@ -158,30 +158,51 @@ class ImagePreProcess extends Component {
               }}
             />
 
-            <View style={styles.modalItems}>
-              <Text style={{color: '#ffffff'}}> threshold </Text>
-              <TouchableOpacity
-                onPress={() => this.setState({thresholdModal: false})}>
-                <View>
-                  <Save
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => this.setState({thresholdModal: false})}>
-                <View>
-                  <Close
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-              <View>
-                <Text style={{color: '#ffffff'}}>
-                  {this.state.thresholdValue}
-                </Text>
-              </View>
+            <View style={[styles.modalItems]}>
+              <Grid style={{marginBottom: hp('4%')}}>
+                <Row>
+                  <Col>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => this.setState({thresholdModal: false})}>
+                        <View>
+                          <Save
+                            style={{
+                              width: wp('7%'),
+                              height: hp('3%'),
+                              marginLeft: 20,
+                            }}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{color: '#ffffff'}}>
+                        {' '}
+                        Threshold - {this.state.thresholdValue}
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => this.setState({thresholdModal: false})}>
+                        <View>
+                          <Close
+                            style={{
+                              width: wp('7%'),
+                              height: hp('3%'),
+                              marginLeft: 20,
+                            }}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </Col>
+                </Row>
+              </Grid>
             </View>
           </View>
         </Modal>
@@ -544,6 +565,7 @@ const styles = StyleSheet.create({
   },
   modalItems: {
     flexDirection: 'row',
+    marginLeft: wp('14%'),
   },
 });
 export default ImagePreProcess;
