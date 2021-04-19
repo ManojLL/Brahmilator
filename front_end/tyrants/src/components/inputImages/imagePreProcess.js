@@ -7,7 +7,6 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
-  Button,
   LogBox,
   Platform,
   Modal,
@@ -60,6 +59,18 @@ class ImagePreProcess extends Component {
     ]);
   };
 
+  // useEffect(() => {
+  //   // handleRegistration();
+  // }, []);
+
+  resetStatus() {
+    this.setState({thresholdValue: 0});
+    this.setState({openingValue: 0});
+    this.setState({erosionValue: 0});
+    this.setState({dialationValue: 0});
+    this.setState({smoothingValue: 0});
+  }
+
   preProcess(
     imageAsBase64,
     thresholdValue,
@@ -107,21 +118,6 @@ class ImagePreProcess extends Component {
         );
       }
     });
-  }
-
-  resetStatus() {
-    this.state = {
-      smoothingModal: false,
-      smoothingValue: 0,
-      thresholdModal: false,
-      thresholdValue: 0,
-      erosionModal: false,
-      erosionValue: 0,
-      openingModel: false,
-      morphValue: 0,
-      dialationModal: false,
-      dialationValue: 0,
-    };
   }
 
   render() {

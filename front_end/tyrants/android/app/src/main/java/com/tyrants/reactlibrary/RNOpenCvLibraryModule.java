@@ -118,9 +118,13 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat matImageGrey = new Mat();
             Imgproc.cvtColor(matImage, matImageGrey, Imgproc.COLOR_BGR2GRAY);
 
+            // Remove some noise using Gaussian Blur for once
+            Mat processingImage = new Mat();
+            Imgproc.GaussianBlur(matImageGrey, processingImage, new Size(3, 3), 0);
+
             // creating bitmap from last open cv img
-            Bitmap bmp = Bitmap.createBitmap(matImageGrey.cols(), matImageGrey.rows(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(matImageGrey, bmp);
+            Bitmap bmp = Bitmap.createBitmap(processingImage.cols(), processingImage.rows(), Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(processingImage, bmp);
 
             // Convert processed image to Base64
             String encoded = ImageUtil.convert(bmp);
@@ -134,12 +138,12 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
     /**
      * Pre-process image as user prefer way
      *
-     * @param imageAsBase64 - image as Base64 Format
-     * @param thresh - threshold value
-     * @param opening - kernel size for the opening element structure
-     * @param erode - kernel size for the erode element structure
-     * @param dilation - kernel size for the dilation element structure
-     * @param smoothing - kernel size for the smoothing element structure
+     * @param imageAsBase64   - image as Base64 Format
+     * @param thresh          - threshold value
+     * @param opening         - kernel size for the opening element structure
+     * @param erode           - kernel size for the erode element structure
+     * @param dilation        - kernel size for the dilation element structure
+     * @param smoothing       - kernel size for the smoothing element structure
      * @param errorCallback   - if interrupted, return the errorCallback with err
      * @param successCallback - if successful, return processed image as Base64 Format
      */
@@ -175,15 +179,8 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
              * 3: To Zero
              * 4: To Zero Inverted
              * */
-            Mat imgAdaptiveThreshold = new Mat();
-            Imgproc.threshold(greyImage, imgAdaptiveThreshold, thresh, 255, 3);
-
-            // Remove some noise using Gaussian Blur for once
             Mat processingImage = new Mat();
-            if (isRan) {
-                Imgproc.GaussianBlur(imgAdaptiveThreshold, processingImage, new Size(3, 3), 0);
-                isRan = false;
-            }
+            Imgproc.threshold(greyImage, processingImage, thresh, 255, 3);
 
             /*
              * We can choose any of three shapes for our kernel -> 1st para of the Structuring Element:
@@ -227,7 +224,7 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
                 for (int i = 1; i < smoothing; i = i + 2) {
                     Imgproc.medianBlur(processingImage, processingImage, i);
                 }
-                // Pyramid down to down scale
+                // pyrDown to down scale
                 Imgproc.pyrDown(processingImage, processingImage);
             }
 
