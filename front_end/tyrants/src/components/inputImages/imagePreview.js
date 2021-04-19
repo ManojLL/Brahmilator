@@ -2,14 +2,9 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
-  Button,
-  Image,
-  Platform,
-  CameraRoll,
   Alert,
 } from 'react-native';
 import {
@@ -17,10 +12,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {dirPicutures} from './dirStorage';
-import SvgUri from 'react-native-svg-uri';
 import Process from '../../images/icons/process.svg';
 import Retake from '../../images/icons/retake.svg';
-import Save from '../../images/icons/save.svg';
 
 const moment = require('moment');
 
@@ -46,12 +39,6 @@ class ImagePreview extends Component {
       width: 0,
       height: 0,
     };
-  }
-
-  componentDidMount() {
-    // Image.getSize(this.props.route.params.imgUri.uri,(width, height) =>{
-    //     console.log(width*90/(100*wp),height)
-    // })
   }
 
   saveImage = async (filePath) => {

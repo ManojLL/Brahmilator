@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   ActivityIndicator,
@@ -46,7 +47,7 @@ class MainMenu extends Component {
       if (state.isConnected) {
         this.loadAPI();
       } else {
-        alert('connect to ineter net and try again');
+        alert('Can not connected to the Server, Please Try Again!');
         this.setState({connection: false});
         this.props.navigation.navigate('Pre-process', {
           imgUri: this.props.route.params.imgUri,
@@ -95,7 +96,7 @@ class MainMenu extends Component {
         .catch((error) => {
           this.setState({isLoading: false});
           console.log('upload error', error);
-          alert('Upload failed!');
+          alert('Upload Failed!');
         });
     } catch (error) {
       console.error(error);
@@ -141,7 +142,7 @@ class MainMenu extends Component {
         .catch((error) => {
           this.setState({isLoading: false});
           console.log('upload error', error);
-          alert('Upload failed!');
+          alert('Upload Failed!');
         });
     } catch (error) {
       console.error(error);
@@ -154,7 +155,9 @@ class MainMenu extends Component {
         {this.state.isLoading ? (
           <View style={[styles.centerItems]}>
             <ActivityIndicator size="large" color="#ffffff" />
-            <Text style={{color: '#ffffff'}}>LOADING ...</Text>
+            <Text style={{color: '#ffffff', marginLeft: 8, marginTop: 5}}>
+              Processing..
+            </Text>
           </View>
         ) : (
           <View style={[styles.centerItems]}>
@@ -188,7 +191,7 @@ class MainMenu extends Component {
             ) : (
               <View>
                 <Text style={{color: '#ffffff'}}>
-                  CAN'T TRANSLATE THE IMAGE
+                  Image Did Not Properly Pre - Processed!
                 </Text>
               </View>
             )}

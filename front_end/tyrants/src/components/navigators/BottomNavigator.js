@@ -1,12 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {View, Image, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import SvgUri from 'react-native-svg-uri';
-import NavIcon from '../../images/icons/homeNav.svg';
-import User from '../../images/icons/user.svg';
+
+import PreProcess from '../../images/icons/homeNav.svg';
+import Instructions from '../../images/icons/instructions_yellow.svg';
 import CameraIcon from '../../images/icons/camera.svg';
 
 class BottomNavigator extends Component {
@@ -48,17 +49,18 @@ class BottomNavigator extends Component {
         <View
           style={{
             position: 'absolute',
-            backgroundColor: '#2E2E2E',
+            backgroundColor: '#2e2e2e',
             border: 2,
             radius: 3,
-            shadowOpacity: 0.3,
-            shadowRadius: 5,
+            shadowColor: '#000000',
+            shadowOpacity: 1,
+            shadowRadius: 10,
             shadowOffset: {
-              height: 5,
-              width: 5,
+              height: 25,
+              width: 25,
             },
             x: 0,
-            y: 0,
+            y: -10,
             style: {marginVertical: 5},
             bottom: 0,
             width: '100%',
@@ -75,9 +77,9 @@ class BottomNavigator extends Component {
               justifyContent: 'center',
             }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Home')}>
+              onPress={() => this.props.navigation.navigate('imagePreProcess')}>
               <View>
-                <NavIcon
+                <PreProcess
                   style={{
                     width: wp('7%'),
                     height: hp('4%'),
@@ -95,7 +97,7 @@ class BottomNavigator extends Component {
             }}>
             <TouchableOpacity>
               <View>
-                <User
+                <Instructions
                   style={{
                     width: wp('7%'),
                     height: hp('4%'),
@@ -117,7 +119,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
   },
   button: {
     width: wp('15.4%'),
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFC542',
     textShadowOffset: {width: 5, height: 5},
     textShadowRadius: 10,
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: '#333',
     zIndex: 100,
   },
