@@ -17,7 +17,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import * as ImagePicker from 'react-native-image-picker';
-
 import Flash from '../../images/icons/flash.svg';
 import Close from '../../images/icons/close.svg';
 import Upload from '../../images/icons/upload.svg';
@@ -27,7 +26,6 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import RNFS from 'react-native-fs';
 
 import OpenCV from '../NativeModules/OpenCV';
-
 
 class InputImg extends Component {
   constructor(props) {
@@ -128,7 +126,6 @@ class InputImg extends Component {
     ImagePicker.launchImageLibrary(options, (response) => {
       console.log('Response = ', response);
 
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -141,7 +138,6 @@ class InputImg extends Component {
       }
     });
   };
-
 
   convertImg = (path) => {
     RNFS.readFile(path, 'base64').then((res) => {
@@ -197,7 +193,6 @@ class InputImg extends Component {
         console.log('response', JSON.stringify(response));
         this.setState({
           imageUri: response.uri,
-
         });
         console.log(response);
         this.convertImg(response.uri);
@@ -260,7 +255,6 @@ class InputImg extends Component {
                       <Upload style={{width: wp('8.2%'), height: hp('4%')}} />
                     </View>
                   </TouchableOpacity>
-
                 </View>
               </Col>
               <Col size={2} style={styles.alignCenter}>
