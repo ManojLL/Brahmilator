@@ -12,6 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
+
 import Save from '../../images/icons/save.svg';
 import Close from '../../images/icons/close.svg';
 import Exposer from '../../images/icons/exposure.svg';
@@ -22,6 +23,7 @@ import Erosion from '../../images/icons/erosion.svg';
 import Morph from '../../images/icons/morph.svg';
 import Dialation from '../../images/icons/dialation.svg';
 import Instructions from '../../images/icons/instructions.svg';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -33,6 +35,7 @@ import OpenCV from '../NativeModules/OpenCV';
 LogBox.ignoreAllLogs();
 
 class ImagePreProcess extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -225,6 +228,7 @@ class ImagePreProcess extends Component {
                       marginTop: 2,
                     }}
                   />
+
                 </View>
               </TouchableOpacity>
             </View>

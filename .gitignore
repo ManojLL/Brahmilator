@@ -1,12 +1,4 @@
 front_end/tyrants/.gitignore
-<<<<<<< HEAD
-front_end/tyrants/.idea/*
-front_end/tyrants/node_modules/*
-front_end/tyrants/package-lock.json
-.gitignore
-/.idea/*
-=======
->>>>>>> 2df34998017b3f68d61b381a0a5901060d460124
 front_end/tyrants/package-lock.json
 front_end/tyrants/package.json
 /venv/*
@@ -14,6 +6,7 @@ front_end/tyrants/package.json
 brahmi_backend/.idea/
 features/.idea/
 front_end/tyrants/android/java_pid36510.hprof
-brahmi_backend/segmentation_module/.idea/
-brahmi_backend/segmentation_module/output/
+brahmi_backend/models/segmentation_model/.idea/
+brahmi_backend/models/segmentation_model/output/
 brahmi_backend/__pycache__/*
+.gitignore

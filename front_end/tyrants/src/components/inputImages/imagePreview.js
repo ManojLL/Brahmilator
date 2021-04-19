@@ -32,12 +32,14 @@ const moveAttachment = async (filePath, newFilepath) => {
 };
 
 class ImagePreview extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       ImageUri: props.route.params.imgUri,
       width: 0,
       height: 0,
+
     };
   }
 
@@ -62,6 +64,7 @@ class ImagePreview extends Component {
       {text: 'YES', onPress: () => this.props.navigation.navigate('Camera')},
     ]);
   };
+
 
   render() {
     return (
@@ -108,6 +111,7 @@ class ImagePreview extends Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({

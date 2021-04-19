@@ -27,6 +27,7 @@ const createFormData = (photo) => {
 };
 
 class MainMenu extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -82,6 +83,7 @@ class MainMenu extends Component {
                 img: json.outPut.images,
                 find: true,
               });
+
             } else {
               this.setState({
                 letters: json.outPut.letter,
@@ -101,6 +103,7 @@ class MainMenu extends Component {
     } catch (error) {
       console.error(error);
     }
+
   };
 
   getWord = async () => {
@@ -146,6 +149,7 @@ class MainMenu extends Component {
         });
     } catch (error) {
       console.error(error);
+
     }
   };
 
