@@ -21,6 +21,8 @@ import Flash from '../../images/icons/flash.svg';
 import Close from '../../images/icons/close.svg';
 import Upload from '../../images/icons/upload.svg';
 
+import Toast, {DURATION} from 'react-native-easy-toast';
+
 import RNFS from 'react-native-fs';
 
 import OpenCV from '../NativeModules/OpenCV';
@@ -59,8 +61,8 @@ class InputImg extends Component {
       try {
         const data = await this.camera.takePictureAsync(options);
         // Convert image uri to Base64
-        this.convertImg(data.uri);
-        this.checkForBlurryImage();
+        // this.convertImg(data.uri);
+        this.checkForBlurryImage(data.uri);
       } catch (err) {
         Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
       } finally {
@@ -84,8 +86,7 @@ class InputImg extends Component {
               // successCallback gives the correct return String
               resolve(msg);
               console.log('returned base64 string input : Returned');
-              // Pass processed image to the next View -> 'Preview'
-              this.props.navigation.navigate('Preview', {imgUri: msg});
+              this.proceedWithCheckingBlurryImage(msg);
             },
           );
         } else {
@@ -95,6 +96,24 @@ class InputImg extends Component {
         }
       });
     });
+  }
+
+  proceedWithCheckingBlurryImage(res) {
+    const {content} = this.res;
+
+    this.checkForBlurryImage(content)
+      .then((blurryPhoto) => {
+        if (blurryPhoto) {
+          Toast.show('Photo is blurred!', DURATION.LENGTH_SHORT);
+          return this.takePicture();
+        }
+        Toast.show('Photo is clear!', DURATION.LENGTH_SHORT);
+        // Pass processed image to the next View -> 'Preview'
+        this.props.navigation.navigate('Preview', {imgUri: res});
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
   }
 
   launchImageLibrary = () => {
