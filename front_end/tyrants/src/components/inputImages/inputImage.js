@@ -60,6 +60,7 @@ class InputImg extends Component {
         const data = await this.camera.takePictureAsync(options);
         // Convert image uri to Base64
         this.convertImg(data.uri);
+        this.checkForBlurryImage();
       } catch (err) {
         Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
       } finally {
@@ -67,6 +68,34 @@ class InputImg extends Component {
       }
     }
   };
+
+  // Check for blurry images and retake
+  checkForBlurryImage(imageUri) {
+    RNFS.readFile(imageUri, 'base64').then((res) => {
+      return new Promise((resolve, reject) => {
+        if (Platform.OS === 'android') {
+          OpenCV.checkForBlurryImage(
+            res,
+            (error) => {
+              // error handling
+              console.log('returned base64 ERROR : ', error);
+            },
+            (msg) => {
+              // successCallback gives the correct return String
+              resolve(msg);
+              console.log('returned base64 string input : Returned');
+              // Pass processed image to the next View -> 'Preview'
+              this.props.navigation.navigate('Preview', {imgUri: msg});
+            },
+          );
+        } else {
+          OpenCV.checkForBlurryImage(res, (error, dataArray) => {
+            resolve(dataArray[0]);
+          });
+        }
+      });
+    });
+  }
 
   launchImageLibrary = () => {
     let options = {
@@ -86,13 +115,6 @@ class InputImg extends Component {
         console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
-        // const source = {uri: response.uri};
-        // console.log('response', JSON.stringify(response));
-        // this.setState({
-        //     imageUri: response.uri,
-        // });
-        // console.log(response)
-        // this.props.navigation.navigate('Preview', {imgUri: response});
         this.convertImg(response.uri);
       }
     });
@@ -100,14 +122,12 @@ class InputImg extends Component {
 
   convertImg = (path) => {
     RNFS.readFile(path, 'base64').then((res) => {
-      this.preProcess(res);
-      // console.log('returned base64 string: ', img);
-      // this.props.navigation.navigate('Preview', {imgUri: res});
+      this.toGrayscale(res);
     });
   };
 
-  // testing preProcess method from OpenCV
-  preProcess(imageAsBase64) {
+  // remove some noise and convert image to graysclae
+  toGrayscale(imageAsBase64) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         OpenCV.toGrayscale(

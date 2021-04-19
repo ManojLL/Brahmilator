@@ -27,7 +27,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import SvgUri from 'react-native-svg-uri';
 
 import OpenCV from '../NativeModules/OpenCV';
 
@@ -69,6 +68,7 @@ class ImagePreProcess extends Component {
     this.setState({erosionValue: 0});
     this.setState({dialationValue: 0});
     this.setState({smoothingValue: 0});
+    this.setState({imgUri: this.state.originalImg});
   }
 
   preProcess(
@@ -434,7 +434,6 @@ class ImagePreProcess extends Component {
             {/* Resets procssed image */}
             <TouchableOpacity
               onPress={() => {
-                this.setState({imgUri: this.state.originalImg});
                 this.resetStatus();
               }}>
               <View>

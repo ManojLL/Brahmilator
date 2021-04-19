@@ -20,9 +20,6 @@ import org.opencv.imgproc.Imgproc;
 
 public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
 
-    // Uses to programmatically remove noise
-    private boolean isRan = true;
-
     private final ReactApplicationContext reactContext;
 
     public RNOpenCvLibraryModule(ReactApplicationContext reactContext) {
@@ -46,8 +43,6 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             byte[] decodedString = Base64.decode(imageAsBase64, Base64.DEFAULT);
             Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-
-//      Bitmap image = decodeSampledBitmapFromFile(imageurl, 2000, 2000);
             int l = CvType.CV_8UC1; //8-bit grey scale image
             Mat matImage = new Mat();
             Utils.bitmapToMat(image, matImage);
