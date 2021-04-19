@@ -21,8 +21,8 @@ print(column.inserted_id)
 
 def read_csv(filename):
     # Clear db and re-populate it with new data
-    # column.delete_many({})
-    # Read data from db.txt
+    column.delete_many({})
+    # Read data from db.csv
     with open(filename) as f:
         file_data = csv.reader(f)
         headers = next(file_data)
