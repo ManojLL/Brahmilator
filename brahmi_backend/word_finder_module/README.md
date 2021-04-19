@@ -10,6 +10,7 @@ Possible subsequences: [batanega , ba , tanega , bata , nega , ta , batane , ga 
 Step 3: Search remaining subsequences results in database. If subsequences result exists in database, then add them into result list and consider as a possible word in given plate.
 
 Step 4: Reordering final result list according to given character list. In step 2 when removing duplicated there can be changes in word order. 
+	
 	4.1: Concertante given characters into one string
 	
 	Given characters: ["ba", "ta", "gu", "ta", "ha", "le", "ne", "sa", "ga", "sa"]
