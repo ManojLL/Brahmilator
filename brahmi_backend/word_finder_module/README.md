@@ -1,6 +1,7 @@
 Step 1: Finding all possible subsequences of given letters
 
 Input characters: ["ba", "ta", "ne", "ga"]
+
 Possible subsequences: [batanega , ba , tanega , bata , nega , ba , ta , nega , batane , ga , ba , tane , ga , bata , ne , ga , ba , ta , ne , ga]
 
 Step 2: Remove duplicates from subsequences results
