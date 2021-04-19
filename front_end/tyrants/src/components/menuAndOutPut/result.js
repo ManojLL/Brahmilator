@@ -139,6 +139,7 @@ class Result extends Component {
                                         fontFamily: "SF Pro Rounded",
                                         fontSize: 16,
                                         textAlign: "right",
+                                        color: "#FFC542"
 
                                     }}
 
