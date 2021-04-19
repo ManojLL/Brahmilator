@@ -1,3 +1,5 @@
+# Word Finder Module
+
 Step 1: Finding all possible subsequences of given letters
 
 Input characters: ["ba", "ta", "ne", "ga"]
