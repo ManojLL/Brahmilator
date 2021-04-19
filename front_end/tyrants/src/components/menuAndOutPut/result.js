@@ -19,6 +19,7 @@ import {
     AccordionList,
 } from 'accordion-collapse-react-native';
 import BottomNavigator from "../navigators/BottomNavigator";
+import ArrowDown from "../../images/icons/arrow_down.svg";
 
 
 class Result extends Component {
@@ -154,14 +155,23 @@ class Result extends Component {
                                     <View>
                                         {this.state.findWord.map((w, index) => (
                                             <View key={index}>
-                                                <Collapse style={{backgroundColor: 'rgba(186, 186, 186, 0.25)',margin: 10,padding:5}}>
+                                                <Collapse style={{backgroundColor: 'rgba(186, 186, 186, 0.08)',margin: 10,padding:wp("5%"), borderRadius: 15}}>
                                                     <CollapseHeader>
                                                         <View>
                                                             <Text style={styles.subtitle}>{w}</Text>
+                                                            <View>
+                                                                <ArrowDown
+                                                                style={{
+                                                                    width: wp('7%'),
+                                                                    height: hp('3%'),
+                                                                    marginLeft: wp("65%"),
+                                                                    marginTop: -20,
+                                                                  }}/>
+                                                            </View>
                                                         </View>
                                                     </CollapseHeader>
                                                     <CollapseBody>
-                                                        <View style={{padding:30}}>
+                                                        <View>
                                                             {this.state.wordWithMeaning[w].map((mean, index) => (
                                                                 <Text style={styles.description} key={index}>
                                                                     {mean}
@@ -263,13 +273,13 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        fontSize: hp("6%"),
+        fontSize: hp("3.5%"),
         color: "#ffffff",
         fontWeight: "bold",
         fontFamily: "SF Pro Rounded",
     },
     description: {
-        fontSize: hp("4%"),
+        fontSize: hp("2.5%"),
         color: "#FFC542",
 
         fontFamily: "SF Pro Rounded",
