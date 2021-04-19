@@ -20,6 +20,8 @@ target 'tyrants' do
 
   pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'tyrantsTests' do
     inherit! :complete
     # Pods for testing

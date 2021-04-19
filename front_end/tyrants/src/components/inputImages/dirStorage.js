@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 const RNFS = require('react-native-fs');
 
 export const dirHome = Platform.select({
