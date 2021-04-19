@@ -166,7 +166,7 @@ class ImagePreProcess extends Component {
                       <TouchableOpacity
                         onPress={() => this.setState({thresholdModal: false})}>
                         <View>
-                          <Save
+                          <Close
                             style={{
                               width: wp('7%'),
                               height: hp('3%'),
@@ -179,7 +179,7 @@ class ImagePreProcess extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{color: '#ffffff'}}>
+                      <Text style={{color: '#ffffff', marginLeft: -10}}>
                         {' '}
                         Threshold - {this.state.thresholdValue}
                       </Text>
@@ -190,7 +190,7 @@ class ImagePreProcess extends Component {
                       <TouchableOpacity
                         onPress={() => this.setState({thresholdModal: false})}>
                         <View>
-                          <Close
+                          <Save
                             style={{
                               width: wp('7%'),
                               height: hp('3%'),
@@ -261,7 +261,7 @@ class ImagePreProcess extends Component {
           </View>
         </Modal>
 
-        {/* openingModel*/}
+        {/* Morph Modal*/}
 
         <Modal
           transparent={true}
@@ -315,7 +315,7 @@ class ImagePreProcess extends Component {
           </View>
         </Modal>
 
-        {/* dialationModal*/}
+        {/* Dialation Modal*/}
 
         <Modal
           transparent={true}
@@ -401,27 +401,53 @@ class ImagePreProcess extends Component {
               }}
             />
 
-            <View style={styles.modalItems}>
-              <Text style={{color: '#ffffff'}}> Smoothing </Text>
-              <TouchableOpacity
-                onPress={() => this.setState({smoothingModal: false})}>
-                <View>
-                  <Save
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.setState({smoothingModal: false})}>
-                <View>
-                  <Close
-                    style={{width: wp('7%'), height: hp('3%'), marginLeft: 20}}
-                  />
-                </View>
-              </TouchableOpacity>
+            <View style={[styles.modalItems]}>
+              <Grid style={{marginBottom: hp('4%')}}>
+                <Row>
+                  <Col>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => this.setState({smoothingModal: false})}>
+                        <View>
+                          <Save
+                            style={{
+                              width: wp('7%'),
+                              height: hp('3%'),
+                              marginLeft: 20,
+                            }}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{color: '#ffffff'}}> Smoothing </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => this.setState({smoothingModal: false})}>
+                        <View>
+                          <Close
+                            style={{
+                              width: wp('7%'),
+                              height: hp('3%'),
+                              marginLeft: 20,
+                            }}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </Col>
+                </Row>
+              </Grid>
             </View>
           </View>
         </Modal>
+
+        {/* Tool Bar */}
 
         <View style={[styles.toolBar, styles.centerItems]}>
           <View style={{flex: 1, flexDirection: 'row'}}>
