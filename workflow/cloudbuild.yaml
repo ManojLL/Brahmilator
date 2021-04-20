@@ -4,7 +4,7 @@ steps:
       - build
       - '-t'
       - 'gcr.io/$PROJECT_ID/brahmilator:$COMMIT_SHA'
-      - ./brahmi_backend
+      - ../brahmi_backend
   - name: gcr.io/cloud-builders/docker
     args:
       - push
