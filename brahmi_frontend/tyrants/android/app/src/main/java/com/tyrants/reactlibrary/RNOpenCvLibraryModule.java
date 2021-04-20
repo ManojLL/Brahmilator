@@ -113,13 +113,9 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             Mat matImageGrey = new Mat();
             Imgproc.cvtColor(matImage, matImageGrey, Imgproc.COLOR_BGR2GRAY);
 
-            // Remove some noise using Gaussian Blur for once
-            Mat processingImage = new Mat();
-            Imgproc.GaussianBlur(matImageGrey, processingImage, new Size(3, 3), 0);
-
             // creating bitmap from last open cv img
-            Bitmap bmp = Bitmap.createBitmap(processingImage.cols(), processingImage.rows(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(processingImage, bmp);
+            Bitmap bmp = Bitmap.createBitmap(matImageGrey.cols(), matImageGrey.rows(), Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(matImageGrey, bmp);
 
             // Convert processed image to Base64
             String encoded = ImageUtil.convert(bmp);

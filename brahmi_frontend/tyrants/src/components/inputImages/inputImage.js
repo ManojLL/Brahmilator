@@ -142,6 +142,7 @@ class InputImg extends Component {
   convertImg = (path) => {
     RNFS.readFile(path, 'base64').then((res) => {
       this.toGrayscale(res);
+      // this.props.navigation.navigate('Preview', {imgUri: res});
     });
   };
 
