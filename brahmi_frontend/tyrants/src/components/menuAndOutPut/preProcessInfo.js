@@ -35,7 +35,7 @@ class Info extends Component {
         <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
           <View style={[{flex: 1, flexDirection: 'row'}]}>
             <View style={styles.textContainer}>
-              <Text style={styles.titleText}>Hello, Huaman!</Text>
+              <Text style={styles.titleText}>Instructions!</Text>
             </View>
           </View>
           <TouchableOpacity
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
     color: '#FFC542',
     fontWeight: 'bold',
     fontFamily: 'SF Pro Rounded',
+    marginLeft: wp("5%")
   },
 });
 
