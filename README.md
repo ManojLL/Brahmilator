@@ -51,4 +51,3 @@ This project aims to provide a systematic solution to recognize the characters i
 - Tensorflow
 - MongoDB
 - OpenCV
-- Docker

@@ -1,24 +1,17 @@
-import React, { Component } from "react";
-import { Card } from "react-native-shadow-cards";
-import {
- 
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  LogBox,
-} from "react-native";
+import React, {Component} from 'react';
+import {Card} from 'react-native-shadow-cards';
+import {ScrollView, StyleSheet, Text, View, LogBox,  TouchableOpacity,} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 
-import Exposer from "../../images/icons/exposure.svg";
-import Threshold from "../../images/icons/threshold.svg";
-import Erosion from "../../images/icons/erosion.svg";
-import Morph from "../../images/icons/morph.svg";
-import Dialation from "../../images/icons/dialation.svg";
-import Retake from "../../images/icons/retake.svg";
+import Exposer from '../../images/icons/exposure.svg';
+import Threshold from '../../images/icons/threshold.svg';
+import Erosion from '../../images/icons/erosion.svg';
+import Morph from '../../images/icons/morph.svg';
+import Dialation from '../../images/icons/dialation.svg';
+import Close from '../../images/icons/close.svg';
 LogBox.ignoreAllLogs();
 
 class Info extends Component {
@@ -28,23 +21,36 @@ class Info extends Component {
   }
 
   componentDidMount() {
-    LogBox.ignoreLogs(["Animated: `useNativeDriver`"]);
+    LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={[{ flexDirection: "row", alignItems: "center" }]}>
-          <View style={[{ flex: 1, flexDirection: "row" }]}>
+        <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
+          <View style={[{flex: 1, flexDirection: 'row'}]}>
             <View style={styles.textContainer}>
               <Text style={styles.titleText}>Hello, Huaman!</Text>
             </View>
           </View>
-          <View>
-            <Retake
-              style={{ width: wp("7%"), height: hp("2%"), marginLeft: 10 }}
-            />
-          </View>
+          <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('Pre-process', {
+                  imgUri: this.state.imgUri,
+                })
+              }>
+              <View>
+                <Close
+                  // source={require('../../images/icons/retake.svg')}
+                  style={{
+                    width: wp('7%'),
+                    height: hp('3%'),
+                    marginRight: 10,
+                    marginTop: 3,
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
         </View>
         <ScrollView>
           <Card style={styles.card}>
@@ -112,16 +118,16 @@ class Info extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#333",
-    height: "100%",
+    backgroundColor: '#333',
+    height: '100%',
     paddingLeft: 3,
     paddingRight: 3,
   },
   text: {
-    textAlign: "justify",
+    textAlign: 'justify',
   },
   card: {
-    backgroundColor: "#ACACAC",
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     width: 342,
     padding: 10,
     margin: 12,
@@ -130,15 +136,15 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginTop: 20,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     paddingBottom: 10,
   },
   titleText: {
-    fontSize: hp("4%"),
-    color: "#FFC542",
-    fontWeight: "bold",
-    fontFamily: "SF Pro Rounded",
+    fontSize: hp('4%'),
+    color: '#FFC542',
+    fontWeight: 'bold',
+    fontFamily: 'SF Pro Rounded',
   },
 });
 

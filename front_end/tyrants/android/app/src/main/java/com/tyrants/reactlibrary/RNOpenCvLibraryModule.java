@@ -138,12 +138,12 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
      * @param opening         - kernel size for the opening element structure
      * @param erode           - kernel size for the erode element structure
      * @param dilation        - kernel size for the dilation element structure
-     * @param smoothing       - kernel size for the smoothing element structure
+     * @param closing         - kernel size for the closing element structure
      * @param errorCallback   - if interrupted, return the errorCallback with err
      * @param successCallback - if successful, return processed image as Base64 Format
      */
     @ReactMethod
-    public void preProcess(String imageAsBase64, int thresh, int opening, int erode, int dilation, int smoothing, Callback errorCallback, Callback successCallback) {
+    public void preProcess(String imageAsBase64, int thresh, int opening, int erode, int dilation, int closing, Callback errorCallback, Callback successCallback) {
         try {
             // OpenCV library will load once the onCreate() executes
             // Config BitmapFactory to cvt imageAsBase64
@@ -184,14 +184,21 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
              * Cross: CV_SHAPE_CROSS
              * */
 
-            // element for erode
+            // element for opening
             Mat openingStructuringElement = Imgproc.getStructuringElement(
                     Imgproc.CV_SHAPE_ELLIPSE,
                     new Size(2 * opening + 1, 2 * opening + 1),
                     new Point(opening, opening)
             );
 
-            // element for opening
+            // element for closing
+            Mat closingStructuringElement = Imgproc.getStructuringElement(
+                    Imgproc.CV_SHAPE_ELLIPSE,
+                    new Size(2 * closing + 1, 2 * closing + 1),
+                    new Point(closing, closing)
+            );
+
+            // element for erode
             Mat erodeStructuringElement = Imgproc.getStructuringElement(
                     Imgproc.CV_SHAPE_ELLIPSE,
                     new Size(2 * erode + 1, 2 * erode + 1),
@@ -214,14 +221,8 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
             // Dilate
             Imgproc.dilate(processingImage, processingImage, dilationStructuringElement);
 
-            // Smoothing
-            if (smoothing != 0) {
-                for (int i = 1; i < smoothing; i = i + 2) {
-                    Imgproc.medianBlur(processingImage, processingImage, i);
-                }
-                // pyrDown to down scale
-                Imgproc.pyrDown(processingImage, processingImage);
-            }
+            // Closing morph
+            Imgproc.morphologyEx(processingImage, processingImage, Imgproc.MORPH_CLOSE, closingStructuringElement);
 
             // Creating bitmap from last open cv img
             Bitmap bmp = Bitmap.createBitmap(processingImage.cols(), processingImage.rows(), Bitmap.Config.ARGB_8888);
