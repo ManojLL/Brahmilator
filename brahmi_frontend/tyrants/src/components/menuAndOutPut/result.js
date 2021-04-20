@@ -123,7 +123,7 @@ class Result extends Component {
                             <View
                                 style={[
                                     {
-                                        justifyContent: "flex-start",
+                                        justifyContent: "space-evenly",
                                         marginVertical: 10,                                   
                                         color: "#FFC542",
                                         width: 140,
