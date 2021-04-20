@@ -4,7 +4,7 @@ import numpy as np
 
 sys.setrecursionlimit(10 ** 6)
 
-
+# this functions detects lines and put them to an array
 def line_array(array):
     list_x_upper = []
     list_x_lower = []
@@ -112,6 +112,7 @@ def end_wrd_dtct(lines, i, bin_img, mean_lttr_width, width, final_thr):
     return endlines
 
 def image_segmentation():
+    # image thresholding
     try:
         src_img = cv2.imread('./input_data/plate.png')
 
@@ -138,6 +139,7 @@ def image_segmentation():
         final_thr = cv2.morphologyEx(bin_img, cv2.MORPH_CLOSE, kernel)
         contr_retrival = final_thr.copy()
 
+        # /image thresholding
 
         count_x = np.zeros(shape=(height))
         for y in range(height):
