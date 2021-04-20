@@ -12,6 +12,9 @@ import Erosion from '../../images/icons/erosion.svg';
 import Morph from '../../images/icons/morph.svg';
 import Dialation from '../../images/icons/dialation.svg';
 import Close from '../../images/icons/close.svg';
+import Opening from '../../images/icons/opening.svg';
+import Closing from '../../images/icons/closing.svg';
+
 LogBox.ignoreAllLogs();
 
 class Info extends Component {
@@ -55,25 +58,11 @@ class Info extends Component {
         <ScrollView>
           <Card style={styles.card}>
             <View style={{}}>
-              <View>
-                <Exposer />
-              </View>
-
-              <Text>
-                Exposure is the overall brightness or darkness of the
-                photograph. You can digitally change its value and make the
-                picture darker or lighter.
-              </Text>
-            </View>
-          </Card>
-
-          <Card style={styles.card}>
-            <View style={{}}>
               <Threshold />
               <Text>
                 Reduces the photo to black and white; colors lighter than the
                 selectable threshold are converted to white,darker colors will
-                be black.
+                be black
               </Text>
             </View>
           </Card>
@@ -84,7 +73,7 @@ class Info extends Component {
 
               <Text>
                 It erodes away the boundaries of foreground object. It is useful
-                for removing smaill white noises detach two connected objects.
+                for removing smaill white noises detach two connected objects
               </Text>
             </View>
           </Card>
@@ -95,18 +84,28 @@ class Info extends Component {
 
               <Text>
                 It is just opposite of erosion. It is also useful in joining
-                broken parts of an object.
+                broken parts of an object
               </Text>
             </View>
           </Card>
 
           <Card style={styles.card}>
             <View style={{}}>
-              <Morph />
+              <Opening />
 
               <Text>
-                It is just opposite of erosion. It is also useful in joining
-                broken parts of an object.
+                It is obtained by the erosion of an image followed by a dilation. Useful for removing small objects
+                (it is assumed that the objects are bright on a dark foreground)
+              </Text>
+            </View>
+          </Card>
+
+          <Card style={styles.card}>
+            <View style={{}}>
+              <Closing />
+
+              <Text>
+                It is obtained by the dilation of an image followed by an erosion. Useful to remove small holes (dark regions)
               </Text>
             </View>
           </Card>
@@ -130,9 +129,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     width: 342,
     padding: 10,
-    margin: 12,
-    marginLeft: 0,
-    marginRight: 0,
+    margin: 20,
+    // marginBottom: 10
   },
   textContainer: {
     marginTop: 20,
