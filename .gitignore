@@ -1,6 +1,4 @@
 front_end/tyrants/.gitignore
-front_end/tyrants/package-lock.json
-front_end/tyrants/package.json
 /venv/*
 /.idea/*
 brahmi_backend/.idea/
@@ -10,4 +8,6 @@ brahmi_backend/classification_model/__pycache__/*
 brahmi_backend/segmentation_module/__pycache__/*
 brahmi_backend/word_finder_module/__pycache__/*
 brahmi_backend/utils/__pycache__/*
+brahmi_frontend/tyrants/node_modules
+brahmi_frontend/tyrants/android/OpenCV452
 .gitignore

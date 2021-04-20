@@ -1,16 +1,6 @@
 ECLIPSE ANDROID PROJECT IMPORT SUMMARY
 ======================================
 
-Risky Project Location:
------------------------
-The tools *should* handle project locations in any directory. However,
-due to bugs, placing projects in directories containing spaces in the
-path, or characters like ", ' and &, have had issues. We're working to
-eliminate these bugs, but to save yourself headaches you may want to
-move your project to a location where this is not a problem.
-D:\Studies\IIT\Level 5\2 Sem\SDGP\Brahmilator\front_end\tyrants\android
-                    -   -                                              
-
 Ignored Files:
 --------------
 The following files were *not* copied into the new Gradle project; you
@@ -254,17 +244,10 @@ Moved Files:
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-<<<<<<< HEAD
 * AndroidManifest.xml => OpenCV452\src\main\AndroidManifest.xml
 * res\ => OpenCV452\src\main\res\
 * src\ => OpenCV452\src\main\java\
 * src\org\opencv\engine\OpenCVEngineInterface.aidl => OpenCV452\src\main\aidl\org\opencv\engine\OpenCVEngineInterface.aidl
-=======
-* AndroidManifest.xml => java\src\main\AndroidManifest.xml
-* res\ => java\src\main\res\
-* src\ => java\src\main\java\
-* src\org\opencv\engine\OpenCVEngineInterface.aidl => java\src\main\aidl\org\opencv\engine\OpenCVEngineInterface.aidl
->>>>>>> a51ad0552f5db2891fc5b4ad58dc618bea39dc7c
 
 Next Steps:
 -----------
