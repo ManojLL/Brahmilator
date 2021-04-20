@@ -45,7 +45,6 @@ def endline(y, array):
     return count_ahead, count_prev
 
 
-#
 def endline_word(y, array, a):
     count_ahead = 0
     count_prev = 0
