@@ -4,7 +4,8 @@ import numpy as np
 
 sys.setrecursionlimit(10 ** 6)
 
-# this functions put detected lines into an array
+
+# this function put detected lines into arrays and returns them
 def line_array(array):
     list_x_upper = []
     list_x_lower = []
@@ -18,6 +19,7 @@ def line_array(array):
     return list_x_upper, list_x_lower
 
 
+# this function returns starting line
 def strtline(y, array):
     count_ahead = 0
     count_prev = 0
@@ -30,6 +32,7 @@ def strtline(y, array):
     return count_ahead, count_prev
 
 
+# this function returns ending line
 def endline(y, array):
     count_ahead = 0
     count_prev = 0
@@ -42,6 +45,7 @@ def endline(y, array):
     return count_ahead, count_prev
 
 
+#
 def endline_word(y, array, a):
     count_ahead = 0
     count_prev = 0
@@ -87,6 +91,7 @@ def refine_array(array_upper, array_lower):
     return upperlines, lowerlines
 
 
+# this function returns mean letter width
 def letter_width(contours):
     letter_width_sum = 0
     count = 0
@@ -111,6 +116,8 @@ def end_wrd_dtct(lines, i, bin_img, mean_lttr_width, width, final_thr):
         final_thr[lines[i][0]:lines[i][1], x] = 255
     return endlines
 
+
+# process of segmentation
 def image_segmentation():
     # image thresholding
     try:
@@ -162,7 +169,6 @@ def image_segmentation():
                 lines.append((upperlines[y], lowerlines[y]))
 
         else:
-            k = cv2.waitKey(0)
             while 1:
                 k = cv2.waitKey(0)
                 if k & 0xFF == ord('q'):
@@ -180,13 +186,16 @@ def image_segmentation():
 
         # /line detection
 
-
+        # line width calculation
         contours, hierarchy = cv2.findContours(contr_retrival, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         final_contr = np.zeros((final_thr.shape[0], final_thr.shape[1], 3), dtype=np.uint8)
         cv2.drawContours(src_img, contours, -1, (0, 255, 0), 1)
 
         mean_lttr_width = letter_width(contours)
 
+        # /line width calculation
+
+        # word detection
         x_lines = []
 
         for i in range(len(lines_img)):
@@ -195,6 +204,9 @@ def image_segmentation():
         for i in range(len(x_lines)):
             x_lines[i].append(width)
 
+        # /word detection
+
+        # character segmentation
         chr_img = bin_img1.copy()
 
         contours, hierarchy = cv2.findContours(chr_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -221,7 +233,7 @@ def image_segmentation():
         # reordering according to x index of edge for saving cropped image in oder
         n = len(edges)
 
-        for i in range(n-1):
+        for i in range(n - 1):
             for j in range(0, n - i - 1):
                 if edges[j][0] > edges[j + 1][0]:
                     edges[j], edges[j + 1] = edges[j + 1], edges[j]
@@ -233,6 +245,8 @@ def image_segmentation():
             crop = cv2.resize(crop, (224, 224))
             cv2.imwrite("segmentation_module/segmented_letters/crop_{0}.jpg".format(i), crop)
             i = i + 1
+
+        # /character segmentation
 
         return True
 
