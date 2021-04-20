@@ -158,7 +158,7 @@ class ImagePreProcess extends Component {
             <View style={styles.modalItems}>
               <Text style={{color: '#ffffff', marginRight: 60}}>
                 {' '}
-                Threshold Value - {this.state.thresholdValue}
+                Threshold Value : {this.state.thresholdValue}
               </Text>
               <TouchableOpacity
                 onPress={() => this.setState({thresholdModal: false})}>
@@ -212,7 +212,7 @@ class ImagePreProcess extends Component {
             <View style={styles.modalItems}>
               <Text style={{color: '#ffffff', marginRight: 75}}>
                 {' '}
-                Erosion Value - {this.state.erosionValue}
+                Erosion Value : {this.state.erosionValue}
               </Text>
               <TouchableOpacity
                 onPress={() => this.setState({erosionModal: false})}>
@@ -250,7 +250,7 @@ class ImagePreProcess extends Component {
               minimumTrackTintColor="#FFC542"
               maximumTrackTintColor="#FFFFFF"
               onValueChange={(value) => {
-                this.setState({OpeningValue: value});
+                this.setState({openingValue: value});
 
                 this.preProcess(
                   this.state.imgUri,
@@ -266,7 +266,7 @@ class ImagePreProcess extends Component {
             <View style={styles.modalItems}>
               <Text style={{color: '#ffffff', marginRight: 20}}>
                 {' '}
-                Opening(Opening) Value - {this.state.openingValue}
+                Opening Value : {this.state.openingValue}
               </Text>
               <TouchableOpacity
                 onPress={() => this.setState({openingModel: false})}>
@@ -320,7 +320,7 @@ class ImagePreProcess extends Component {
             <View style={styles.modalItems}>
               <Text style={{color: '#ffffff', marginRight: 75}}>
                 {' '}
-                Dilation Value - {this.state.dilationValue}
+                Dilation Value : {this.state.dilationValue}
               </Text>
               <TouchableOpacity
                 onPress={() => this.setState({dilationModal: false})}>
@@ -339,7 +339,7 @@ class ImagePreProcess extends Component {
           </View>
         </Modal>
 
-        {/* Smoothing Modal */}
+        {/* Closing Modal */}
 
         <Modal
           transparent={true}
@@ -374,7 +374,7 @@ class ImagePreProcess extends Component {
             <View style={styles.modalItems}>
               <Text style={{color: '#ffffff', marginRight: 55}}>
                 {' '}
-                Smoothing Value - {this.state.closingValue}
+                Closing Value : {this.state.closingValue}
               </Text>
               <TouchableOpacity
                 onPress={() => this.setState({closingModal: false})}>
