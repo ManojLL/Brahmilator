@@ -205,7 +205,7 @@ class InputImg extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{height: '85%'}}>
+        <View style={{height: '80%'}}>
           <RNCamera
             ref={(ref) => {
               this.camera = ref;
@@ -293,6 +293,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 60,
     borderColor: '#FFFFFF',
+    marginBottom: 30
   },
   midcap: {
     backgroundColor: '#ffffff',
