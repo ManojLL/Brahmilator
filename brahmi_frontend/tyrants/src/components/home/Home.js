@@ -39,17 +39,17 @@ class Home extends Component {
           <Text style={styles.text}>Welcome to </Text>
           <View>
             <Text>
-              <Text style={styles.specText}>Brahimilator,</Text>
+              <Text style={styles.specText}>Brahimilator</Text>
               <Text style={styles.text}> Mobile </Text>
             </Text>
           </View>
         </View>
         <View style={styles.subTitle}>
           <Text style={{color: '#fff', fontSize: 15}}>
-            Real Time Brahmi Inscriptions
+            Real time Brahmi inscriptions
           </Text>
           <Text style={{color: '#fff', fontSize: 15}}>
-            Translator at Your Service
+            translator at your finger tips
           </Text>
         </View>
         <View style={styles.centerItems}>
