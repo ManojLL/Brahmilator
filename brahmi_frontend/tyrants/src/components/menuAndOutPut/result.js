@@ -117,30 +117,31 @@ class Result extends Component {
                         <View style={[{flexDirection: "row", alignItems: "center"}]}>
                             <View style={[{flex: 1, flexDirection: "row"}]}>
                                 <View style={styles.textContainer}>
-                                    <Text style={styles.titleText}>Word Translations </Text>
+                                    <Text style={styles.titleText}>Translations</Text>
                                 </View>
                             </View>
                             <View
                                 style={[
                                     {
                                         justifyContent: "space-evenly",
-                                        marginVertical: 10,
+                                        marginVertical: 10,                                   
                                         color: "#FFC542",
-                                        width: 80,
+                                        width: 140,
+                                        marginTop: 18,
+                                        marginEnd: 22
                                     },
                                 ]}
                             >
                                 <Dropdown
                                     label="Select language"
                                     data={data}
-                                    style={{
-                                        marginTop: 4,
+                                    baseColor= "rgba(255, 255, 255, 1)"                             
+                                    style={{                                                                            
                                         fontWeight: "bold",
                                         fontFamily: "SF Pro Rounded",
-                                        fontSize: 16,
-                                        textAlign: "right",
-                                        color: "#FFC542"
-
+                                        fontSize: 16,                          
+                                        color: '#FFC542',
+                                        marginTop: 2,
                                     }}
 
                                     onChangeText={(value) => {
@@ -151,12 +152,12 @@ class Result extends Component {
                         </View>
                         {this.state.findWord.length > 0 ?
                             (
-                                <ScrollView showsVerticalScrollIndicator={false} style={{padding:30}}>
+                                <ScrollView showsVerticalScrollIndicator={false} style={{padding:20}}>
 
                                     <View>
                                         {this.state.findWord.map((w, index) => (
                                             <View key={index}>
-                                                <Collapse style={{backgroundColor: 'rgba(186, 186, 186, 0.08)',margin: 10,padding:wp("5%"), borderRadius: 15}}>
+                                                <Collapse style={{backgroundColor: 'rgba(186, 186, 186, 0.08)',marginTop: 10,padding:wp("5%"), borderRadius: 15}}>
                                                     <CollapseHeader>
                                                         <View>
                                                             <Text style={styles.subtitle}>{w}</Text>
@@ -165,7 +166,7 @@ class Result extends Component {
                                                                 style={{
                                                                     width: wp('7%'),
                                                                     height: hp('3%'),
-                                                                    marginLeft: wp("65%"),
+                                                                    marginLeft: wp("75%"),
                                                                     marginTop: -20,
                                                                   }}/>
                                                             </View>
@@ -240,6 +241,8 @@ const styles = StyleSheet.create({
         color: "#FFC542",
         fontWeight: "bold",
         fontFamily: "SF Pro Rounded",
+        marginLeft: wp("5%"),
+        marginTop: 20
     },
 
     MainContainer: {
