@@ -253,7 +253,7 @@ class InputImg extends Component {
                     style={{}}
                     onPress={this.launchImageLibrary}>
                     <View>
-                      <Upload style={{width: wp('8.2%'), height: hp('4%')}} />
+                      <Upload style={{width: wp('8.2%'), height: hp('4%'), marginBottom: 20}} />
                     </View>
                   </TouchableOpacity>
                 </View>
