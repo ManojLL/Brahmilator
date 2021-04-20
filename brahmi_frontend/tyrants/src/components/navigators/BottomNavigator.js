@@ -77,7 +77,7 @@ class BottomNavigator extends Component {
               justifyContent: 'center',
             }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('imagePreProcess')}>
+              onPress={() => this.props.navigation.navigate('Home')}>
               <View>
                 <PreProcess
                   style={{
@@ -95,7 +95,8 @@ class BottomNavigator extends Component {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('PreProcessInfo')}>
               <View>
                 <Instructions
                   style={{
