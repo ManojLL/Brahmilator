@@ -1,5 +1,7 @@
 # Brahmilator - Systematic approach to translate Early Brahmi Inscriptions
 
+[![CodeFactor](https://www.codefactor.io/repository/github/manojll/brahmilator/badge?s=f36323ae494c75cf706a45ccf6252c0aaccdfe9a)](https://www.codefactor.io/repository/github/manojll/brahmilator)
+
 This project aims to provide a systematic solution to recognize the characters in ancient Sri Lankan inscriptions and translate them into Sinhala and other native languages.
 
 # Essential Directory Layout
@@ -51,3 +53,4 @@ This project aims to provide a systematic solution to recognize the characters i
 - Tensorflow
 - MongoDB
 - OpenCV
+- Docker
