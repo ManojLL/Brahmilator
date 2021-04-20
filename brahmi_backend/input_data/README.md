@@ -1,1 +1,1 @@
-Temporarily stores the returned image. 
+Temporarily stores the image of Brahmi inscription. 
