@@ -205,7 +205,7 @@ class InputImg extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{height: '80%'}}>
+        <View style={{height: hp("80%")}}>
           <RNCamera
             ref={(ref) => {
               this.camera = ref;
@@ -253,7 +253,7 @@ class InputImg extends Component {
                     style={{}}
                     onPress={this.launchImageLibrary}>
                     <View>
-                      <Upload style={{width: wp('8.2%'), height: hp('4%'), marginBottom: 20}} />
+                      <Upload style={{width: wp('8.2%'), height: hp('4%'), marginBottom: hp("3.5%")}} />
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 60,
     borderColor: '#FFFFFF',
-    marginBottom: 30
+    marginBottom: hp("4%")
   },
   midcap: {
     backgroundColor: '#ffffff',
