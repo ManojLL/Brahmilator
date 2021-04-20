@@ -35,7 +35,7 @@ class Info extends Component {
         <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
           <View style={[{flex: 1, flexDirection: 'row'}]}>
             <View style={styles.textContainer}>
-              <Text style={styles.titleText}>Instructions!</Text>
+              <Text style={styles.titleText}>Read before use!</Text>
             </View>
           </View>
           <TouchableOpacity
@@ -61,7 +61,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row>
+              <Row style={{height: hp("15%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Threshold />
                 </Col>
@@ -82,7 +82,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row>
+              <Row style={{height: hp("15%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Erosion />
                 </Col>
@@ -124,7 +124,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row>
+              <Row style={{height: hp("15%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Opening />
                 </Col>
@@ -142,7 +142,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row>
+              <Row style={{height: hp("15%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                   <Closing />
                 </Col>
