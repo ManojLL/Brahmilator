@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     description: {
         fontSize: hp("2.5%"),
         color: "#FFC542",
-
+        marginTop: hp("2%"),
         fontFamily: "SF Pro Rounded",
     },
 
