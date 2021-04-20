@@ -61,7 +61,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row style={{height: hp("15%")}}>
+              <Row style={{height: hp("15%"), marginRight: wp("5%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Threshold />
                 </Col>
@@ -82,7 +82,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row style={{height: hp("15%")}}>
+              <Row style={{height: hp("15%"), marginRight: wp("5%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Erosion />
                 </Col>
@@ -103,7 +103,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View>
             <Grid>
-              <Row style={{height: hp("15%")}}>
+              <Row style={{height: hp("15%"), marginRight: wp("5%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Dialation />
                 </Col>
@@ -124,7 +124,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row style={{height: hp("15%")}}>
+              <Row style={{height: hp("15%"), marginRight: wp("5%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Opening />
                 </Col>
@@ -142,7 +142,7 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
             <Grid>
-              <Row style={{height: hp("15%")}}>
+              <Row style={{height: hp("15%"), marginRight: wp("5%")}}>
                 <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                   <Closing />
                 </Col>

@@ -135,7 +135,7 @@ class Result extends Component {
                                 <Dropdown
                                     label="Select language"
                                     data={data}
-                                    baseColor= "rgba(255, 255, 255, 1)"                             
+                                    baseColor= "rgba(255, 255, 255, 1)"                         
                                     style={{                                                                            
                                         fontWeight: "bold",
                                         fontFamily: "SF Pro Rounded",
