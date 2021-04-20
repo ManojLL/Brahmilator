@@ -4,7 +4,7 @@ import numpy as np
 
 sys.setrecursionlimit(10 ** 6)
 
-# this functions detects lines and put them to an array
+# this functions put detected lines into an array
 def line_array(array):
     list_x_upper = []
     list_x_lower = []
@@ -141,6 +141,7 @@ def image_segmentation():
 
         # /image thresholding
 
+        # line detection
         count_x = np.zeros(shape=(height))
         for y in range(height):
             for x in range(width):
@@ -176,6 +177,8 @@ def image_segmentation():
 
         for i in range(no_of_lines):
             lines_img.append(bin_img2[lines[i][0]:lines[i][1], :])
+
+        # /line detection
 
 
         contours, hierarchy = cv2.findContours(contr_retrival, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
