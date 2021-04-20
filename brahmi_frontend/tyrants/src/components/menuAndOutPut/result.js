@@ -123,7 +123,7 @@ class Result extends Component {
                             <View
                                 style={[
                                     {
-                                        justifyContent: "space-evenly",
+                                        justifyContent: "flex-start",
                                         marginVertical: 10,                                   
                                         color: "#FFC542",
                                         width: 140,
@@ -133,6 +133,7 @@ class Result extends Component {
                                 ]}
                             >
                                 <Dropdown
+                                    dropdownPosition= "0"
                                     label="Select language"
                                     data={data}
                                     baseColor= "rgba(255, 255, 255, 1)"                         
@@ -141,7 +142,7 @@ class Result extends Component {
                                         fontFamily: "SF Pro Rounded",
                                         fontSize: 16,                          
                                         color: '#FFC542',
-                                        marginTop: 2,
+                                        marginTop: 2                                
                                     }}
 
                                     onChangeText={(value) => {
