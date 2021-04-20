@@ -1,7 +1,7 @@
 
 API contains 3 routes
 
-1. Get images of segmented letters and letter meanings - http://...url.../api/getLetters
+# 1. Get images of segmented letters and letter meanings - http://...url.../api/getLetters
 
 Image of inscription send to backend as encoded data (base64).
 
@@ -16,7 +16,7 @@ So, if letter segmentation done without crashing segmented letters send to Mobil
 
 Step 5: Return the results
 
-2. Get possible words in Brahmi inscription - http://...url.../api/getPossibleWords
+# 2. Get possible words in Brahmi inscription - http://...url.../api/getPossibleWords
 
 Step 1: Retrieve list of characters data
 
@@ -26,7 +26,7 @@ Step 3: Send ‘words’ column data in DB and retrieved characters to possible 
 
 Step 4: Return the results
 
-3. Get translated words in given native language - http://...url.../api/translate
+# 3. Get translated words in given native language - http://...url.../api/translate
 
 Used googletrans (version = 3.1.0a0) library to translate given words into native language.
 
