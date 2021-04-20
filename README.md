@@ -10,9 +10,7 @@ This project aims to provide a systematic solution to recognize the characters i
 04. Words Generating Module
 05. Translating Module
 
-Overview of each module mentioned in the Repository Wiki.
-
-# Prerequisites
+## Prerequisites
 - React-Native
 - Python 3.7
 - Tensorflow
@@ -20,14 +18,14 @@ Overview of each module mentioned in the Repository Wiki.
 - OpenCV
 
 
-# How to run the Project
+## How to run the Project
 
 01. Clone the project by `git clone https://github.com/ManojLL/Brahmilator.git`
 02. Install all the mentioned dependecies by running `npm install`
 in root folder of the client-side component `brahmi_front/tyrants`
 03. Configuration between OpenCV and React-Native is mentioned on the brahmi_frontend [README.md](https://github.com/ManojLL/Brahmilator/blob/master/brahmi_frontend/tyrants/README.md)
 
-# Resources
+## Resources
 
 In order to get a clear understading of the project you can refer following links.
 - [Project Structure](https://github.com/ManojLL/Brahmilator/wiki/Project-Structure)
