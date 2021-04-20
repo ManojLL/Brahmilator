@@ -1,1 +1,1 @@
-Temporarily stores segemented characters of the plate.
+Temporarily stores images of segemented characters of the plate.
