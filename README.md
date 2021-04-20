@@ -1,1 +1,3 @@
-# Brahmilator - Systematic approach to translate Early Brahmi Inscriptions
+# Features
+
+This branch contains all the finalized features of the application.
