@@ -207,7 +207,7 @@ class MainMenu extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#333',
-    height: hp('97%'),
+    height: "100%",
   },
   centerItems: {
     flex: 1,
