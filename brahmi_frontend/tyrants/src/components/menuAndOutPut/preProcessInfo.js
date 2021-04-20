@@ -50,8 +50,8 @@ class Info extends Component {
                   style={{
                     width: wp('7%'),
                     height: hp('3%'),
-                    marginRight: 10,
-                    marginTop: 3,
+                    marginRight: 25,
+                    marginTop: 14,
                   }}
                 />
               </View>
@@ -62,10 +62,10 @@ class Info extends Component {
             <View style={{}}>
             <Grid>
               <Row>
-                <Col style={[styles.alignCenter], [styles.width=25]}>
+                <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Threshold />
                 </Col>
-                <Col style={[styles.alignCenter], [styles.width=75]}>
+                <Col style={{justifyContent: 'center'}}>
                 <Text>
                 Reduces the photo to black and white; colors lighter than the
                 selectable threshold are converted to white,darker colors will
@@ -83,10 +83,10 @@ class Info extends Component {
             <View style={{}}>
             <Grid>
               <Row>
-                <Col style={[styles.alignCenter]}>
+                <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Erosion />
                 </Col>
-                <Col style={styles.alignCenter}>
+                <Col style={{justifyContent: 'center'}}>
                 <Text>
                 It erodes away the boundaries of foreground object. It is useful
                 for removing smaill white noises detach two connected objects
@@ -101,13 +101,13 @@ class Info extends Component {
           </Card>
 
           <Card style={styles.card}>
-            <View style={{}}>
+            <View>
             <Grid>
-              <Row>
-                <Col style={[styles.alignCenter]}>
+              <Row style={{height: hp("15%")}}>
+                <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Dialation />
                 </Col>
-                <Col style={styles.alignCenter}>
+                <Col style={{justifyContent: 'center'}}>
                 <Text>
                 It is just opposite of erosion. It is also useful in joining
                 broken parts of an object
@@ -125,10 +125,10 @@ class Info extends Component {
             <View style={{}}>
             <Grid>
               <Row>
-                <Col style={[styles.alignCenter]}>
+                <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                 <Opening />
                 </Col>
-                <Col style={styles.alignCenter}>
+                <Col style={{justifyContent: 'center'}}>
                   <Text>
                   It is obtained by the erosion of an image followed by a dilation. Useful for removing small objects
                 (it is assumed that the objects are bright on a dark foreground)
@@ -143,10 +143,10 @@ class Info extends Component {
             <View style={{}}>
             <Grid>
               <Row>
-                <Col style={[styles.alignCenter]}>
+                <Col style={{width: wp("25%"), alignItems: 'center', justifyContent: 'center'}}>
                   <Closing />
                 </Col>
-                <Col style={styles.alignCenter}>
+                <Col style={{justifyContent: 'center'}}>
                   <Text>
                     It is obtained by the dilation of an image followed by an erosion. Useful to remove small holes (dark regions)
                   </Text>
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#333',
     height: '100%',
     paddingLeft: 3,
-    paddingRight: 3,
+    paddingRight: 3
   },
   text: {
     textAlign: 'justify',
@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     width: 342,
     padding: 10,
-    margin: 20,
-    marginBottom: 2
+    marginLeft: 20,
+    marginBottom: 20
   },
   textContainer: {
     marginTop: 20,
