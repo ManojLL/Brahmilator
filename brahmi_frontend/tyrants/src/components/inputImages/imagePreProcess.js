@@ -52,15 +52,11 @@ class ImagePreProcess extends Component {
   }
 
   closeClick = () => {
-    Alert.alert('Go Back to Previous', '', [
+    Alert.alert('Do you want to go back?', '', [
       {text: 'No', style: 'cancel'},
       {text: 'Yes', onPress: () => this.props.navigation.navigate('Home')},
     ]);
   };
-
-  // useEffect(() => {
-  //   // handleRegistration();
-  // }, []);
 
   resetStatus() {
     this.setState({thresholdValue: 0});

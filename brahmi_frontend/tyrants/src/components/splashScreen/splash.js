@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import BrahmiLogo from '../../images/icons/brahmiLogo.svg';
 
 export default class SplashScreen extends Component {
   constructor(props) {
@@ -15,10 +16,7 @@ export default class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground
-          source={require('../../images/icons/homeImge1.png')}
-          style={styles.img}
-        />
+        <BrahmiLogo style={styles.img} />
       </View>
     );
   }
@@ -32,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   img: {
-    width: wp('8%'),
-    height: hp('5%'),
+    width: wp('20%'),
+    height: hp('30%'),
   },
 });

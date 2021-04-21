@@ -28,12 +28,8 @@ class Home extends Component {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 8,
+            marginTop: 40,
           }}>
-          <ImageBackground
-            source={require('../../images/icons/homeImge1.png')}
-            style={styles.img}
-          />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Welcome to </Text>

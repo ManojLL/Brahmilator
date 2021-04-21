@@ -13,10 +13,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-import Exposer from '../../images/icons/exposure.svg';
 import Threshold from '../../images/icons/threshold.svg';
 import Erosion from '../../images/icons/erosion.svg';
-import Morph from '../../images/icons/morph.svg';
 import Dialation from '../../images/icons/dialation.svg';
 import Close from '../../images/icons/close.svg';
 import Opening from '../../images/icons/opening.svg';
@@ -55,10 +53,10 @@ class Info extends Component {
               <Close
                 // source={require('../../images/icons/retake.svg')}
                 style={{
-                  width: wp('7%'),
-                  height: hp('3%'),
+                  width: wp('5%'),
+                  height: hp('2%'),
                   marginRight: 25,
-                  marginTop: 14,
+                  marginTop: -5,
                 }}
               />
             </View>
@@ -68,15 +66,15 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
               <Grid>
-              <Row style={styles.rowStyle}>
+                <Row style={styles.rowStyle}>
                   <Col style={styles.colStyle}>
                     <Threshold />
                   </Col>
                   <Col style={{justifyContent: 'center'}}>
-                    <Text>
+                    <Text style={{color: '#fff'}}>
                       Reduces the photo to black and white; colors lighter than
-                      the selectable threshold are converted to white,darker
-                      colors will be black
+                      the selectable threshold are converted to white, darker
+                      colors will be black.
                     </Text>
                   </Col>
                 </Row>
@@ -87,15 +85,15 @@ class Info extends Component {
           <Card style={styles.card}>
             <View style={{}}>
               <Grid>
-              <Row style={styles.rowStyle}>
+                <Row style={styles.rowStyle}>
                   <Col style={styles.colStyle}>
                     <Erosion />
                   </Col>
                   <Col style={{justifyContent: 'center'}}>
-                    <Text>
+                    <Text style={{color: '#fff'}}>
                       It erodes away the boundaries of foreground object. It is
                       useful for removing smaill white noises detach two
-                      connected objects
+                      connected objects.
                     </Text>
                   </Col>
                 </Row>
@@ -106,14 +104,14 @@ class Info extends Component {
           <Card style={styles.card}>
             <View>
               <Grid>
-              <Row style={styles.rowStyle}>
+                <Row style={styles.rowStyle}>
                   <Col style={styles.colStyle}>
                     <Dialation />
                   </Col>
                   <Col style={{justifyContent: 'center'}}>
-                    <Text>
+                    <Text style={{color: '#fff'}}>
                       It is just opposite of erosion. It is also useful in
-                      joining broken parts of an object
+                      joining broken parts of an object.
                     </Text>
                   </Col>
                 </Row>
@@ -129,10 +127,9 @@ class Info extends Component {
                     <Opening />
                   </Col>
                   <Col style={{justifyContent: 'center'}}>
-                    <Text>
+                    <Text style={{color: '#fff'}}>
                       It is obtained by the erosion of an image followed by a
-                      dilation. Useful for removing small objects (it is assumed
-                      that the objects are bright on a dark foreground)
+                      dilation. Useful for removing small objects.
                     </Text>
                   </Col>
                 </Row>
@@ -148,9 +145,9 @@ class Info extends Component {
                     <Closing />
                   </Col>
                   <Col style={{justifyContent: 'center'}}>
-                    <Text>
+                    <Text style={{color: '#fff'}}>
                       It is obtained by the dilation of an image followed by an
-                      erosion. Useful to remove small holes (dark regions)
+                      erosion. Useful to remove small holes.
                     </Text>
                   </Col>
                 </Row>
@@ -164,7 +161,7 @@ class Info extends Component {
 }
 
 const styles = StyleSheet.create({
-  rowStyle: {height: hp('15%'), marginRight: wp('5%')},
+  rowStyle: {height: hp('12%'), marginRight: wp('5%')},
   colStyle: {
     width: wp('25%'),
     alignItems: 'center',
@@ -181,8 +178,8 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   card: {
-    // backgroundColor: 'rgba(186, 186, 186, 0.08)',
-    backgroundColor: 'rgba(186, 186, 186, 0.5)',
+    backgroundColor: 'rgba(186, 186, 186, 0.0)',
+    elevation: 3,
     width: 342,
     padding: 10,
     marginLeft: 20,
@@ -200,6 +197,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'SF Pro Rounded',
     marginLeft: wp('5%'),
+    marginBottom: wp('5%'),
   },
 });
 

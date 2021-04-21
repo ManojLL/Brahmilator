@@ -107,9 +107,9 @@ class ImagePreview extends Component {
   };
 
   closeClick = () => {
-    Alert.alert('GO BACK', '', [
-      {text: 'NO', style: 'cancel'},
-      {text: 'YES', onPress: () => this.props.navigation.navigate('Camera')},
+    Alert.alert('Do you want to go back?', '', [
+      {text: 'No', style: 'cancel'},
+      {text: 'Yes', onPress: () => this.props.navigation.navigate('Camera')},
     ]);
   };
 
