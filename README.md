@@ -30,3 +30,7 @@ in root folder of the client-side component `brahmi_frontend/tyrants`
 In order to get a clear understading of the project you can refer following links.
 - [Project Structure](https://github.com/ManojLL/Brahmilator/wiki/Project-Structure)
 - [Project Overview](https://github.com/ManojLL/Brahmilator/wiki/Project-Overview)
+
+## License
+
+[MIT](https://github.com/ManojLL/Brahmilator/blob/master/LICENSE.md)

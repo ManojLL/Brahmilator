@@ -6,7 +6,7 @@ Brahmilator has a React-Native client-side component which is fully configured f
 
 Pre-process module uses the device’s camera to take a photo, processes it with native code and returns the processed image as a Base64 String. Doing it in plain JavaScript would be highly ineffective.
 
-1.  Download the [OpenCV Android SDK](https://opencv.org/releases/)
+1.  Download the [OpenCV Android SDK](https://opencv.org/releases/) In my case, it was v4.5.2
 2.  Extract the zip file
 3.  Open Android Studio and open the 'android' folder inside your React Native project
 4.  File > New > Import Module
