@@ -2,7 +2,7 @@
 
 `BrahmiWordsLibrary.db` file can be used to create the csv file using DB Browser.
 
-`db.csv` file is used to populate the MongoDb atlas database. this file should be replaced every time a new csv file is created using BrahmiWordsLibrary.db file. Or else db.csv file can be edited directly.
+`db.csv` file is used to populate the MongoDb atlas database. This file should be replaced every time a new csv file is created using BrahmiWordsLibrary.db file. Even though db.csv file can be edited directly, it is better to use `BrahmiWordsLibrary.db` to add data since it has an autoincrementing id as primary key.
 
 `DatabaseHelper.py` file contains the code to create the database, creat columns and populate it with the data in csv file.
 
