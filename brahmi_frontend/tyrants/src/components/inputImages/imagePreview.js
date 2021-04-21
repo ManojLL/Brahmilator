@@ -41,6 +41,53 @@ class ImagePreview extends Component {
     };
   }
 
+  validateImage = () => {
+    this.setState({isLoading: true});
+    const data = {image: this.props.route.params.imgUri};
+    try {
+      await fetch(
+        'https://brahmilator-ssqj6ij3rq-as.a.run.app/api/validateImages',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        },
+      )
+        .then((response) => response.json())
+        .then((json) => {
+          this.setState({isLoading: false});
+          if (json.status_code === '200') {
+            if (json.outPut.letter.length > 0) {
+              this.setState({
+                letters: json.outPut.letter,
+                img: json.outPut.images,
+                find: true,
+              });
+            } else {
+              this.setState({
+                letters: json.outPut.letter,
+                img: json.outPut.images,
+                find: false,
+              });
+            }
+          } else {
+            this.setState({find: false, errorMessage: json.outPut});
+          }
+        })
+        .catch((error) => {
+          this.setState({isLoading: false});
+          console.log('upload error', error);
+          alert('Upload Failed!');
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   saveImage = async (filePath) => {
     try {
       console.log(filePath);
