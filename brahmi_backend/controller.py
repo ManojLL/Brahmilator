@@ -10,6 +10,7 @@ import pymongo
 import base64
 
 
+from validation_model import validator
 from classification_model import brahmi_classifier
 from segmentation_module.segmentation import image_segmentation
 from word_finder_module.possible_word_finder import searchForWords
@@ -19,6 +20,31 @@ app = Flask(__name__)
 
 input_data = "input_data"
 segmented_letters = "segmentation_module/segmented_letters"
+
+
+@app.route("/api/validatePlate", methods=["POST"])
+def validatePlate():
+    try:
+        data = request.get_json()['image']
+
+        with open("input_data/plate.png", "wb") as fh:
+            fh.write(base64.b64decode(data))
+
+        flag = validator.validateImage()
+
+        if(flag == True):
+            os.remove("input_data/plate.png")
+            response = make_response('True', False, 200)
+            return Response(response=response, status=200, mimetype='application/json')
+        else:
+            os.remove("input_data/plate.png")
+            response = make_response('False', False, 403)
+            return Response(response=response, status=403, mimetype='application/json')
+
+    except Exception as e:
+        print(e)
+        response = make_response('Something went wrong', False, 404)
+        return Response(response=response, status=404, mimetype='application/json')
 
 
 # function to get segmented letters with their meaning of given plate
