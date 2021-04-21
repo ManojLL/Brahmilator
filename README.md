@@ -22,7 +22,7 @@ This project aims to provide a systematic solution to recognize the characters i
 
 01. Clone the project by `git clone https://github.com/ManojLL/Brahmilator.git`
 02. Install all the mentioned dependecies by running `npm install`
-in root folder of the client-side component `brahmi_front/tyrants`
+in root folder of the client-side component `brahmi_frontend/tyrants`
 03. Configuration between OpenCV and React-Native is mentioned on the brahmi_frontend [README.md](https://github.com/ManojLL/Brahmilator/blob/master/brahmi_frontend/tyrants/README.md)
 
 ## Resources
