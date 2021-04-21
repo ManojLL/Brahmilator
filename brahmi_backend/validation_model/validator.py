@@ -15,10 +15,9 @@ def validateImage():
 
     X = np.expand_dims(Y, axis=0)
     val = model.predict(X)
-    # print(val)
     if val == 1:
-        print("is a plate")
+        # return true if image is a plate
         return True
     elif val == 0:
-        print("is a non plate")
+        # return false if image is a plate
         return False
