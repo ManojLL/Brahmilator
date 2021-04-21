@@ -21,7 +21,9 @@ app = Flask(__name__)
 input_data = "input_data"
 segmented_letters = "segmentation_module/segmented_letters"
 
-
+# function to validate given image
+# return True if given image is a brahmi inscription
+# return False if given image is not a brahmi inscription
 @app.route("/api/validatePlate", methods=["POST"])
 def validatePlate():
     try:
@@ -30,6 +32,7 @@ def validatePlate():
         with open("input_data/plate.png", "wb") as fh:
             fh.write(base64.b64decode(data))
 
+        # get prediction from validation model
         flag = validator.validateImage()
 
         if(flag == True):
