@@ -4,7 +4,7 @@ from tensorflow.python.keras.layers import Dense
 from tensorflow.python.keras.models import Model
 from tensorflow.python.keras.optimizer_v2.adam import Adam
 
-train_path = "data_1/train"
+train_path = "data/train"
 
 train_batches = ImageDataGenerator(
     preprocessing_function=tf.keras.applications.mobilenet.preprocess_input).flow_from_directory(
@@ -15,14 +15,14 @@ mobile.summary()
 
 x = mobile.layers[-6].output
 
-output = Dense(units=15, activation='softmax')(x)
+output = Dense(units=2, activation='softmax')(x)
 
 model = Model(inputs=mobile.input, outputs=output)
 
 for layer in model.layers[:-23]:
     layer.trainable = False
 
-model.compile(optimizer=Adam(lr=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer=Adam(lr=0.0001), loss='binary_crossentropy', metrics=['accuracy'])
 
 model.fit(x=train_batches,
           steps_per_epoch=len(train_batches),
@@ -30,6 +30,6 @@ model.fit(x=train_batches,
           verbose=2
           )
 
-model_save_path = "./saved-models/saved-models-mobilenet"
+model_save_path = "./saved-model"
 
 tf.saved_model.save(model, model_save_path)
