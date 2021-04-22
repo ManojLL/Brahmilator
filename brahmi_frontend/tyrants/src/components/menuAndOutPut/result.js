@@ -155,7 +155,7 @@ class Result extends Component {
                             (
                                 <ScrollView showsVerticalScrollIndicator={false} style={{padding:20}}>
 
-                                    <View>
+                                    <View style={{marginBottom: hp('18%')}}>
                                         {this.state.findWord.map((w, index) => (
                                             <View key={index}>
                                                 <Collapse style={{backgroundColor: 'rgba(186, 186, 186, 0.08)',marginTop: 10,padding:wp("5%"), borderRadius: 15}}>
