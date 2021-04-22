@@ -30,8 +30,7 @@ class Home extends Component {
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: 40,
-          }}>
-        </View>
+          }}></View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Welcome to </Text>
           <View>
@@ -57,8 +56,7 @@ class Home extends Component {
         </View>
 
         <View style={[styles.centerItems]}>
-          // start button
-          // when click this button user navigate to camera screen
+          {/* start button,  when click this button user navigate to camera screen */}
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.push('Camera')}>

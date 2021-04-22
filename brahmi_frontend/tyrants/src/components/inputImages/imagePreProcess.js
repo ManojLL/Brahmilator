@@ -469,7 +469,7 @@ class ImagePreProcess extends Component {
                         resizeMode={'contain'}
                     />
                 </View>
-                // too bar view
+                {/* too bar view */}
                 <View style={[styles.toolBar, styles.centerItems]}>
                     <Grid>
                         <Row>
