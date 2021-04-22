@@ -1,3 +1,7 @@
+// this screen shows translate letters
+
+
+
 import React, {Component} from "react";
 import {
     Image,

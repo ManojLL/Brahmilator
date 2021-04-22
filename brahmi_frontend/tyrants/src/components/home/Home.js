@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+// home screen
 import React, {Component} from 'react';
 import {
   View,
@@ -56,6 +57,8 @@ class Home extends Component {
         </View>
 
         <View style={[styles.centerItems]}>
+          // start button
+          // when click this button user navigate to camera screen
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.push('Camera')}>

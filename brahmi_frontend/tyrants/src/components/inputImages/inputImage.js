@@ -38,6 +38,7 @@ class InputImg extends Component {
     };
   }
 
+  // on and off th flasher
   toggleTorch() {
     let tstate = this.state.flash;
     if (tstate === RNCamera.Constants.FlashMode.off) {
@@ -48,6 +49,7 @@ class InputImg extends Component {
     this.setState({flash: tstate});
   }
 
+  // take a picture use Rn camera componet
   takePicture = async () => {
     if (this.camera && !this.state.takingPic) {
       let options = {
@@ -116,6 +118,7 @@ class InputImg extends Component {
       });
   }
 
+  // pick a image from device storage
   launchImageLibrary = () => {
     let options = {
       storageOptions: {

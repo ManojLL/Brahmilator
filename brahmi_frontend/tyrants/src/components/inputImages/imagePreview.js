@@ -21,6 +21,7 @@ const moment = require('moment');
 
 const RNFS = require('react-native-fs');
 
+// move file to new file path
 const moveAttachment = async (filePath, newFilepath) => {
   return new Promise((resolve, reject) => {
     RNFS.mkdir(dirPicutures)
@@ -50,6 +51,7 @@ class ImagePreview extends Component {
     this.validateImage();
   }
 
+  //  validate the image
   validateImage = async () => {
     this.setState({isLoading: true});
     const data = {image: this.props.route.params.imgUri};

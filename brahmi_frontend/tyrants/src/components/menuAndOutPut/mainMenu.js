@@ -43,6 +43,8 @@ class MainMenu extends Component {
   }
 
   componentDidMount() {
+    //check the device is connect to the internet or not
+    // if not show an alert
     NetInfo.fetch().then((state) => {
       if (state.isConnected) {
         this.loadAPI();
@@ -56,6 +58,7 @@ class MainMenu extends Component {
     });
   }
 
+  // send image to translate and get letter names from it's image
   loadAPI = async () => {
     this.setState({isLoading: true});
     const data = {image: this.props.route.params.imgUri};
@@ -103,6 +106,7 @@ class MainMenu extends Component {
     }
   };
 
+  // send a request to get word from translate letters
   getWord = async () => {
     const data = {letters: this.state.letters};
     try {

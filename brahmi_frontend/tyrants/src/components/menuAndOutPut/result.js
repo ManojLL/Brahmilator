@@ -37,6 +37,7 @@ class Result extends Component {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
     }
 
+    // trnslate the words in native language
     translateWords = async (language) => {
         this.setState({isLoading: true});
         try {
@@ -124,7 +125,7 @@ class Result extends Component {
                                 style={[
                                     {
                                         justifyContent: "space-evenly",
-                                        marginVertical: 10,                                   
+                                        marginVertical: 10,
                                         color: "#FFC542",
                                         width: 140,
                                         marginTop: 18,
@@ -136,13 +137,13 @@ class Result extends Component {
                                     dropdownPosition= "0"
                                     label="Select language"
                                     data={data}
-                                    baseColor= "rgba(255, 255, 255, 1)"                         
-                                    style={{                                                                            
+                                    baseColor= "rgba(255, 255, 255, 1)"
+                                    style={{
                                         fontWeight: "bold",
                                         fontFamily: "SF Pro Rounded",
-                                        fontSize: 16,                          
+                                        fontSize: 16,
                                         color: '#FFC542',
-                                        marginTop: 2                                
+                                        marginTop: 2
                                     }}
 
                                     onChangeText={(value) => {

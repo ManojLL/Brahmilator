@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+// this is the bottom navigation screen
 import React, {Component} from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {
