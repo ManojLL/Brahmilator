@@ -57,7 +57,7 @@ class ImagePreview extends Component {
     const data = {image: this.props.route.params.imgUri};
     try {
       await fetch(
-        'https://brahmilator-ssqj6ij3rq-as.a.run.app/api/validatePlate',
+        'http://localhost/api/validatePlate',
         {
           method: 'POST',
           mode: 'no-cors',
