@@ -47,7 +47,7 @@ class Result extends Component {
                 'dest_lan': language
             }
             // Changed the default IP in previous testing (Nimendra)
-            await fetch('https://brahmilator-ssqj6ij3rq-as.a.run.app/api/translate', {
+            await fetch('http://localhost/api/translate', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
