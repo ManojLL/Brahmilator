@@ -64,7 +64,7 @@ class MainMenu extends Component {
     const data = {image: this.props.route.params.imgUri};
     try {
       await fetch(
-        'https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getLetters',
+        'http://localhost/api/getLetters',
         {
           method: 'POST',
           mode: 'no-cors',
@@ -113,7 +113,7 @@ class MainMenu extends Component {
       this.setState({isLoading: true});
       // Changed the default IP in previous testing (Nimendra)
       await fetch(
-        'https://brahmilator-ssqj6ij3rq-as.a.run.app/api/getPossibleWords',
+        'http://localhost/api/getPossibleWords',
         {
           method: 'POST',
           mode: 'no-cors',
