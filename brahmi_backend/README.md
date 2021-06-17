@@ -1,6 +1,8 @@
 
 # Server-side of the Brahmilator
 
+Server-side of the Brahmilator runs on a server which is currently intergrated with a CI/CD pipeline.
+
 ## 1. Get images of segmented letters and letter meanings - ../api/getLetters
 
 Image of inscription send to backend as encoded data (base64). Steps of the procedure as follows;
